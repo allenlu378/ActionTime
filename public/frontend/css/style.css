@@ -21,37 +21,48 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     width: 28%;
     height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    float: left;
     margin-left: 4%;
-    background-image: linear-gradient(red, yellow);
-    border: 3px solid blue;
+    background: #89CF03;
+    border: 5px solid black;
     cursor: pointer;
+    border-radius: 20%;
 }
 .middle{
     width: 28%;
     height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;    margin-left: 4%;
-    background-image: linear-gradient(red, yellow);
-    border: 3px solid blue;
+    justify-content: center;
+    margin-left: 4%;
+    background: red;
+    border: 5px solid black;
     cursor: pointer;
+    border-radius: 20%;
 }
 .right{
     width: 28%;
     height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;    margin-left: 4%;
-    background-image: linear-gradient(red, yellow);
-    border: 3px solid blue;
+    justify-content: center;
+    margin-left: 4%;
+    background: orange;
+    border: 5px solid black;
     cursor: pointer;
+    border-radius: 20%;
+}
+
+.block-icons{
+    height: auto;
+    width: 20%;
+    position: absolute;
+    margin-top: 3%;
 }
 .block-title{
     font-family: 'Kranky', Fallback, sans-serif;
     font-size: 40px;
+    padding-top: 95%;
+    width: 100%;
+    text-align: center;
 }
 html{
     height: 100%;
