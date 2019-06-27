@@ -26,7 +26,7 @@
     <!-- //web-fonts -->
 </head>
 <body>
-<!-- Friends -->
+<!-- Friends
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
 
     <div id = 'toggle-sidebar' class="trapezoid" onclick="toggleNav()"></div>
@@ -156,9 +156,8 @@
             closeAllLists(e.target);
         });
     }
-    let users = {!! json_encode($users->toArray()) !!};
     autocomplete(document.getElementById("friend-search"), users);
-    </script>
+    </script>-->
 <!-- header -->
 <div class="headerw3l">
     <nav class="navbar navbar-default">
@@ -176,6 +175,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="co  llapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
+                    <li><a href = "/login" class="link link--yaku">Login</a></li>
                     <li><a href="/" class="link link--yaku"><span>H</span><spa  n>O</span><span>M</span><span>E</span></a></li>
                     @guest
                         <li><a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a></li>

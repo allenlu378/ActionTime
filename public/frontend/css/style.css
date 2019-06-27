@@ -4,10 +4,63 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
+/* Kranky Font*/
+@font-face {
+    font-family: 'Kranky';
+    src: url('../../fonts/Kids/Kranky.ttf')  format('truetype'); /* Safari, Android, iOS */
+
+}
+.content{
+    width: 100%;
+    display: flex;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    height: 67%;
+}
+.left{
+    width: 28%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    margin-left: 4%;
+    background-image: linear-gradient(red, yellow);
+    border: 3px solid blue;
+    cursor: pointer;
+}
+.middle{
+    width: 28%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;    margin-left: 4%;
+    background-image: linear-gradient(red, yellow);
+    border: 3px solid blue;
+    cursor: pointer;
+}
+.right{
+    width: 28%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;    margin-left: 4%;
+    background-image: linear-gradient(red, yellow);
+    border: 3px solid blue;
+    cursor: pointer;
+}
+.block-title{
+    font-family: 'Kranky', Fallback, sans-serif;
+    font-size: 40px;
+}
+html{
+    height: 100%;
+}
 body{
 	margin:0;
 	font-family: 'Roboto', sans-serif;
-	background: #fff;  
+	background: #fff;
+    height: 100vh;
 }
 body a{
 	transition: 0.5s all;
@@ -39,7 +92,6 @@ body a:focus {
 /*-- top-nav--*/
 .headerw3l{
     padding: 1.5em 0 1.1em;
-    border-bottom: 3px solid #fff;
     background: #000;
 }
 .navbar-default {

@@ -20,9 +20,9 @@ Route::get('/', "FrontEnd\HomeController@index");
 
 
 Auth::routes();
+Route::get('/login', 'FrontEnd\HomeController@test')->name('login');
 
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home');
-Route::get('/home', 'FrontEnd\HomeController@get_students')->name('home');
 
 
 Route::get('/user/myprofile','UserController@myprofile')->name("user/myprofile");
