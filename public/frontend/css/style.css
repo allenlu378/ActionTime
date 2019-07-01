@@ -10,62 +10,66 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     src: url('../../fonts/Kids/Kranky.ttf')  format('truetype'); /* Safari, Android, iOS */
 
 }
+.static {
+    position:absolute;
+    background: rgb(164, 210, 59);
+}
+
+.static:hover {
+    opacity:0;
+}
+.card-img-top{
+    padding: 40px 40px 40px 40px;
+    height: 255px;
+    width: 100%;
+    display: inline-block;
+
+}
+.left{
+    background: rgb(164, 210, 59);
+}
+.middle{
+    background: #CD3D00;
+}
+.right{
+    background: #F8AC00;
+}
+.card-title{
+    color: white;
+    font-size: 25px;
+    font-family: ProximaNova-Bold;
+}
+.row{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+.card{
+    cursor: pointer;
+    text-align: center;
+    border: none;
+}
+.card-footer{
+    width: 100%;
+    background: rgba(0,0,0,.4);
+}
+
 .content{
     width: 100%;
     display: flex;
     margin-bottom: 2%;
-    margin-top: 2%;
-    height: 67%;
-}
-.left{
-    width: 28%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    margin-left: 4%;
-    background: #89CF03;
-    border: 5px solid black;
-    cursor: pointer;
-    border-radius: 20%;
-}
-.middle{
-    width: 28%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    margin-left: 4%;
-    background: red;
-    border: 5px solid black;
-    cursor: pointer;
-    border-radius: 20%;
-}
-.right{
-    width: 28%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    margin-left: 4%;
-    background: orange;
-    border: 5px solid black;
-    cursor: pointer;
-    border-radius: 20%;
-}
-
-.block-icons{
-    height: auto;
-    width: 20%;
-    position: absolute;
-    margin-top: 3%;
-}
-.block-title{
-    font-family: 'Kranky', Fallback, sans-serif;
-    font-size: 40px;
-    padding-top: 95%;
-    width: 100%;
+    margin-top: 1%;
+    height: 64%;
+    align-content: center;
     text-align: center;
+    overflow: hidden;
+}
+.desc{
+    padding-bottom: 2%;
 }
 html{
     height: 100%;
+    overflow: hidden;
 }
 body{
 	margin:0;
