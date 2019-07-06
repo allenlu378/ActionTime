@@ -67,9 +67,34 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 .desc{
     padding-bottom: 2%;
 }
+.mid{
+    height: available;
+    display: flex;
+    background: #F8AC00;
+    margin-bottom: 2%;
+}
+.topLeft{
+    background: #A4D23B;
+}
+.bottomLeft {
+    background: #CD3D00;
+    margin-bottom: 2%;
+}
+
+.topRight {
+    background: #FF7F00;
+}
+.bottomRight {
+    background: #017DB1;
+    margin-bottom: 2%;
+}
+.card {
+    margin-top: 2%;
+}
+
 html{
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 body{
 	margin:0;
