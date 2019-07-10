@@ -18,6 +18,7 @@
     <!-- //font-awesome icons -->
     <!-- js -->
     <script src="{{asset('frontend/js/jquery-2.2.3.min.js')}}"></script>
+    <script src="{{asset('/js/jquery-ui.min.js')}}"></script>
     <!-- //js -->
     <!-- web-fonts -->
     <link href="//fonts.googleapis.com/css?family=Parisienne" rel="stylesheet">
