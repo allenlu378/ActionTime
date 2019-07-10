@@ -46,7 +46,10 @@ class HomeController extends Controller
         }
         return view($this->view_path.'home',compact('acked_assignments','acking_assignments','awards', 'users'));
     }
-    public function test(){
+    public function welcome(){
+        return view($this->view_path.'welcome');
+    }
+    public function login(){
         return view($this->view_path.'login');
     }
 
