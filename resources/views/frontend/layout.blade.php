@@ -166,16 +166,11 @@
                 <h1><a href="index.html">Kids Care <span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i class="logo-w3l3"> Laugh.</i> <i class="logo-w3l4"> Grow.</i></span></a></h1>
             </div>
             <!-- navigation -->
-            <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="navbar-right" id="bs-example-navbar-collapse-1">
 
-                    <a href = "/login" class="link link--yaku">Login</a>
+                    <a href = "/welcome" class="link link--yaku">Welcome</a>
                     <a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a>
                     @guest
                         <a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a>
@@ -207,7 +202,7 @@
 <!-- //header -->
 @yield('content')
 <!-- footer -->
-<div class="copy-right">
+<div class="copy-right fixed-bottom">
     <div class="container">
         <p>© 2018 Kids Care . All rights reserved | Design by <a href="#"> Monmouth University</a></p>
     </div>

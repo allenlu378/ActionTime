@@ -10,6 +10,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     src: url('../../fonts/Kids/Kranky.ttf')  format('truetype'); /* Safari, Android, iOS */
 
 }
+.front, .back{
+    backface-visibility: hidden;
+}
+.front{
+    transform: rotateY(0deg);
+}
+.back{
+    transform: rotateY(180deg);
+}
+
+.flip .close{
+    transform: rotateY(180deg);
+}
+
+.flip{
+    transform: rotateY(180deg) scale(2,2) translate(0px, -20px) !important;
+
+}
 .static {
     position:absolute;
     background: rgb(164, 210, 59);
@@ -19,20 +37,216 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     opacity:0;
 }
 .card-img-top{
+    position: relative;
     padding: 40px 40px 40px 40px;
     height: 255px;
     width: 100%;
     display: inline-block;
+}
+.close{
+    width: 100%;
+    visibility: hidden;
+}
+.username{
+    position: absolute;
+    width: 80%;
+    z-index: 99;
+    left: -10%;
+    visibility: hidden;
+}
+.hide{
+    visibility: hidden;
+    width: 100%;
+    position: absolute;
+    float:right;
+    z-index: 100;
+    padding-right: 5px;
+}
+.login-title{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 100;
+    color: white;
+    visibility: hidden;
+}
+.login-btn{
+    position: absolute;
+    width: 106%;
+    left: -3%;
+    z-index: 99;
+    visibility: hidden;
+    font-family: ProximaNova-Bold !important;
+}
+.expand .login-btn{
+    visibility: visible;
+    transform: matrix(0.75, 0,0,0.75,0,0);
+    transition: visibility 1s 1s, transform 1s;
+}
+.mt-10{
+    margin-top: 9rem !important;
+}
+.login-footer{
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    visibility: hidden;
 
 }
+.login-footer p, .login-footer a{
+    color: white;
+}
+.login-footer a{
+    z-index: 100;
+    color: #30b5d1;
+    text-decoration: underline;
+}
+.expand .login-footer p, .expand .login-footer a{
+    filter: none !important;
+    font-size: 8px;
+    visibility: visible;
+    transition: visibility 1s 1s;
+}
+.collap .login-footer{
+    visibility: hidden;
+}
+
+.z-99{
+    z-index: 99 !important;
+}
+.z-90{
+    z-index: 90 !important;
+}
+.z-200{
+    z-index: 1000000 !important;
+}
+.z-1{
+    z-index: 1 !important;
+}
+.expand .login-title{
+    visibility: visible;
+    transition: visibility 1s 1s;
+    z-index: 99;
+}
+.mt-5{
+    margin-top: 5rem !important;
+}
+.mt-8{
+    margin-top: 8rem !important;
+}
+.mt-11{
+    margin-top: 11rem !important;
+}
+.mt-14{
+    margin-top: 15rem !important;
+}
+.mt-12{
+    margin-top: 11rem !important;
+}
+.mt-15{
+    margin-top: 15rem !important;
+}
+.mt-17{
+    margin-top: 17rem !important;
+}
+.blur p, .blur h1{
+    filter: blur(5px) grayscale(50%);
+    transition: filter 2s;
+}
+.blur > * > * > * > *:not(#card2){
+    filter: blur(5px) grayscale(50%);
+    transition: filter 2s;
+}
+.expand h1, .expand img{
+    opacity: 0;
+    transition: opacity 1s;
+}
+.expand .card-footer{
+    background: #CD3D00 !important;
+    border-top: none !important;
+    transition: all 1s 1s;
+}
+.expand .card-img-top{
+    background: #CD3D00 !important;
+    animation: 1s fadeIn;
+    animation-fill-mode: forwards;
+    visibility: visible;
+}
+@keyframes fadeIn {
+    99% {
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
+.expand .username{
+    transform: matrix(.5,0,0,.5,0,0) !important;
+    visibility: visible;
+    transition: visibility 1s 1s;
+}
+.expand .textbox{
+    visibility: visible;
+    transition: visibility 1s 1s;
+}
+.expand .close{
+    visibility: visible;
+    transition: visibility 1s 1s;
+}
+.collap .username{
+    visibility: hidden;
+    transform: matrix(.5,0,0.5,0,0) !important;
+}
+.collap .textbox{
+    visibility: hidden;
+}
+.collap .close{
+    visibility: hidden;
+    transition: visibility 1s;
+}
+
+.collap .card-footer{
+    background: rgba(0,0,0,.4) !important;
+    border-top: 1px solid rgba(0,0,0,.125) !important;
+    transition: all 1s 1s;
+}
+.collap h1, .collap img{
+    opacity: 1;
+    transition: opacity 1s 1s;
+}
+.unblur{
+    filter: none;
+    transition: filter 2s;
+}
+.unblur div, .unblur p{
+    filter: none;
+    transition: filter 2s;
+}
+
+.expand{
+    transform: matrix(2, 0,0, 2, 0, -40);
+    cursor: default !important;
+    z-index: 10000 !important;
+    transition: transform 2s !important;
+}
+.collap{
+    transform: matrix(1, 0,0, 1, 0, 0);
+    cursor: pointer;
+    transition: transform 2s !important;
+    z-index: 1200 !important;
+}
+
 .left{
     background: rgb(164, 210, 59);
+    z-index: 2;
 }
 .middle{
     background: #CD3D00;
+    z-index: 2;
 }
 .right{
     background: #F8AC00;
+    z-index: 2;
 }
 .card-title{
     color: white;
@@ -44,42 +258,52 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     align-content: center;
     justify-content: center;
 }
+
 .card{
+    position: relative;
     cursor: pointer;
     text-align: center;
     border: none;
+    z-index: 1;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
 }
 .card-footer{
     width: 100%;
     background: rgba(0,0,0,.4);
 }
+.textbox-text
+{
+    font-family: ProximaNova-Bold;
+    color: white;
+    float: left;
+    font-size: 20px;
 
+}
+.textbox{
+    width: 200%;
+}
 .content{
     width: 100%;
-    display: flex;
     margin-bottom: 2%;
     margin-top: 1%;
-    height: 64%;
+    display: flex;
     align-content: center;
     text-align: center;
-    overflow: hidden;
 }
 .desc{
     padding-bottom: 2%;
 }
 html{
-    height: 100%;
     overflow: hidden;
 }
 body{
 	margin:0;
 	font-family: 'Roboto', sans-serif;
 	background: #fff;
-    height: 100vh;
 }
 body a{
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
+	
 	-moz-transition: 0.5s all;
 	-o-transition: 0.5s all;
 	-ms-transition: 0.5s all;
@@ -635,7 +859,7 @@ h3.agileits-title1 {
    color: #00BCD4;
 }
 .copy-right {
-    padding: 2em 0; 
+    padding: 2em 0;
 	background: #000;
 }
 .copy-right p {

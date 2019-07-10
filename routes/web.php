@@ -20,8 +20,8 @@ Route::get('/', "FrontEnd\HomeController@index");
 
 
 Auth::routes();
-Route::get('/login', 'FrontEnd\HomeController@test')->name('login');
-
+Route::get('/welcome', 'FrontEnd\HomeController@welcome')->name('welcome');
+Route::get('/login', 'FrontEnd\HomeController@login')->name('login');
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home');
 
 
