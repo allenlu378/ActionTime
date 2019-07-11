@@ -23,14 +23,14 @@
        </div>
         <div class="col-md-6">
             <div class ="row h-100 d-flex flex-column justify-content-between">
-            <div class="card mid h-100 d-flex flex-column justify-content-between">
+            <a href = "/mychallenges" class="card mid h-100 d-flex flex-column justify-content-between">
                 <div class="d-flex flex-row align-items-center h-100">
                 <img src="{{asset('frontend/images/person_speaking-512.png')}}" class="mid-img bounce-img img-responsive card-img-top" alt="...">
                 </div>
                 <div class="card-footer">
                     <h1 class="card-title">My Challenges</h1>
                 </div>
-            </div>
+            </a>
             </div>
         </div>
             <script>
@@ -76,12 +76,11 @@
             let middleMarginBottom  = parseFloat(middleCard.css("margin-bottom"));
             let topRatio = firstMarginTop/middleMarginTop;
             let bottomRatio = firstMarginBottom/middleMarginBottom;
-            console.log(topRatio);
-            console.log(bottomRatio);
+
             middleCard.css("margin-top", 2*topRatio + '%');
             middleCard.css("margin-bottom", 2*bottomRatio + '%');
-            
-            
+
+
             $(document).ready(function () {
                 rotate();
                 function rotate() {

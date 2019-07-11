@@ -23,6 +23,7 @@ Auth::routes();
 Route::get('/welcome', 'FrontEnd\HomeController@welcome')->name('welcome');
 Route::get('/login', 'FrontEnd\HomeController@login')->name('login');
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home');
+Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 
 
 Route::get('/user/myprofile','UserController@myprofile')->name("user/myprofile");

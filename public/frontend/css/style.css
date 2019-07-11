@@ -36,6 +36,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 .static:hover {
     opacity:0;
 }
+
 .card-img-top{
     position: relative;
     padding: 40px 40px 40px 40px;
@@ -272,6 +273,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     width: 100%;
     background: rgba(0,0,0,.4);
 }
+.card-header{
+    width: 100%;
+    background: rgba(0,0,0,.4);
+}
 .textbox-text
 {
     font-family: ProximaNova-Bold;
@@ -319,7 +324,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     margin-top: 2%;
 }
 
-html{
+html {
     height: 100%;
     overflow: auto;
 }
@@ -327,6 +332,7 @@ body{
 	margin:0;
 	font-family: 'Roboto', sans-serif;
 	background: #fff;
+    body: 100%;
 }
 body a{
 
@@ -340,6 +346,7 @@ h1,h2,h3,h4,h5,h6{
 	margin:0;
 	font-family: 'Yanone Kaffeesatz', sans-serif;
 }
+
 p{
 	margin:0;
 }
