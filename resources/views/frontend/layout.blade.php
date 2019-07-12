@@ -8,6 +8,7 @@
     <!-- Custom Theme files-->
     <link href="{{asset('bootstrap4/css/bootstrap.min.css')}}" type="text/css" rel="stylesheet" media="all">
     <link href="{{asset('frontend/css/style.css')}}" type="text/css" rel="stylesheet" media="all">
+    <link href="{{asset('frontend/css/challenges.css')}}" type="text/css" rel="stylesheet" media="all">
     <link href='{{asset('frontend/css/simplelightbox.css')}}' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="{{asset("frontend/css/flexslider.css")}}" type="text/css" media="screen" />
@@ -18,6 +19,7 @@
     <!-- //font-awesome icons -->
     <!-- js -->
     <script src="{{asset('frontend/js/jquery-2.2.3.min.js')}}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="{{asset('/js/jquery-ui.min.js')}}"></script>
 
     <!-- //js -->
@@ -202,13 +204,22 @@
     </nav>
 </div>
 <!-- //header -->
-@yield('content')
+<div class="page-content">
+    @yield('content')
+</div>
 <!-- footer -->
 <div class="copy-right fixed-bottom">
     <div class="container">
         <p>© 2018 Kids Care . All rights reserved | Design by <a href="#"> Monmouth University</a></p>
     </div>
 </div>
+<script>
+    let copyright = $(".copy-right");
+    console.log(copyright.height());
+    let copyrightHeight = parseFloat(copyright.css("height"));
+    let container = $(".page-content");
+    container.css("padding-bottom", copyrightHeight+'px');
+</script>
 <!-- //footer -->
 <!-- start-smooth-scrolling -->
 <script type="text/javascript" src="{{asset("frontend/js/move-top.js")}}"></script>

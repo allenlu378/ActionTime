@@ -85,4 +85,3 @@ Route::post('util/upload',"UtilController@upload")->name('util.upload');
 Route::get("test",function (){
    return view("frontend/home");
 })->name('test');
-
