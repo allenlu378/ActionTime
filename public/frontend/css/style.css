@@ -25,7 +25,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 
 .flip{
-    transform: rotateY(180deg) scale(2,2) translate(0px, -20px) !important;
+    transform: rotateY(180deg) scale(2,2) translate(0px, 10px) !important;
 
 }
 .static {
@@ -70,6 +70,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     color: white;
     visibility: hidden;
 }
+
 .login-btn{
     position: absolute;
     width: 106%;
@@ -224,7 +225,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 
 .expand{
-    transform: matrix(2, 0,0, 2, 0, -40);
+    transform: matrix(2, 0,0, 2, 0, 20);
     cursor: default !important;
     z-index: 10000 !important;
     transition: transform 2s !important;
@@ -254,6 +255,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     font-family: ProximaNova-Bold;
 }
 .row{
+
     display: flex;
     align-content: center;
     justify-content: center;
@@ -265,7 +267,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     text-align: center;
     border: none;
     z-index: 1;
-    transition: transform 0.6s;
     transform-style: preserve-3d;
 }
 .card-footer{
@@ -291,7 +292,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     align-content: center;
     text-align: center;
 }
-.desc{
+.desc {
     padding-bottom: 2%;
 }
 .mid{
@@ -300,6 +301,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     background: #F8AC00;
     margin-bottom: 2%;
 }
+
 .topLeft{
     background: #A4D23B;
 }
@@ -327,6 +329,7 @@ body{
 	margin:0;
 	font-family: 'Roboto', sans-serif;
 	background: #fff;
+    position: relative;
 }
 body a{
 

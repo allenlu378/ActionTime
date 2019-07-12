@@ -46,8 +46,8 @@
                     </button>
                     <div class="front">
                         <h2 class="login-title pt-3">Login!</h2>
-                        <div id="user" class="form-group username pt-5">
-                            <label for="usr" class="textbox-text pb-1">Username:</label>
+                        <div id="email" class="form-group username pt-5">
+                            <label for="usr" class="textbox-text pb-1">Email:</label>
                             <input type="text" class="form-control textbox" id="user">
                         </div>
                         <div id="pass" class="form-group username mt-5 z-98">
