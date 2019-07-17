@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\frontend;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Bootstrap\ConfigureLogging;
-use App\User;
 
-class ProfileController extends Controller
+class TaskController extends Controller
 {
-    public $view_path="frontend/";
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +14,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -26,10 +22,10 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $path = 'frontend/task';
     public function create()
     {
-        $user = Auth::user();
-        return view($this->view_path.'profile',compact('user'));
+        return view($this->path);
     }
 
     /**
@@ -40,7 +36,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -72,21 +68,9 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function update(Request $request, $id)
     {
-        $info = $request->except('_token');
-        $user = User::find($id);
-        $user->first_name = $info['first_name'];
-        $user->last_name = $info['last_name'];
-        $user->name = $info['name'];
-        $user->gender = $info['gender'];
-        $user->phone = $info['phone'];
-        $user->email = $info['email'];
-        $user->address = $info['address'];
-        $user->save();
-        return view($this->view_path.'home');
-
+        //
     }
 
     /**

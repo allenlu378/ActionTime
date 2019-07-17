@@ -3,6 +3,19 @@
     <!-- Header and Links -->
     <link href="{{asset('frontend/css/profile.css')}}" type="text/css" rel="stylesheet" media="all">
 
+
+    <!-- Fill in Info -->
+    @if($user['first_name'] != null)
+    @endif
+    @if($user['last_name'] != null)
+    @endif
+    @if($user['gender'] != null)
+    @endif
+    @if($user['phone'] != null)
+    @endif
+    @if($user['address'] != null)
+    @endif
+
     <div class="container-fluid">
         <div class="row">
             <div class=" col-sm-3">
@@ -60,7 +73,7 @@
                 </div>
 
                 <div class="row">
-                    <button type="button" class=" shadow-sm btn btn-primary save-btn">Save</button>
+                    <label class="shadow-sm btn btn-primary save-btn" for = 'profile_update'>Save & Return to Home</label>
                 </div>
             </div>
 
@@ -69,107 +82,116 @@
                     <div class="card-header">
                         Personal Information
                     </div>
-
-                    <!-- Name -->
-                    <div class="input-group mt-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="">First and last name</span>
+                    <form method="POST" action="{{route('profile.update', [$user['id']])}}">
+                    @csrf
+                        <!-- Name -->
+                        <div class="input-group mt-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Name</span>
+                            </div>
+                            <input name = 'first_name' type="text" class="form-control" placeholder="First Name" required>
+                            <input name = 'last_name' type="text" class="form-control" placeholder="Last Name" required>
                         </div>
-                        <input type="text" class="form-control" placeholder="First Name">
-                        <input type="text" class="form-control" placeholder="Last Name">
-                    </div>
 
-                    <!-- Username -->
-                    <div class="input-group mt-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Username</span>
+                        <!-- Username -->
+                        <div class="input-group mt-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Username</span>
+                            </div>
+                            <input name = 'name' type="text" class="form-control" placeholder="Username" aria-label="username"
+                                   aria-describedby="basic-addon1" value= {{$user['name']}} required>
                         </div>
-                        <input type="email" class="form-control" placeholder="Username" aria-label="email"
-                               aria-describedby="basic-addon1">
-                    </div>
 
-                    <!-- Gender and Phone Number -->
-                    <div class="row input-group mt-4">
-                        <div class=" inner col-sm-6">
-                            <!-- Gender -->
-                            <div class="inner input-group mt-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Gender</span>
-                                </div>
-                                <div class="row radio-row">
-                                    <div class="col-sm-5 radio-col">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                   id="male" value="male">
-                                            <label class="form-check-label" for="male">Male</label>
-                                        </div>
+                        <!-- Gender and Phone Number -->
+                        <div class="row input-group mt-4">
+                            <div class=" inner col-sm-6">
+
+                                <!-- Gender -->
+                                <div class="inner input-group mt-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Gender</span>
                                     </div>
-                                    <div class="col-sm-5">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                   id="female" value="female">
-                                            <label class="form-check-label" for="female">Female</label>
+                                    <div class="row radio-row">
+                                        <div class="col-sm-5 radio-col">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="male" value="male" onclick="radio()" required>
+                                                <label class="form-check-label" for="male">Male</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                   id="female" value="female">
-                                            <label class="form-check-label" for="female">Other</label>
+                                        <div class="col-sm-5">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="female" value="female" onclick="radio()">
+                                                <label class="form-check-label" for="female">Female</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="other" value="other" onclick="radio()">
+                                                <label class="form-check-label" for="female">Other</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="inner col-sm-6">
-                            <!-- Phone Number -->
-                            <div class=" inner input-group mt-4 float-right">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Phone</span>
-                                </div>
-                                <input class="form-control phone-format" type="text" placeholder="Phone Number">
-                                <script>
-                                    $(document).ready(function () {
-                                        /***phone number format***/
-                                        $(".phone-format").keypress(function (e) {
-                                            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                                                return false;
-                                            }
-                                            var curchr = this.value.length;
-                                            var curval = $(this).val();
-                                            if (curchr == 3 && curval.indexOf("(") <= -1) {
-                                                $(this).val("(" + curval + ")" + "-");
-                                            } else if (curchr == 4 && curval.indexOf("(") > -1) {
-                                                $(this).val(curval + ")-");
-                                            } else if (curchr == 5 && curval.indexOf(")") > -1) {
-                                                $(this).val(curval + "-");
-                                            } else if (curchr == 9) {
-                                                $(this).val(curval + "-");
-                                                $(this).attr('maxlength', '14');
-                                            }
+                            <div class="inner col-sm-6">
+
+                                <!-- Phone Number -->
+                                <div class=" inner input-group mt-4 float-right">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Phone</span>
+                                    </div>
+                                    <input name = 'phone' class="form-control phone-format" type="text" placeholder="Phone Number" autocomplete="randomString" required>
+                                    <script>
+                                        $(document).ready(function () {
+                                            /***phone number format***/
+                                            $(".phone-format").keypress(function (e) {
+                                                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                    return false;
+                                                }
+                                                var curchr = this.value.length;
+                                                var curval = $(this).val();
+                                                if (curchr == 3 && curval.indexOf("(") <= -1) {
+                                                    $(this).val("(" + curval + ")" + "-");
+                                                } else if (curchr == 4 && curval.indexOf("(") > -1) {
+                                                    $(this).val(curval + ")-");
+                                                } else if (curchr == 5 && curval.indexOf(")") > -1) {
+                                                    $(this).val(curval + "-");
+                                                } else if (curchr == 9) {
+                                                    $(this).val(curval + "-");
+                                                    $(this).attr('maxlength', '14');
+                                                }
+                                            });
                                         });
-                                    });
-                                </script>
+                                    </script>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <!-- Email -->
-                    <div class="input-group mt-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Email</span>
+                        <!-- Email -->
+                        <div class="input-group mt-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Email</span>
+                            </div>
+                            <input name = 'email' type="email" class="form-control" placeholder="123@example.xyz" aria-label="email"
+                                   aria-describedby="basic-addon1" value= {{$user['email']}} required>
                         </div>
-                        <input type="email" class="form-control" placeholder="123@example.xyz" aria-label="email"
-                               aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group mt-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Address</span>
+
+                        <!-- Address -->
+                        <div class="input-group mt-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Address</span>
+                            </div>
+                            <input name = 'address' type="text" class="form-control" placeholder="123 Street, City, State, Zip, Country "
+                                   aria-label="adress" aria-describedby="basic-addon1" required>
                         </div>
-                        <input type="text" class="form-control" placeholder="123 Street, City, State, Zip, Country "
-                               aria-label="adress" aria-describedby="basic-addon1">
-                    </div>
+
+                        <!-- Hidden Submit -->
+                        <button type = 'submit' class = "d-none" id = 'profile_update'></button>
+                    </form>
                 </div>
 
                 <div id="panel2" class="card mb-5">
@@ -211,7 +233,16 @@
                             'slow');
                         window.alert("#panel" + panel_num);
                     }
+
+                    function radio() {
+                        var radio = document.getElementsByClassName('form-check-label');
+                        for (let i = 0; i < 3; i++) {
+                            radio[i].style.color = 'rgb(164, 210, 59)';
+                        }
+                    }
+
                 </script>
+
             </div>
 
         </div>

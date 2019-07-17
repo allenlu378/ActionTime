@@ -1,5 +1,6 @@
 @extends('frontend/layout')
 @section('content')
+    <link href="{{asset('frontend/css/challenges.css')}}" type="text/css" rel="stylesheet" media="all">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -15,7 +16,7 @@
                         <div class="card w-100">
                             <div class="card-header">
                                 <h1 class="card-title">This is a challenge</h1>
-                                <div class="row button-container">
+                                <div class="row button-container over mr-4">
                                     <input  class="btn btn-primary" type="button" data-toggle="collapse"
                                             aria-expanded="false"
                                             aria-controls="my-challenge-1" value="View Challenge" data-target="#my-challenge-1"/>

@@ -173,28 +173,28 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="navbar-right" id="bs-example-navbar-collapse-1">
 
-                    <a href = "{{route('go-login')}}" class="link link--yaku">{{ __('Login') }}</a>
-                    <a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a>
-                    @guest
-                        <a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a>
+                <a href = "/login" class="link link--yaku">{{ __('Login') }}</a>
+                <a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a>
+                @guest
+                    <a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a>
 
-                        <a href="#" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>U</span><span>P</span></a>
-                    @else
+                    <a href="#" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>U</span><span>P</span></a>
+                @else
 
-{{--                            <a href="#" class="dropdown-toggle link link--yaku" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>{{Auth::user()->name}}</span><span class="caret"></span>--}}
-{{--                                <ul class="dropdown-menu">--}}
-{{--                                    <li><a href="{{ route('user/myprofile') }}" class="link link--yaku"><span>P</span><span>R</span><span>O</span><span>F</span><span>I</span><span>L</span><span>E</span></a></li>--}}
-{{--                                    <li><a href="{{ route('logout') }}"--}}
-{{--                                           onclick="event.preventDefault();--}}
+{{--                    <a href="#" class="dropdown-toggle link link--yaku" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>{{Auth::user()->name}}</span><span class="caret"></span>--}}
+{{--                        <ul class="dropdown-menu">--}}
+{{--                            <li><a href="{{ route('user/myprofile') }}" class="link link--yaku"><span>P</span><span>R</span><span>O</span><span>F</span><span>I</span><span>L</span><span>E</span></a></li>--}}
+{{--                            <li><a href="{{ route('logout') }}"--}}
+{{--                                   onclick="event.preventDefault();--}}
 {{--                                           document.getElementById('logout-form').submit();"--}}
-{{--                                           class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>O</span><span>U</span> <span>T</span></a></li>--}}
-{{--                                </ul>--}}
-{{--                            </a>--}}
+{{--                                   class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>O</span><span>U</span> <span>T</span></a></li>--}}
+{{--                        </ul>--}}
+{{--                    </a>--}}
 
-{{--                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-{{--                            @csrf--}}
-{{--                        </form>--}}
-                    @endguest
+{{--                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+{{--                        @csrf--}}
+{{--                    </form>--}}
+                @endguest
 
 
                 <div class="clearfix"> </div>

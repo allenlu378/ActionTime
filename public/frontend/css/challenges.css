@@ -9,4 +9,16 @@
 .my-challenge-headings h2{
     text-align: left;
 }
+.over{
+    position: relative;
+    margin-top: -5vh;
+}
+.button-container{
+    float: right;
+}
+
+.card-title{
+    height: 5vh;
+}
+
 
