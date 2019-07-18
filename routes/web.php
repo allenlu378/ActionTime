@@ -24,7 +24,7 @@ Route::get('/welcome', 'FrontEnd\HomeController@welcome')->name('welcome');
 Route::get('/login', 'FrontEnd\HomeController@login')->name('login');
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home');
 Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
-
+Route::get('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
 
 Route::get('/user/myprofile','UserController@myprofile')->name("user/myprofile");
 Route::post('/user/update','UserController@updateuser')->name("user/update");

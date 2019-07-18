@@ -8,7 +8,6 @@
     <!-- Custom Theme files-->
     <link href="{{asset('bootstrap4/css/bootstrap.min.css')}}" type="text/css" rel="stylesheet" media="all">
     <link href="{{asset('frontend/css/style.css')}}" type="text/css" rel="stylesheet" media="all">
-    <link href="{{asset('frontend/css/challenges.css')}}" type="text/css" rel="stylesheet" media="all">
     <link href='{{asset('frontend/css/simplelightbox.css')}}' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="{{asset("frontend/css/flexslider.css")}}" type="text/css" media="screen" />
@@ -169,18 +168,23 @@
                 <h1><a href="index.html">Kids Care <span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i class="logo-w3l3"> Laugh.</i> <i class="logo-w3l4"> Grow.</i></span></a></h1>
             </div>
             <!-- navigation -->
-
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="navbar-right" id="bs-example-navbar-collapse-1">
-
-                    <a href = "/welcome" class="link link--yaku">Welcome</a>
-                    <a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a>
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href = "/welcome" class="link link--yaku">Welcome</a></li>
+                    <li><a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a></li>
                     @guest
-                        <a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a>
+                        <li><a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a></li>
 
-                        <a href="{{ route('register') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>U</span><span>P</span></a>
+                        <li><a href="{{ route('register') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>U</span><span>P</span></a></li>
                     @else
-
+                        <li>
                             <a href="#" class="dropdown-toggle link link--yaku" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>{{Auth::user()->name}}</span><span class="caret"></span>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ route('user/myprofile') }}" class="link link--yaku"><span>P</span><span>R</span><span>O</span><span>F</span><span>I</span><span>L</span><span>E</span></a></li>
@@ -190,13 +194,13 @@
                                            class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>O</span><span>U</span> <span>T</span></a></li>
                                 </ul>
                             </a>
-
+                        </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
                     @endguest
 
-
+                </ul>
                 <div class="clearfix"> </div>
             </div><!-- //navigation -->
         </div>

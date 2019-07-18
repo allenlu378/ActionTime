@@ -5,12 +5,12 @@
         <div class="row">
         <div class="col-md-3">
            <div class="row">
-               <div class="card topLeft">
+               <a href = "/publicchallenges" class="card topLeft">
                    <img  class="gif card-img-top w-auto" src="{{asset('frontend/images/megaphone.png')}}">
                    <div class="card-footer">
                        <h1 class="card-title">Public Challenges</h1>
                    </div>
-               </div>
+               </a>
            </div>
            <div class ="row">
                <div class="card bottomLeft">
