@@ -166,20 +166,26 @@
 <div class="headerw3l">
     <nav class="navbar navbar-default">
         <div class="container">
-            <!--<div class="navbar-header navbar-left">
+            <div class="navbar-header navbar-left">
                 <h1><a href="index.html">Kids Care <span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i class="logo-w3l3"> Laugh.</i> <i class="logo-w3l4"> Grow.</i></span></a></h1>
-            </div>-->
+            </div>
             <!-- navigation -->
-
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="navbar-right" id="bs-example-navbar-collapse-1">
 
-                    <a href = "{{route('go-login')}}" class="link link--yaku">{{ __('Login') }}</a>
-                    <a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a>
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href = "/welcome" class="link link--yaku">Welcome</a></li>
+                    <li><a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a></li>
+
                     @guest
-                        <a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a>
-
-                        <a href="#" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>U</span><span>P</span></a>
+                       {{-- <li><a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a></li>
+                        <li><a href="#" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>U</span><span>P</span></a></li>--}}
                     @else
 
 {{--                            <a href="#" class="dropdown-toggle link link--yaku" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>{{Auth::user()->name}}</span><span class="caret"></span>--}}
@@ -195,9 +201,10 @@
 {{--                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
 {{--                            @csrf--}}
 {{--                        </form>--}}
+
                     @endguest
 
-
+                </ul>
                 <div class="clearfix"> </div>
             </div><!-- //navigation -->
         </div>

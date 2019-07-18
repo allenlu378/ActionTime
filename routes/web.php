@@ -24,17 +24,17 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 //Auth::routes();
 
+Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
+Route::get('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
 Route::get('/task', 'FrontEnd\TaskController@create')->name('task.create');
 Route::get('/welcome', 'FrontEnd\HomeController@welcome')->name('welcome');
 Route::get('/gologin', 'FrontEnd\HomeController@login')->name('go-login');
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
 
+
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////
 Route::post('profile/update/{user_id}','FrontEnd\ProfileController@update')->name('profile.update');
 Route::get('/profile', 'FrontEnd\ProfileController@create')->name('profile');
-
-
-Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 
 Route::get('/user/myprofile','UserController@myprofile')->name("user/myprofile");
 Route::post('/user/update','UserController@updateuser')->name("user/update");

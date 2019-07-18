@@ -4,18 +4,17 @@
 
     <div class="container-fluid">
         <div class="row">
-
             <!-- Left Column -->
             <div class="col-md-4 left-col">
 
                 <!-- Top Left -->
                 <div class="row">
-                    <div class="card topLeft">
-                        <img class="gif card-img-top w-auto" src="{{asset('frontend/images/megaphone.png')}}">
+                    <a href = "/publicchallenges" class="card topLeft">
+                        <img class="card-img-top w-auto" src="{{asset('frontend/images/megaphone.png')}}">
                         <div class="card-footer">
                             <h1 class="card-title">Public Challenges</h1>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Bottom Left -->
@@ -34,7 +33,7 @@
                 <!-- Top Middle -->
                 <a class="row" href = '/mychallenges'>
                     <div class="card top-mid">
-                        <img class="card-img-top w-auto" src="{{asset('frontend/images/person_speaking-512.png')}}">
+                        <img class="topMid-img card-img-top bounce-img w-auto" src="{{asset('frontend/images/person_speaking-512.png')}}">
                         <div class="card-footer">
                             <h1 class="card-title">My Challenges</h1>
                         </div>
@@ -44,7 +43,7 @@
                 <!-- Bottom Middle -->
                 <div class="row">
                     <a class="card bot-mid" href = "/task">
-                        <img class="card-img-top w-auto" src="{{asset('frontend/images/task.png')}}">
+                        <img class="btmMid-img card-img-top bounce-img w-auto" src="{{asset('frontend/images/task.png')}}">
                         <div class="card-footer">
                             <h1 class="card-title">My Tasks</h1>
                         </div>
