@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public $view_path="frontend/";
-
+    public $view_login = "auth/";
     //remove auth check Feb 23th
 //    /**
 //     * Create a new controller instance.
@@ -50,7 +50,8 @@ class HomeController extends Controller
         return view($this->view_path.'welcome');
     }
     public function login(){
-        return view($this->view_path.'login');
+        $login_invalid = false;
+        return view($this->view_login.'login', compact('login_invalid'));
     }
 
 }

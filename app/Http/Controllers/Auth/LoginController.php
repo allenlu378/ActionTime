@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -25,15 +27,34 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    public $view_login = "auth/";
+    protected $redirectTo = 'frontend/profile';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+    public function login(Request $request){
+        $credentials = $request->except('_token');
+        $credentials['email'] = $credentials['email_log'];
+        $credentials['password'] = $credentials['pass_log'];
+        unset($credentials['email_log']);
+        unset($credentials['pass_log']);
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->intended('profile');
+        }
+        else{
+            $login_invalid =  true;
+            return view($this->view_login.'login', compact('login_invalid'));
+
+
+        }
+    }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
+
 }

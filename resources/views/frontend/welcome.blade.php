@@ -39,48 +39,71 @@
                 });
             </script>
 
-            <div class="col-sm-3">
+            <div class="col-sm-3 mid-col">
                 <div id="card2" onclick="expand()" class="card middle">
-                    <button type="button" class="close hide" aria-label="Close">
-                        <span onclick="collapse();" class="float-right pr-1" aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="front">
-                        <h2 class="login-title pt-3">Login!</h2>
-                        <div id="user" class="form-group username pt-5">
-                            <label for="usr" class="textbox-text pb-1">Username:</label>
-                            <input type="text" class="form-control textbox" id="user">
-                        </div>
-                        <div id="pass" class="form-group username mt-5 z-98">
-                            <label for="usr" class="textbox-text pb-1">Password:</label>
-                            <input type="password" class="form-control textbox" id="pass">
-                        </div>
-                        <button type="button" class="btn btn-info login-btn mt-10">Login</button>
-                        <div class='login-footer mt-12'>
-                            <p>Don't have an account? <a href="#" onclick = "flip()">Sign up here!</a></p>
-                        </div>
+                    <div class="close hide">
+                        <span onclick="collapse();" class="float-right pr-1 close-icon"
+                              aria-hidden="true">&times;</span>
                     </div>
+
+                    <!-- LOGIN -->
+                    <div class="front">
+                        <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                            @csrf
+                            <h2 class="login-title pt-3">Login!</h2>
+                            <div id="email" class="form-group username pt-5">
+                                <label for="usr" class="textbox-text pb-1">Email:</label>
+                                <input type="email"
+                                       class="form-control textbox {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                       id="user" required name='email'>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div id="pass" class="form-group username mt-5 z-98">
+                                <label for="usr" class="textbox-text pb-1">Password:</label>
+                                <input type="password" class="form-control textbox" id="pass" required>
+                            </div>
+                            <button type="submit" class="btn btn-info login-btn mt-10">Login</button>
+                            <div class='login-footer mt-12'>
+                                <p>Don't have an account? <a href="#" onclick="flip()">Sign up here!</a></p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- REGISTRATION -->
                     <div class="back">
-                        <h2 class="login-title pt-3">Sign Up!</h2>
-                        <div class="form-group username pt-5 z-99">
-                            <label for="usr" class="textbox-text pb-1">Username:</label>
-                            <input type="text" class="form-control textbox" id="create_user">
-                        </div>
-                        <div class="form-group username mt-5 z-99">
-                            <label for="usr" class="textbox-text pb-1">Email:</label>
-                            <input type="email" class="form-control textbox" id="create_email">
-                        </div>
-                        <div  class="form-group username mt-8 z-99">
-                            <label for="usr" class="textbox-text pb-1">Password:</label>
-                            <input type="password" class="form-control textbox" id="create_pass1">
-                        </div>
-                        <div class="form-group username mt-11 z-99">
-                            <label for="usr" class="textbox-text pb-1">Confirm password:</label>
-                            <input type="password" class="form-control textbox" id="create_pass2">
-                        </div>
-                        <button type="button" class="z-200 btn btn-info login-btn mt-15 ">Sign Up!</button>
-                        <div class='login-footer mt-17 z-99'>
-                            <p>Already have an account? <a href="#" onclick = "flip()">Log in here!</a></p>
-                        </div>
+                        <form method="POST" action="{{route('register')}}" aria-label="{{ __('Register') }}">
+                            @csrf
+                            <h2 class="login-title pt-3">Sign Up!</h2>
+                            <div class="form-group username pt-5 z-99">
+                                <label for="usr" class="textbox-text pb-1">Username:</label>
+                                <input type="text" class="form-control textbox" id="create_user" required>
+                            </div>
+                            <div class="form-group username mt-5 z-99">
+                                <label for="usr" class="textbox-text pb-1">Email:</label>
+                                <input type="email" class="form-control textbox {{ $errors->has('email') ? ' is-invalid' : '' }}" id="create_email" required>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group username mt-8 z-99">
+                                <label for="usr" class="textbox-text pb-1">Password:</label>
+                                <input type="password" class="form-control textbox" id="create_pass1" required>
+                            </div>
+                            <div class="form-group username mt-11 z-99">
+                                <label for="usr" class="textbox-text pb-1">Confirm password:</label>
+                                <input type="password" class="form-control textbox" id="password-confirm" name="password_confirmation" required>
+                            </div>
+                            <button type="submit" class="z-200 btn btn-info login-btn mt-15 ">Sign Up!</button>
+                            <div class='login-footer mt-17 z-99'>
+                                <p>Already have an account? <a href="#" onclick="flip()">Log in here!</a></p>
+                            </div>
+                        </form>
                     </div>
                     <img src="{{asset('frontend/images/login.png')}}" class="z-1 card-img-top" alt="...">
                     <div class="card-footer">
@@ -89,13 +112,14 @@
                 </div>
             </div>
             <script>
-                function flip(){
+                function flip() {
                     var card = $(".card")[1];
                     $("#card2").toggleClass('flip');
                 }
+
                 function expand() {
                     var card = $(".card")[1];
-                    var close = $(".close")[0];
+                    var close = $(".close-icon")[0];
                     card.removeAttribute('onclick');
                     $("#card2").removeClass('collap');
                     $("body").removeClass('unblur');
@@ -109,7 +133,7 @@
                 function collapse() {
 
                     var card = $(".card")[1];
-                    var close = $(".close")[0];
+                    var close = $(".close-icon")[0];
                     close.removeAttribute('onclick');
                     $("#card2").removeClass("expand");
                     $("body").removeClass('blur');

@@ -1,6 +1,7 @@
 @extends('frontend/layout')
 @section('content')
 
+
 <link href="{{asset('frontend/css/challenges.css')}}" type="text/css" rel="stylesheet" media="all">
 <div class="container-fluid">
     <div class="row">
@@ -17,7 +18,7 @@
                         <div class="card w-100">
                             <div class="card-header">
                                 <h1 class="card-title">This is a challenge</h1>
-                                <div class="row button-container">
+                                <div class="row button-container over mr-4">
                                     <div class="col-md-12">
                                         <input  class="btn btn-primary float-right view-challenge-button" type="button" data-toggle="collapse"
                                         aria-expanded="false"
@@ -44,7 +45,7 @@
                                                 Reward: 10 points
                                             </div>
                                          </div>
-                                    <div class="row button-container">
+                                    <div class="row button-container over mr-4">
                                         <div class="col-md-12">
                                             <input  class="btn btn-primary  float-right" type="button"
                                             value="Accept Challenge" />
@@ -60,7 +61,7 @@
                     <div class="card w-100">
                         <div class="card-header">
                             <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
                                             aria-expanded="false"
@@ -87,7 +88,7 @@
                                             Reward: 10 points
                                         </div>
                                     </div>
-                                    <div class="row button-container">
+                                    <div class="row button-container over mr-4">
                                         <div class="col-md-12">
                                             <input  class="btn btn-primary  float-right" type="button"
                                                     value="Accept Challenge" />
@@ -103,7 +104,7 @@
                     <div class="card w-100">
                         <div class="card-header">
                             <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
                                             aria-expanded="false"
@@ -130,7 +131,7 @@
                                             Reward: 10 points
                                         </div>
                                     </div>
-                                    <div class="row button-container">
+                                    <div class="row button-container over mr-4">
                                         <div class="col-md-12">
                                             <input  class="btn btn-primary float-right" type="button"
                                                     value="Accept Challenge" />
@@ -152,7 +153,7 @@
                     <div class="card w-100">
                         <div class="card-header">
                             <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
                                         aria-expanded="false"
@@ -207,7 +208,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary float-right" type="button"
                                             value="Submit Progress" />
@@ -221,7 +222,7 @@
                     <div class="card w-100">
                         <div class="card-header">
                             <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
                                             aria-expanded="false"
@@ -276,7 +277,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary float-right" type="button"
                                             value="Submit Progress" />
@@ -290,7 +291,7 @@
                     <div class="card w-100">
                         <div class="card-header">
                             <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
                                             aria-expanded="false"
@@ -345,7 +346,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary float-right" type="button"
                                             value="Submit Progress" />
@@ -365,7 +366,7 @@
                     <div class="card w-100">
                         <div class="card-header">
                             <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
                                             aria-expanded="false"
@@ -428,7 +429,7 @@
                     <div class="card w-100">
                         <div class="card-header">
                             <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
                                             aria-expanded="false"
@@ -491,7 +492,7 @@
                     <div class="card w-100">
                         <div class="card-header">
                             <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container">
+                            <div class="row button-container over mr-4">
                                 <div class="col-md-12">
                                     <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
                                             aria-expanded="false"
