@@ -94,10 +94,10 @@
                             <h2 class="login-title pt-3">Sign Up!</h2>
                             <div class="form-group username pt-5 z-99">
                                 <label for="usr" class="textbox-text pb-1">Username:</label>
-                                <input name = "name" id = "name" type="text" class="form-control textbox {{ $errors->has('name') ? ' is-invalid' : '' }}" id="create_user" required>
-                                @if ($errors->has('name'))
+                                <input name = "user_name" id = "user_name" type="text" class="form-control textbox {{ $errors->has('user_name') ? ' is-invalid' : '' }}" id="create_user" required>
+                                @if ($errors->has('user_name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('user_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -122,14 +122,19 @@
                                 @endif
                             </div>
                             <script>
-                                if($( "#create_pass" ).hasClass( "is-invalid" )){
+                                if($( "#create_pass" ).hasClass( "is-invalid" )) {
                                     document.getElementById('pass_div').style.setProperty('margin-top', '7.5rem', 'important');
                                     $("#card2").addClass('expand flip');
 
 
-                                }else {
+                                }
+                                else
+                                {
                                     console.log('valid');
                                     document.getElementById('pass_div').style.marginTop = '8rem !important';
+                                }
+                                if($( "#email_reg" ).hasClass( "is-invalid" )){
+                                    $("#card2").addClass('expand flip');
                                 }
                             </script>
 

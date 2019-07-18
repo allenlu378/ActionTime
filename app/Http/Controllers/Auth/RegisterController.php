@@ -31,6 +31,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = 'frontend/profile';
+    public $view_login = "auth/";
 
     /**
      * Create a new controller instance.
@@ -53,7 +54,7 @@ class RegisterController extends Controller
 
 
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'user_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:user',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -69,19 +70,23 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'user_name' => 'required|string|max:255',
             'email' => 'string|email|max:255|unique:user',
             'password' => 'string|min:6|confirmed',
         ]);
+        var_dump($validatedData);
 
         User::create([
-            'name' => $validatedData['name'],
+            'user_name' => $validatedData['user_name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
         if (Auth::attempt($validatedData)) {
-            return view($this->redirectTo);
+            $user = Auth::user();
+            return view($this->redirectTo,compact('user'));
         }
+
+
 
 
     }
@@ -89,7 +94,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'user_name' => $data['user_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

@@ -79,9 +79,9 @@ class ProfileController extends Controller
         $user = User::find($id);
         $user->first_name = $info['first_name'];
         $user->last_name = $info['last_name'];
-        $user->name = $info['name'];
+        $user->user_name = $info['user_name'];
         $user->gender = $info['gender'];
-        $user->phone = $info['phone'];
+        $user->cellphone = $info['cellphone'];
         $user->email = $info['email'];
         $user->address = $info['address'];
         $user->save();
