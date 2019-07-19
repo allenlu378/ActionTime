@@ -1,13 +1,6 @@
 @extends('frontend/loginlayout')
 @section('content')
-    <!-- <div class="content">
-        <div class='left'><img class = 'block-icons' src = "{{asset('frontend/images/public_challenges.png')}}"><span class = 'block-title'>Public Challenges</span>
-        </div>
-        <div class='middle'><img class = 'block-icons' src = "{{asset('frontend/images/login.png')}}"><span class = 'block-title'>Login/Sign Up</span>
-        </div>
-        <div class='right'><img class = 'block-icons' src = "{{asset('frontend/images/info.png')}}"><span class = 'block-title'>Learn More</span>
-        </div>
-    </div>-->
+
     <div class="container pt-3">
         <div class="row">
             <h1>About ActionTime</h1>
@@ -94,10 +87,10 @@
                             <h2 class="login-title pt-3">Sign Up!</h2>
                             <div class="form-group username pt-5 z-99">
                                 <label for="usr" class="textbox-text pb-1">Username:</label>
-                                <input name = "name" id = "name" type="text" class="form-control textbox {{ $errors->has('name') ? ' is-invalid' : '' }}" id="create_user" required>
-                                @if ($errors->has('name'))
+                                <input name = "user_name" id = "name" type="text" class="form-control textbox {{ $errors->has('user_name') ? ' is-invalid' : '' }}" id="create_user" required>
+                                @if ($errors->has('user_name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('user_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -153,7 +146,6 @@
             </div>
             <script>
                 function flip() {
-                    var card = $(".card")[1];
                     $("#card2").toggleClass('flip');
                 }
 

@@ -79,11 +79,17 @@ class ProfileController extends Controller
         $user = User::find($id);
         $user->first_name = $info['first_name'];
         $user->last_name = $info['last_name'];
-        $user->name = $info['name'];
+        $user->user_name = $info['user_name'];
         $user->gender = $info['gender'];
-        $user->phone = $info['phone'];
+        $user->cellphone = $info['cellphone'];
         $user->email = $info['email'];
-        $user->address = $info['address'];
+        $splitAddress = explode(',', $info['address'], 5);
+        $user->address = $splitAddress[0];
+        $user->city = $splitAddress[1];
+        $user->state = $splitAddress[2];
+        $user->zip_code = $splitAddress[3];
+        $user->country = $splitAddress[4];
+        $user->photo = $info['prof_pic'];
         $user->save();
         return view($this->view_path.'home');
 

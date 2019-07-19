@@ -5,32 +5,45 @@
 
 
     <!-- Fill in Info -->
+    <!-- Fill in Info -->
     @if($user['first_name'] != null)
+        @php $first_name = $user['first_name'] @endphp
+    @else
+        @php $first_name = '' @endphp
     @endif
     @if($user['last_name'] != null)
+        @php $last_name = $user['last_name'] @endphp
+    @else
+        @php $last_name = '' @endphp
     @endif
-    @if($user['gender'] != null)
-    @endif
-    @if($user['phone'] != null)
+
+    @if($user['cellphone'] != null)
+        @php $cellphone = $user['cellphone'] @endphp
+    @else
+        @php $cellphone = '' @endphp
     @endif
     @if($user['address'] != null)
+        @php $address = $user['address'].', '.$user['city'].', '.$user['zip_code'].', '.$user['state'].', '.$user['country']  @endphp
+    @else
+        @php $address = '' @endphp
     @endif
+    @php $pic_path = '' @endphp
 
     <div class="container-fluid">
         <div class="row">
             <div class=" col-sm-3">
                 <div class="mt-4 row">
                     <div class="prof-container shadow-sm">
-                        <img id="prof-pic" class="prof-pic" src="{{asset('frontend/images/head.png')}}">
-                        <script>
-                            var img = document.getElementById('prof-pic');
-                        </script>
+                        <input type = "image" id="prof-pic" class="prof-pic" src="{{asset('frontend/images/head.png')}}">
+
                         <div class="overlay">
                             <div class="prof-icon-div">
-                                <i class="prof-icon fa fa-camera upload-button"></i>
-                                <input class="file-upload" type="file" accept="image/*"/>
+                                <i  class="prof-icon fa fa-camera upload-button"></i>
+                                <input id = "file" name = "prof_pic" form = 'form' class="file-upload" type="file" accept="image/*">
                             </div>
+
                             <script>
+                                $pic_path = $("#prof-pic").attr('src');
                                 $(document).ready(function () {
 
 
@@ -40,6 +53,7 @@
 
                                             reader.onload = function (e) {
                                                 $('.prof-pic').attr('src', e.target.result);
+
                                             };
 
                                             reader.readAsDataURL(input.files[0]);
@@ -82,15 +96,15 @@
                     <div class="card-header">
                         Personal Information
                     </div>
-                    <form method="POST" action="{{route('profile.update', [$user['id']])}}">
+                    <form id = 'form' method="POST" action="{{route('profile.update', [$user['id']])}}">
                     @csrf
                         <!-- Name -->
                         <div class="input-group mt-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="">Name</span>
                             </div>
-                            <input name = 'first_name' type="text" class="form-control" placeholder="First Name" required>
-                            <input name = 'last_name' type="text" class="form-control" placeholder="Last Name" required>
+                            <input name = 'first_name' type="text" class="form-control" placeholder="First Name" value = '{{$first_name}}' required>
+                            <input name = 'last_name' type="text" class="form-control" placeholder="Last Name" value = '{{$last_name}}' required>
                         </div>
 
                         <!-- Username -->
@@ -98,8 +112,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Username</span>
                             </div>
-                            <input name = 'name' type="text" class="form-control" placeholder="Username" aria-label="username"
-                                   aria-describedby="basic-addon1" value= {{$user['name']}} required>
+                            <input name = 'user_name' type="text" class="form-control" placeholder="Username" aria-label="username"
+                                   aria-describedby="basic-addon1" value= {{$user['user_name']}} required>
                         </div>
 
                         <!-- Gender and Phone Number -->
@@ -143,7 +157,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Phone</span>
                                     </div>
-                                    <input name = 'phone' class="form-control phone-format" type="text" placeholder="Phone Number" autocomplete="randomString" required>
+                                    <input name = 'cellphone' class="form-control phone-format" type="text" placeholder="Phone Number" autocomplete="randomString"  value = '{{$cellphone}}' required>
                                     <script>
                                         $(document).ready(function () {
                                             /***phone number format***/
@@ -186,7 +200,7 @@
                                 <span class="input-group-text" id="basic-addon1">Address</span>
                             </div>
                             <input name = 'address' type="text" class="form-control" placeholder="123 Street, City, State, Zip, Country "
-                                   aria-label="adress" aria-describedby="basic-addon1" required>
+                                   aria-label="adress" aria-describedby="basic-addon1"  value = '{{$address}}' required>
                         </div>
 
                         <!-- Hidden Submit -->
@@ -242,6 +256,14 @@
                     }
 
                 </script>
+                @if($user['gender'] != null)
+                    <script>
+                        $(function() {
+                            $('[name = "gender"]').val(['{{$user['gender']}}'])
+                        });
+                        radio();
+                    </script>
+                @endif
 
             </div>
 

@@ -32,19 +32,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $awards = Award::all();
-        $user =Auth::user();
-        $acked_assignments=[];
-        $users = User::select('name')->pluck('name');
-
-        if($user==null){
-            $acking_assignments = Assignment::where('user_id',-1)->get();
-
-        }else{
-            $acked_assignments =Assignment::where('user_id',Auth::user()['id'])->where('acknowledge_flag',1)->get();
-            $acking_assignments =Assignment::where('user_id',Auth::user()['id'])->orwhere('user_id',-1)->where('acknowledge_flag',0)->get();
-        }
-        return view($this->view_path.'home',compact('acked_assignments','acking_assignments','awards', 'users'));
+//        $awards = Award::all();
+//        $user =Auth::user();
+//        $acked_assignments=[];
+//        $users = User::select('user_name')->pluck('user_name');
+//
+//        if($user==null){
+//            $acking_assignments = Assignment::where('user_id',-1)->get();
+//
+//        }else{
+//            $acked_assignments =Assignment::where('user_id',Auth::user()['id'])->where('acknowledge_flag',1)->get();
+//            $acking_assignments =Assignment::where('user_id',Auth::user()['id'])->orwhere('user_id',-1)->where('acknowledge_flag',0)->get();
+//        }
+        return view($this->view_path.'home');
     }
     public function welcome(){
         return view($this->view_path.'welcome');

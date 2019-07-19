@@ -43,13 +43,11 @@ class LoginController extends Controller
         unset($credentials['pass_log']);
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('profile');
+            return redirect()->intended('home');
         }
         else{
             $login_invalid =  true;
             return view($this->view_login.'login', compact('login_invalid'));
-
-
         }
     }
     public function __construct()
