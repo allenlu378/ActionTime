@@ -72,19 +72,8 @@ Route::post('award/update',"AwardController@update")->name('award.update');
 
 
 
-Route::get('request/form/{aid}',"RequestController@form")->name('request.form');
-Route::post('request/save', "RequestController@save")->name('request.save');
-Route::get('request/list/user',"RequestController@list_user")->name('request.list.user');
-Route::get('request/list/audit',"RequestController@list_audit")->name('request.list.audit');
-Route::get('request/delete/{id}',"RequestController@delete")->name('request.delete');
-Route::get('request/audit/{rid}/{c}',"RequestController@audit")->name('request.audit');
 
 
-
-Route::get('assignment/list',"AssignmentController@list")->name('assignment.list');
-Route::get('assignment/acknowledge/{aid}/{c}',"AssignmentController@acknowledge")->name('assignment.acknowledge');
-
-Route::get('assignment/schedule/{id}',"AssignmentController@schedule")->name('assignment.schedule');
 
 Route::post('util/upload',"UtilController@upload")->name('util.upload');
 
