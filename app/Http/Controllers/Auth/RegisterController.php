@@ -75,7 +75,7 @@ class RegisterController extends Controller
             'email' => 'string|email|max:255|unique:user',
             'password' => 'string|min:6|confirmed',
         ]);
-        var_dump($validatedData);
+
 
         User::create([
             'user_name' => $validatedData['user_name'],

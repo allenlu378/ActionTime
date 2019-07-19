@@ -87,7 +87,7 @@
                             <h2 class="login-title pt-3">Sign Up!</h2>
                             <div class="form-group username pt-5 z-99">
                                 <label for="usr" class="textbox-text pb-1">Username:</label>
-                                <input name = "user_name" id = "name" type="text" class="form-control textbox {{ $errors->has('user_name') ? ' is-invalid' : '' }}" id="create_user" required>
+                                <input name="user_name" id="user_name" type="text" class="form-control textbox {{ $errors->has('user_name') ? ' is-invalid' : '' }}" id="create_user" required/>
                                 @if ($errors->has('user_name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('user_name') }}</strong>
@@ -96,7 +96,7 @@
                             </div>
                             <div class="form-group username mt-5 z-99">
                                 <label for="usr" class="textbox-text pb-1">Email:</label>
-                                <input name = "email" type="email" class="form-control textbox {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email_reg" required>
+                                <input name = "email" type="email" class="form-control textbox {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email_reg" required/>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
