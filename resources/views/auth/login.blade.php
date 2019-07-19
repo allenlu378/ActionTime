@@ -115,14 +115,19 @@
                                 @endif
                             </div>
                             <script>
-                                if($( "#create_pass" ).hasClass( "is-invalid" )){
+                                if($( "#create_pass" ).hasClass( "is-invalid" )) {
                                     document.getElementById('pass_div').style.setProperty('margin-top', '7.5rem', 'important');
                                     $("#card2").addClass('expand flip');
 
 
-                                }else {
+                                }
+                                else
+                                {
                                     console.log('valid');
                                     document.getElementById('pass_div').style.marginTop = '8rem !important';
+                                }
+                                if($( "#email_reg" ).hasClass( "is-invalid" )){
+                                    $("#card2").addClass('expand flip');
                                 }
                             </script>
 

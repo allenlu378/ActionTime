@@ -1,3 +1,7 @@
+.challenge-title {
+    display: flex;
+    justify-content: center;
+}
 .row .my-challenge-headings{
     justify-content: left;
 }
@@ -21,4 +25,23 @@
     height: 5vh;
 }
 
+
+.col-md-3.accepted-challenges-col {
+    text-align: left;
+}
+
+.rounded-circle.challenge-finished-indicator-accepted {
+    background: #FFBA00;
+    width: 20px;
+    height: 20px;
+}
+
+.rounded-circle.challenge-finished-indicator-complete {
+    background: #00FF00;
+    width: 20px;
+    height: 20px;
+}
+.row.public-challenge-row {
+    justify-content: left;
+}
 

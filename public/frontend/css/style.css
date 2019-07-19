@@ -20,7 +20,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 
 .front, .back {
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+
 }
 
 .front {
@@ -37,7 +39,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 .flip {
     transform: rotateY(180deg) scale(2, 2) translate(0px, 10px) !important;
-
 }
 
 .static {
@@ -313,8 +314,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 
 .middle {
-    background: #CD3D00;
     z-index: 2;
+    background: #CD3D00;
 }
 
 .right {
