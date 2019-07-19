@@ -32,6 +32,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+
         return view($this->view_path.'home');
     }
     public function welcome(){

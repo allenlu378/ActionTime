@@ -29,7 +29,7 @@ Route::get('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->na
 Route::get('/task', 'FrontEnd\TaskController@create')->name('task.create');
 Route::get('/welcome', 'FrontEnd\HomeController@welcome')->name('welcome');
 Route::get('/gologin', 'FrontEnd\HomeController@login')->name('go-login');
-Route::get('/home', 'FrontEnd\HomeController@index')->name('home');
+Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
 
 
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////

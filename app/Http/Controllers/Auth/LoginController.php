@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class LoginController extends Controller
 {
     /*
@@ -43,7 +44,7 @@ class LoginController extends Controller
         unset($credentials['pass_log']);
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('profile');
+            return redirect()->intended('home');
         }
         else{
             $login_invalid =  true;

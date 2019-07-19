@@ -6,14 +6,25 @@
 
     <!-- Fill in Info -->
     @if($user['first_name'] != null)
+        @php $first_name = $user['first_name'] @endphp
+    @else
+        @php $first_name = '' @endphp
     @endif
     @if($user['last_name'] != null)
+        @php $last_name = $user['last_name'] @endphp
+    @else
+        @php $last_name = '' @endphp
     @endif
-    @if($user['gender'] != null)
-    @endif
-    @if($user['phone'] != null)
+
+    @if($user['cellphone'] != null)
+        @php $cellphone = $user['cellphone'] @endphp
+    @else
+        @php $cellphone = '' @endphp
     @endif
     @if($user['address'] != null)
+        @php $address = $user['address'] @endphp
+    @else
+        @php $address = '' @endphp
     @endif
 
     <div class="container-fluid">
@@ -89,8 +100,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="">Name</span>
                             </div>
-                            <input name = 'first_name' type="text" class="form-control" placeholder="First Name" required>
-                            <input name = 'last_name' type="text" class="form-control" placeholder="Last Name" required>
+                            <input name = 'first_name' type="text" class="form-control" placeholder="First Name" value = '{{$first_name}}' required>
+                            <input name = 'last_name' type="text" class="form-control" placeholder="Last Name" value = '{{$last_name}}' required>
                         </div>
 
                         <!-- Username -->
@@ -99,7 +110,7 @@
                                 <span class="input-group-text" id="basic-addon1">Username</span>
                             </div>
                             <input name = 'name' type="text" class="form-control" placeholder="Username" aria-label="username"
-                                   aria-describedby="basic-addon1" value= {{$user['name']}} required>
+                                   aria-describedby="basic-addon1" value= {{$user['user_name']}} required>
                         </div>
 
                         <!-- Gender and Phone Number -->
@@ -143,7 +154,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Phone</span>
                                     </div>
-                                    <input name = 'phone' class="form-control phone-format" type="text" placeholder="Phone Number" autocomplete="randomString" required>
+                                    <input value = '{{$cellphone}}' name = 'cellphone' class="form-control phone-format" type="text" placeholder="Phone Number" autocomplete="randomString" required>
                                     <script>
                                         $(document).ready(function () {
                                             /***phone number format***/
@@ -185,8 +196,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Address</span>
                             </div>
-                            <input name = 'address' type="text" class="form-control" placeholder="123 Street, City, State, Zip, Country "
-                                   aria-label="adress" aria-describedby="basic-addon1" required>
+                            <input  name = 'address' type="text" class="form-control" placeholder="123 Street, City, State, Zip, Country "
+                                   aria-label="adress" aria-describedby="basic-addon1" value = "{{$address}}" required>
                         </div>
 
                         <!-- Hidden Submit -->
@@ -241,7 +252,16 @@
                         }
                     }
 
+
                 </script>
+                @if($user['gender'] != null)
+                    <script>
+                        $(function() {
+                            $('[name = "gender"]').val(['{{$user['gender']}}'])
+                        });
+                        radio();
+                    </script>
+                @endif
 
             </div>
 

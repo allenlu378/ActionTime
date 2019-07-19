@@ -81,7 +81,6 @@ form{
 
 .form-check-label {
     color: black;
-    transition: color 0.5s;
 }
 
 #panel1 {
@@ -236,7 +235,7 @@ form{
     scroll-behavior: smooth !important;
     position: relative;
     overflow-y: auto;
-    height: 515.6px;
+    height: 70vh;
 }
 
 .card {
