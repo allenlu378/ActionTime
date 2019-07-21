@@ -20,11 +20,11 @@ class Task extends Model
         'name',
         'description',
         'created_by',
-        'audited_by',
         'total_value',
-        'deadline',
-        'type',
+        'create_date',
         'average_workload',
+        'suggested_times',
+        'type',
         'img'
     ];
 

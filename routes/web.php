@@ -21,7 +21,7 @@ Route::get('/', "FrontEnd\HomeController@index");
 
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
-
+Route::post('task/store', 'FrontEnd\TaskController@store')->name('task.store');
 //Auth::routes();
 
 Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');

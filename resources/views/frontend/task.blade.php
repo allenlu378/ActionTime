@@ -29,86 +29,131 @@
 
             </div>
             <div class="row row-content">
-                <h1 class="mt-12 position-relative">Create a New Task!</h1>
-                <form method="POST" action="">
+                <h1>Create a New Task!</h1>
+                <form method="POST" action="{{route('task.store')}}" enctype="multipart/form-data">
+                    @csrf
+                    <script>
+                        function upload(){
+                            window.alert('here');
+                            $.post("FrontEnd/UtilController/upload()");
+                        }
+                    </script>
+                    <div class="row">
+                        <div class="col-md-9 col-input">
+                            <div class="row row-input ml-5 mt-2">
+                                <!-- Task Name -->
+                                <div class="input-group input-group-full mt-2 mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Name</span>
+                                    </div>
+                                    <input name='name' type="text" class="form-control" placeholder="Name"
+                                           aria-label="username"
+                                           aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="row row-input ml-5 mt-3">
+                                <!-- Text Description -->
+                                <div class="input-group input-group-full mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Description</span>
+                                    </div>
+                                    <textarea name="description" class="form-control" aria-label="With textarea"
+                                              required></textarea>
+                                </div>
+                            </div>
+                            <div class="row row-input ml-5 mt-3">
+                                <div class="col-md-4 w-75">
+                                    <!-- Task Total -->
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Total</span>
+                                        </div>
+                                        <input name='total_value' type="number" class="form-control" placeholder="Total"
+                                               min="1"
+                                               value="1"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 w-50 dropdown-col">
+                                    <!-- Dropdown -->
+                                    <div class="form-group list-input">
+                                        <label for="sel1">Occurrence:</label>
+                                        <select name = "type" class="form-control" id="sel1">
+                                            <option>Daily</option>
+                                            <option>Weekly</option>
+                                            <option>Monthly</option>
+                                        </select>
+                                    </div>
 
-                    <!-- Task Name -->
-                    <div class="input-group mb-4 mt-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Task Name</span>
-                        </div>
-                        <input name='name' type="text" class="form-control" placeholder="Task Name"
-                               aria-label="username"
-                               aria-describedby="basic-addon1" required>
-                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- Task Suggested -->
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Suggested Split</span>
+                                        </div>
+                                        <input name='suggested_times' type="number" class="form-control" placeholder="Split"
+                                               min="1"
+                                               value="1"
+                                               required>
+                                    </div>
+                                </div>
 
-                    <!-- Text Description -->
-                    <div class="input-group mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Task Description</span>
+                            </div>
                         </div>
-                        <textarea anem="description" class="form-control" aria-label="With textarea"
-                                  required></textarea>
-                    </div>
+                        <div class="col-md-3 pic-col mt-2">
+                            <!-- Picture -->
+                            <div class="row">
+                                <h3>Task Picture</h3>
+                            </div>
+                            <div class="row">
+                                <div class="prof-container shadow-sm">
+                                    <input type="image" id="prof-pic" class="prof-pic"
+                                           src="{{asset('frontend/images/head.png')}}">
 
-                    <!-- Task Total -->
-                    <div class="input-group mb-4 mt-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Total</span>
+                                    <div class="overlay">
+                                        <div class="prof-icon-div">
+                                            <i class="prof-icon fa fa-camera upload-button"></i>
+                                            <input name = "img" id="img" class="file-upload" type="file"
+                                                   accept="image/*">
+                                        </div>
+
+                                        <script>
+                                            $pic_path = $("#prof-pic").attr('src');
+                                            $(document).ready(function () {
+
+
+                                                var readURL = function (input) {
+                                                    if (input.files && input.files[0]) {
+                                                        var reader = new FileReader();
+
+                                                        reader.onload = function (e) {
+                                                            $('.prof-pic').attr('src', e.target.result);
+
+                                                        };
+
+                                                        reader.readAsDataURL(input.files[0]);
+                                                    }
+                                                };
+
+
+                                                $(".file-upload").on('change', function () {
+                                                    readURL(this);
+                                                });
+
+                                                $(".prof-icon").on('click', function () {
+                                                    $(".file-upload").click();
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <input name='name' type="number" class="form-control" placeholder="Total" min="1" value="1"
-                               required>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <!-- Dropdown -->
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Occurrence
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Daily</a>
-                                    <a class="dropdown-item" href="#">Weekly</a>
-                                    <a class="dropdown-item" href="#">Monthly</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class = 'col-md-6'>
-                            <!-- Task Picture -->
-                            <div class="pic">
-
-                                <div class="avatar-upload">
-                                    <div class="avatar-edit">
-                                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg"/>
-                                        <label for="imageUpload"></label>
-                                    </div>
-                                    <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                                function readURL(input) {
-                                    if (input.files && input.files[0]) {
-                                        var reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-                                            $('#imagePreview').hide();
-                                            $('#imagePreview').fadeIn(650);
-                                        }
-                                        reader.readAsDataURL(input.files[0]);
-                                    }
-                                }
-
-                                $("#imageUpload").change(function () {
-                                    readURL(this);
-                                });
-                            </script>
-                        </div>
+                        <button type = 'submit' class="shadow-sm btn btn-primary save-btn">Create Task!</button>
                     </div>
-
 
 
                 </form>
