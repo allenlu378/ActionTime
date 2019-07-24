@@ -1,0 +1,164 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.modal-header{
+    margin:auto;
+    border-bottom: 1px solid #bbb;
+}
+.autocomplete-items{
+    width: 71.1%;
+    left: 28.8%;
+    top: 100%;
+    position: absolute;
+
+}
+.email-text{
+    width: 20vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 0;
+}
+.invalid-feedback{
+    display: block;
+    color: red;
+}
+.ml-7{
+    margin-left: 7.2rem !important;
+}
+.ml-8{
+    margin-left: 8rem! important;
+}
+.add-button {
+    height: 6vh;
+    width: auto;
+    float: right;
+    cursor: pointer;
+    margin-top: -.5vh;
+}
+.remove-button {
+    height: 4vh;
+    width: auto;
+    float: right;
+    cursor: pointer;
+    margin-top: -.5vh;
+}
+.hor-bar{
+    margin-top: 0;
+}
+.modal-footer{
+    text-align: center;
+}
+form{
+    margin-bottom: 0;
+}
+.submit-btn{
+    margin: auto;
+}
+.hint-pic{
+    cursor: default;
+}
+.add-mem-lbl{
+    margin:auto;
+    text-align: center;
+}
+.add-mem-cont{
+    overflow: auto;
+    max-height: 30vh;
+}
+#nav1 {
+    color: rgb(164, 210, 59);
+}
+#panel1 {
+    border: 2px solid rgb(164, 210, 59) !important;
+    color: rgb(164, 210, 59);
+}
+
+
+
+#nav2 {
+    color: #CD3D00;
+}
+
+#panel2 {
+    border: 2px solid #CD3D00 !important;
+    color: #CD3D00 !important;
+}
+
+#nav3 {
+    color: #F8AC00;
+}
+
+#panel3 {
+    border: 2px solid #F8AC00 !important;
+    color: #F8AC00;
+}
+.card {
+    border: 1px solid rgba(0, 0, 0, .125) !important;
+    margin-top: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    cursor: default !important;
+}
+
+#nav4 {
+    color: #017DB1;
+    border: none;
+}
+
+#panel4 {
+    border: 2px solid #017DB1 !important;
+    color: #017DB1;
+}
+.panel-container {
+    scroll-behavior: smooth !important;
+    position: relative;
+    overflow-y: auto;
+    height: 60vh;
+}
+.card-header{
+    font-size: 35px;
+}
+.vertical-menu {
+    width: 60%;
+    font-weight: 300;
+    font-size: 18px;
+}
+.vertical-menu a {
+    text-align: center;
+    background-color: #eee;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+.vertical-menu a:hover {
+    background-color: #ccc;
+}
+
+.vertical-menu a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+

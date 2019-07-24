@@ -175,7 +175,7 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
 
-            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+            <div class="navbar-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
                     <li><a href = "/welcome" class="link link--yaku">Welcome</a></li>
                     <li><a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a></li>

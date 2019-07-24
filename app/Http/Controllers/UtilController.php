@@ -10,13 +10,16 @@ class UtilController extends Controller
     //image upload
     public function upload(){
 
-        $file = Input::file('fileupload');
+        $input = Input::all();
+        $file = $input['img'];
+
         if($file -> isValid()){
             $extension = $file -> getClientOriginalExtension(); //file extension
             $newName = date('YmdHis').mt_rand(100,999).'.'.$extension;
             $path = $file -> move(base_path().'/public/upload',$newName);
             $filepath = 'public/upload'.$newName;
             return $newName;
+
         }
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Model\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -36,7 +38,20 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'img' => 'required',
+        ]);
+        $info = $request->except('_token');
+        if($info['type'] == 'Daily'){$info['type'] = '0';}
+        else if($info['type'] == 'Weekly'){$info['type'] = '1';}
+        else if($info['type'] == 'Monthly'){$info['type'] = '2';}
+        $avg_workload = $info['total_value']/$info['suggested_times'];
+        //var_dump($info);
+        unset($info['img']);
+        $img = app('App\Http\Controllers\UtilController')->upload();
+        Task::create($info + ['average_workload'=>$avg_workload, 'created_by'=>Auth::user()['id'], 'img'=>$img]);
+        return view($this->path);
+
     }
 
     /**

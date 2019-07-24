@@ -10,7 +10,7 @@ class Group extends Model
     //
     public $timestamps = false;
 
-    protected $table = 'mygroup';
+    protected $table = 'user_group';
 
     /**
      * The attributes that are mass assignable.

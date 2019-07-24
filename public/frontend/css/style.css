@@ -3562,18 +3562,18 @@ h2.typoh2 {
 }
 
 .hint-pic {
-    height: 40px;
+    height: 5.5vh;
+    width: 5.5vh;
     border-radius: 50%;
-    width: auto;
-    border: 1px solid #000;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.member-pic {
+    height: 5.5vh;
+    width: 5.5vh;
+    border-radius: 50%;
     margin-right: 10px;
     cursor: pointer;
 }
 
-.add-button {
-    height: 30px;
-    width: auto;
-    float: right;
-    padding-top: 10px;
-    cursor: pointer;
-}
+

@@ -5,7 +5,6 @@
 
 
     <!-- Fill in Info -->
-    <!-- Fill in Info -->
     @if($user['first_name'] != null)
         @php $first_name = $user['first_name'] @endphp
     @else
@@ -27,23 +26,24 @@
     @else
         @php $address = '' @endphp
     @endif
-    @php $pic_path = '' @endphp
 
     <div class="container-fluid">
         <div class="row">
             <div class=" col-sm-3">
                 <div class="mt-4 row">
                     <div class="prof-container shadow-sm">
-                        <input type = "image" id="prof-pic" class="prof-pic" src="{{asset('frontend/images/head.png')}}">
+                        <input type="image" id="prof-pic" class="prof-pic"
+                               src="{{asset('frontend/images/head.png')}}">
 
                         <div class="overlay">
                             <div class="prof-icon-div">
-                                <i  class="prof-icon fa fa-camera upload-button"></i>
-                                <input id = "file" name = "prof_pic" form = 'form' class="file-upload" type="file" accept="image/*">
+                                <i class="prof-icon fa fa-camera upload-button"></i>
+                                <input name="img" id="img" form='form'
+                                       class="file-upload {{ $errors->has('img') ? ' is-invalid' : '' }}" type="file"
+                                       accept="image/*">
                             </div>
 
                             <script>
-                                $pic_path = $("#prof-pic").attr('src');
                                 $(document).ready(function () {
 
 
@@ -74,6 +74,13 @@
                     </div>
 
                 </div>
+                <div class="row">
+                    @if ($errors->has('img'))
+                        <span class="ml-7 invalid-feedback" role="alert">
+                                        <strong>A profile picture is required.</strong>
+                                    </span>
+                    @endif
+                </div>
                 <div class="mt-4 mb-4 row">
                     <div class="vertical-menu shadow-sm" id="scrollSpy">
                         <a href="#panel1" id='nav1' class="border border-top-0 border-left-0 border-right-0">Personal
@@ -87,7 +94,7 @@
                 </div>
 
                 <div class="row">
-                    <label class="shadow-sm btn btn-primary save-btn" for = 'profile_update'>Save & Return to Home</label>
+                    <label class="shadow-sm btn btn-primary save-btn" for='profile_update'>Save & Return to Home</label>
                 </div>
             </div>
 
@@ -96,15 +103,17 @@
                     <div class="card-header">
                         Personal Information
                     </div>
-                    <form id = 'form' method="POST" action="{{route('profile.update', [$user['id']])}}">
+                    <form id='form' method="POST" action="{{route('profile.update', [$user['id']])}}" enctype="multipart/form-data">
                     @csrf
-                        <!-- Name -->
+                    <!-- Name -->
                         <div class="input-group mt-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="">Name</span>
                             </div>
-                            <input name = 'first_name' type="text" class="form-control" placeholder="First Name" value = '{{$first_name}}' required>
-                            <input name = 'last_name' type="text" class="form-control" placeholder="Last Name" value = '{{$last_name}}' required>
+                            <input name='first_name' type="text" class="form-control" placeholder="First Name"
+                                   value='{{$first_name}}' required>
+                            <input name='last_name' type="text" class="form-control" placeholder="Last Name"
+                                   value='{{$last_name}}' required>
                         </div>
 
                         <!-- Username -->
@@ -112,8 +121,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Username</span>
                             </div>
-                            <input name = 'user_name' type="text" class="form-control" placeholder="Username" aria-label="username"
-                                   aria-describedby="basic-addon1" value= {{$user['user_name']}} required>
+                            <input name='user_name' type="text" class="form-control" placeholder="Username"
+                                   aria-label="username"
+                                   aria-describedby="basic-addon1" value={{$user['user_name']}} required>
                         </div>
 
                         <!-- Gender and Phone Number -->
@@ -157,7 +167,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Phone</span>
                                     </div>
-                                    <input name = 'cellphone' class="form-control phone-format" type="text" placeholder="Phone Number" autocomplete="randomString"  value = '{{$cellphone}}' required>
+                                    <input name='cellphone' class="form-control phone-format" type="text"
+                                           placeholder="Phone Number" autocomplete="randomString" value='{{$cellphone}}'
+                                           required>
                                     <script>
                                         $(document).ready(function () {
                                             /***phone number format***/
@@ -190,8 +202,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Email</span>
                             </div>
-                            <input name = 'email' type="email" class="form-control" placeholder="123@example.xyz" aria-label="email"
-                                   aria-describedby="basic-addon1" value= {{$user['email']}} required>
+                            <input name='email' type="email" class="form-control" placeholder="123@example.xyz"
+                                   aria-label="email"
+                                   aria-describedby="basic-addon1" value={{$user['email']}} required>
                         </div>
 
                         <!-- Address -->
@@ -199,12 +212,13 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Address</span>
                             </div>
-                            <input name = 'address' type="text" class="form-control" placeholder="123 Street, City, State, Zip, Country "
-                                   aria-label="adress" aria-describedby="basic-addon1"  value = '{{$address}}' required>
+                            <input name='address' type="text" class="form-control"
+                                   placeholder="123 Street, City, State, Zip, Country "
+                                   aria-label="adress" aria-describedby="basic-addon1" value='{{$address}}' required>
                         </div>
 
                         <!-- Hidden Submit -->
-                        <button type = 'submit' class = "d-none" id = 'profile_update'></button>
+                        <button type='submit' class="d-none" id='profile_update'></button>
                     </form>
                 </div>
 
@@ -259,7 +273,7 @@
                 </script>
                 @if($user['gender'] != null)
                     <script>
-                        $(function() {
+                        $(function () {
                             $('[name = "gender"]').val(['{{$user['gender']}}'])
                         });
                         radio();

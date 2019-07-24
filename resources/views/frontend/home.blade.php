@@ -79,13 +79,13 @@
 
                 <!-- Bottom Right -->
                 <div class="row">
-                    <div class="card bottomRight">
+                    <a class="card bottomRight" href = "{{route('group.list')}}">
                         <img src="{{asset('frontend/images/hands.png')}}"
                              class="rotate-img img-responsive card-img-top w-auto" alt="...">
                         <div class="card-footer">
                             <h1 class="card-title">Groups</h1>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

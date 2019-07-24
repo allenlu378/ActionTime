@@ -21,7 +21,7 @@ Route::get('/', "FrontEnd\HomeController@index");
 
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
-
+Route::post('task/store', 'FrontEnd\TaskController@store')->name('task.store');
 //Auth::routes();
 
 Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
@@ -39,6 +39,7 @@ Route::get('/profile', 'FrontEnd\ProfileController@create')->name('profile');
 Route::get('/user/myprofile','UserController@myprofile')->name("user/myprofile");
 Route::post('/user/update','UserController@updateuser')->name("user/update");
 
+Route::post('group/create', 'GroupController@create')->name('group.create');
 Route::get('group/list',"GroupController@list")->name('group.list');
 Route::get('group/form',"GroupController@form")->name('group.form');
 Route::post('group/save',"GroupController@save")->name('group.save');
