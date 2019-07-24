@@ -3,8 +3,9 @@
     {{--    <div class="nav-item">--}}
     {{--        <input id="friend-search" type="text" name="friend-search" placeholder="email">--}}
     {{--    </div>--}}
-    <link href="{{asset('frontend/css/group.css')}}" type="text/css" rel="stylesheet" media="all">
 
+    <link href="{{asset('frontend/css/group.css')}}" type="text/css" rel="stylesheet" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <div class="container-fluid mt-4">
         <div class="row mb-4">
             <div class="mt-4 mb-4 col-sm-3">
@@ -31,24 +32,33 @@
 
             </div>
 
-            <div class="panel-container mt-4 col-sm-8">
+            <div class="panel-container col-sm-8" id='panel-container'>
 
                 <div id="panel1" class="mb-5 card">
-                    <div class="card-header">
+                    <div class="card-header mb-3">
                         Your Groups
+                    </div>
+                    <div class="row">
+                        <div class='col-md-4' v-for='group in computed.createdGroups()'>
+                            <div class=" panel-card card mb-3">
+                                @{{ group.Name }}
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
 
                 <div id="panel2" class="card mb-5">
-                    <div class="card-header">
+                    <div class="card-header mb-3">
                         Created By You
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
+                    <div class="row>">
+                        <div class='panel-card card mb-3 col-md-4' v-for='group in computed.memberGroups()'>
+                            @{{ group.Name }}
+                        </div>
+                    </div>
+
                 </div>
                 <div id="panel3" class="card">
                     <div class="card-header">
@@ -63,7 +73,7 @@
 
             </div>
         </div>
-        <div class = "col-sm-1">
+        <div class="col-sm-1">
         </div>
 
     </div>
@@ -131,7 +141,82 @@
     </div>
 
 
+    <script>
+        var group_sizes = Object.values(@json($group_sizes));
+        var group_info = @json($group_info);
+        var num_groups = @json($num_groups);
+        var email = @json($email);
+        var created = false;
+        group = {};
+        var created_groups_list_db = [];
+        var member_groups_list_db = [];
 
+        function parseMember(item) {
+            item = Object.values(item);
+            var mem = {};
+            //User is manager
+            if (item[4] == 2 && item[1] == email) {
+                group['Manager'] = email;
+                group['Id'] = item[2];
+                group['Name'] = item[3];
+                created = true;
+
+            }
+
+            //Manager
+            else if (item[4] == 2) {
+                group['Manager'] = item[1];
+                group['Id'] = item[2];
+                group['Name'] = item[3];
+            }
+
+            //Member
+            else {
+
+            }
+            mem['Image'] = item[5];
+            mem['Email'] = item[1];
+            mem['Username'] = item[0];
+            return mem;
+        }
+
+        var k = 0;
+        for (let i = 0; i < num_groups; i++) {
+            group = {};
+            group['Members'] = [];
+            var stop = group_sizes[i] + k;
+            for (j = k; j < stop; j++) {
+                var member = parseMember(group_info[k]);
+                k = k + 1;
+                group['Members'].push(member);
+            }
+            if (created) {
+                created_groups_list_db.push(group);
+            } else {
+                member_groups_list_db.push(group);
+            }
+            created = false;
+        }
+
+        var public_challenges = new Vue({
+            el: '#panel-container',
+            data: {
+                createdGroups: [],
+                memberGroups: [],
+
+
+                computed: {
+                    createdGroups() {
+                        return created_groups_list_db;
+                    },
+                    memberGroups() {
+                        return member_groups_list_db;
+                    }
+
+                }
+            }
+        })
+    </script>
     <script>
         window.onload = function () {
             if ($("#name").hasClass("is-invalid")) {
