@@ -25,23 +25,46 @@
     height: 5vh;
 }
 
-
-.col-md-3.accepted-challenges-col {
-    text-align: left;
-}
-
 .rounded-circle.challenge-finished-indicator-accepted {
     background: #FFBA00;
     width: 20px;
     height: 20px;
 }
 
-.rounded-circle.challenge-finished-indicator-complete {
+.rounded-circle.challenge-finished-indicator-success {
     background: #00FF00;
+    width: 20px;
+    height: 20px;
+}
+
+.rounded-circle.challenge-finished-indicator-fail {
+    background: #FF0000;
     width: 20px;
     height: 20px;
 }
 .row.public-challenge-row {
     justify-content: left;
 }
+.flip-challenge {
+    transform: rotateY(180deg) translate(0px, -250px) !important;
+}
+.public-challenge-info {
+    background: transparent;
+}
+.my-challenge-info {
+    background: transparent;
+}
+.my-challenge {
+    background: #d26a03;
+}
+ .public-challenge {
+     background: #1bcfb4;
+ }
 
+ .cardBox {
+     perspective: 1000px;
+ }
+.card {
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}

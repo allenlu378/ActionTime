@@ -1,577 +1,509 @@
 @extends('frontend/layout')
 @section('content')
-
-
-<link href="{{asset('frontend/css/challenges.css')}}" type="text/css" rel="stylesheet" media="all">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row my-challenges">
-                 <h1>My Challenges</h1>
-            </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="{{asset('frontend/css/challenges.css')}}" type="text/css" rel="stylesheet" media="all">
+    <div class="container-fluid">
+        <div class="row">
+            <h1>My Challenges</h1>
+        </div>
+        <div id="my_challenge_container" class="row mx-4">
             <div class="row pending-challenges my-challenge-headings">
-                <h2 class="mx-5">
-                    Pending Challenges
-                </h2>
-                <div class="row pending-container w-100 mx-2 my-2">
-                    <div class="row w-100">
-                        <div class="card w-100">
-                            <div class="card-header">
-                                <h1 class="card-title">This is a challenge</h1>
-                                <div class="row button-container over mr-4">
-                                    <div class="col-md-12">
-                                        <input  class="btn btn-primary float-right view-challenge-button" type="button" data-toggle="collapse"
-                                        aria-expanded="false"
-                                        aria-controls="my-challenge-1" value="View Challenge" data-target="#my-challenge-1"/>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="challenge-info collapse"  id="my-challenge-1">
-                                        <div class="row challenge-desc">
-                                            <p class="mx-5 card-text challenge-desc-content">
-                                                This is a challenge. Challenges encourage students to complete tasks on time
-                                                by motivating them with points one a task is completed. Parents can then use
-                                                these points to give their children rewards. The goal of this is to make learning fun.
-                                                </p>
-                                        </div>
-                                        <div class="row challenge-data mx-5">
-                                             <div class="col-md-6">
-                                                Sender: user
-                                            </div>
-                                            <div class="col-md-6">
-                                                Reward: 10 points
-                                            </div>
-                                         </div>
-                                    <div class="row button-container over mr-4">
-                                        <div class="col-md-12">
-                                            <input  class="btn btn-primary  float-right" type="button"
-                                            value="Accept Challenge" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row w-100">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
-                                            aria-expanded="false"
-                                            aria-controls="my-challenge-2" value="View Challenge" data-target="#my-challenge-2"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="challenge-info collapse"  id="my-challenge-2">
-                                    <div class="row challenge-desc">
-                                        <p class="mx-5 card-text challenge-desc-content">
-                                            This is a challenge. Challenges encourage students to complete tasks on time
-                                            by motivating them with points one a task is completed. Parents can then use
-                                            these points to give their children rewards. The goal of this is to make learning fun.
-                                        </p>
-                                    </div>
-                                    <div class="row challenge-data mx-5">
-                                        <div class="col-md-6">
-                                            Sender: user
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            Reward: 10 points
-                                        </div>
-                                    </div>
-                                    <div class="row button-container over mr-4">
-                                        <div class="col-md-12">
-                                            <input  class="btn btn-primary  float-right" type="button"
-                                                    value="Accept Challenge" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row w-100">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
-                                            aria-expanded="false"
-                                            aria-controls="my-challenge-3" value="View Challenge" data-target="#my-challenge-3"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="challenge-info collapse"  id="my-challenge-3">
-                                    <div class="row challenge-desc">
-                                        <p class="mx-5 card-text challenge-desc-content">
-                                            This is a challenge. Challenges encourage students to complete tasks on time
-                                            by motivating them with points one a task is completed. Parents can then use
-                                            these points to give their children rewards. The goal of this is to make learning fun.
-                                        </p>
-                                    </div>
-                                    <div class="row challenge-data mx-5">
-                                        <div class="col-md-6">
-                                            Sender: user
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            Reward: 10 points
-                                        </div>
-                                    </div>
-                                    <div class="row button-container over mr-4">
-                                        <div class="col-md-12">
-                                            <input  class="btn btn-primary float-right" type="button"
-                                                    value="Accept Challenge" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row accepted-challenges my-challenge-headings">
             <h2 class="mx-5">
-                Accepted Challenges
+                Pending Challenges
             </h2>
-            <div class="row accepted-container w-100 mx-2 my-2">
-                <div class="row w-100">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
-                                        aria-expanded="false"
-                                        aria-controls="my-challenge-4" value="View Challenge" data-target="#my-challenge-4"/>
+            <div id="pending-challenge-container" class="row pending-challenge-row">
+                <div class="col-md-4" v-for="pending in computed.currentPendingChallenges()">
+                    <div class="card my-challenge my-2">
+                        <div class="row">
+                            <div class="col cardBox">
+                                <div class="my-challenge-info card">
+                                    <div class="front">
+                                        <img class="card-img-top" :src=pending.image>
+                                    </div>
+                                    <div class="back mx-4">
+                                        <div class="row my-2">
+                                            @{{ pending.description }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Sender:  @{{ pending.sender }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Reward:  @{{ pending.reward }}
+                                        </div>
+                                        <div class="row button-container my-2 mr-4">
+                                            <div class="col-md-12">
+                                                <input  class="btn btn-primary  float-right" type="button"
+                                                        value="Accept Challenge" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="challenge-info collapse"  id="my-challenge-4">
-                            <div class="row challenge-desc">
-                                <p class="mx-5 card-text challenge-desc-content">
-                                    This is a challenge. Challenges encourage students to complete tasks on time
-                                    by motivating them with points one a task is completed. Parents can then use
-                                    these points to give their children rewards. The goal of this is to make learning fun.
-                                </p>
-                            </div>
-                            <div class="row challenge-data mx-5">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Sender: user
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Start Time: 7/12/19 3:43 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Due Time: 7/15/19 11:59 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Reward: 10 points
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            <label for="current-progress">Current Progress: </label>
-                                            <input id="current-progress" type="number" value="0" min="0" max="999" step="0.5"/>/25
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Percent Complete:
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Ranking: 10th
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Finished:
-                                            <div class="rounded-circle challenge-finished-indicator-accepted">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary float-right" type="button"
-                                            value="Submit Progress" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row w-100">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
-                                            aria-expanded="false"
-                                            aria-controls="my-challenge-5" value="View Challenge" data-target="#my-challenge-5"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="challenge-info collapse"  id="my-challenge-5">
-                            <div class="row challenge-desc">
-                                <p class="mx-5 card-text challenge-desc-content">
-                                    This is a challenge. Challenges encourage students to complete tasks on time
-                                    by motivating them with points one a task is completed. Parents can then use
-                                    these points to give their children rewards. The goal of this is to make learning fun.
-                                </p>
-                            </div>
-                            <div class="row challenge-data mx-5">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Sender: user
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Start Time: 7/12/19 3:43 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Due Time: 7/15/19 11:59 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Reward: 10 points
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            <label for="current-progress">Current Progress: </label>
-                                            <input id="current-progress" type="number" value="0" min="0" max="999" step="0.5"/>/25
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Percent Complete:
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Ranking: 10th
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Finished:
-                                            <div class="rounded-circle challenge-finished-indicator-accepted">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary float-right" type="button"
-                                            value="Submit Progress" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row w-100">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
-                                            aria-expanded="false"
-                                            aria-controls="my-challenge-6" value="View Challenge" data-target="#my-challenge-6"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="challenge-info collapse"  id="my-challenge-6">
-                            <div class="row challenge-desc">
-                                <p class="mx-5 card-text challenge-desc-content">
-                                    This is a challenge. Challenges encourage students to complete tasks on time
-                                    by motivating them with points one a task is completed. Parents can then use
-                                    these points to give their children rewards. The goal of this is to make learning fun.
-                                </p>
-                            </div>
-                            <div class="row challenge-data mx-5">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Sender: user
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Start Time: 7/12/19 3:43 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Due Time: 7/15/19 11:59 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Reward: 10 points
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            <label for="current-progress">Current Progress: </label>
-                                            <input id="current-progress" type="number" value="0" min="0" max="999" step="0.5"/>/25
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Percent Complete:
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Ranking: 10th
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Finished:
-                                            <div class="rounded-circle challenge-finished-indicator-accepted">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary float-right" type="button"
-                                            value="Submit Progress" />
-                                </div>
-                            </div>
+                        <div class="card-footer">
+                            <h1 class="card-title">
+                                @{{ pending.title }}
+                            </h1>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row completed-challenges my-challenge-headings">
+        <div class="row current-challenges my-challenge-headings">
+            <h2 class="mx-5">
+                Current Challenges
+            </h2>
+            <div id="current-challenge-container" class="row current-challenge-row">
+                <div class="col-md-4" v-for="accepted in computed.currentAcceptedChallenges()">
+                    <div class="card my-challenge my-2">
+                        <div class="row">
+                            <div class="col cardBox">
+                                <div class="my-challenge-info card">
+                                    <div class="front">
+                                        <img class="card-img-top" :src=accepted.image>
+                                    </div>
+                                    <div class="back mx-4">
+                                        <div class="row my-2">
+                                            @{{ accepted.description }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Sender:  @{{ accepted.sender }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Start Time:  @{{ accepted.start_time }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Due Time:  @{{ accepted.due_time }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Reward:  @{{ accepted.reward }}
+                                        </div>
+                                        <div class="row my-2">
+                                            <label for="current-progress">Current Progress: </label>
+                                            <input id="current-progress" type="number" :value=accepted.current_progress :min=accepted.current_progress :max=accepted.total_value step="0.5"/>/@{{accepted.total_value}}
+                                        </div>
+                                        <div class="row my-2">
+                                            Percent Complete:
+                                            <div class="progress col-md-12 mx-8">
+                                                <div class="progress-bar" role="progressbar" v-bind:style="{width: accepted.percent_complete + '%'}" :aria-valuenow=accepted.percent_complete aria-valuemin="0" aria-valuemax="100">@{{ accepted.percent_complete }}%</div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-2">
+                                            Ranking: @{{accepted.ranking}}
+                                        </div>
+                                        <div class="row my-2">
+                                            Finished:
+                                            <div class="rounded-circle challenge-finished-indicator-accepted mx-2">
+
+                                            </div>
+                                        </div>
+                                        <div class="row button-container my-2 mr-4">
+                                            <div class="col-md-12">
+                                                <input  class="btn btn-primary  float-right" type="button"
+                                                        value="Submit Progress" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <h1 class="card-title">
+                                @{{ accepted.title }}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row complete-challenges my-challenge-headings">
             <h2 class="mx-5">
                 Completed Challenges
             </h2>
-            <div class="row completed-container w-100 mx-2 my-2">
-                <div class="row w-100">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
-                                            aria-expanded="false"
-                                            aria-controls="my-challenge-7" value="View Challenge" data-target="#my-challenge-7"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="challenge-info collapse"  id="my-challenge-7">
-                            <div class="row challenge-desc">
-                                <p class="mx-5 card-text challenge-desc-content">
-                                    This is a challenge. Challenges encourage students to complete tasks on time
-                                    by motivating them with points one a task is completed. Parents can then use
-                                    these points to give their children rewards. The goal of this is to make learning fun.
-                                </p>
-                            </div>
-                            <div class="row challenge-data mx-5">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Sender: user
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Start Time: 7/12/19 3:43 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Due Time: 7/15/19 11:59 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Reward: 10 points
-                                        </div>
+            <div id="complete-challenge-container" class="row complete-challenge-row">
+                <div class="col-md-4" v-for="completed in computed.currentCompletedChallenges()">
+                    <div class="card my-challenge my-2">
+                        <div class="row">
+                            <div class="col cardBox">
+                                <div class="my-challenge-info card">
+                                    <div class="front">
+                                        <img class="card-img-top" :src=completed.image>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            <label>Current Progress: </label>
-                                            25/25
+                                    <div class="back mx-4">
+                                        <div class="row my-2">
+                                            @{{ completed.description }}
                                         </div>
-                                        <div class="col-md-3 accepted-challenges-col">
+                                        <div class="row my-2">
+                                            Sender:  @{{ completed.sender }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Start Time:  @{{ completed.start_time }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Due Time:  @{{ completed.due_time }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Reward:  @{{ completed.reward }}
+                                        </div>
+                                        <div class="row my-2">
+                                            Current Progress: @{{ completed.current_progress }}/@{{completed.total_value}}
+                                        </div>
+                                        <div class="row my-2">
                                             Percent Complete:
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                                            <div class="progress col-md-12 mx-8">
+                                                <div class="progress-bar" role="progressbar" v-bind:style="{width: completed.percent_complete + '%'}" :aria-valuenow=completed.percent_complete aria-valuemin="0" aria-valuemax="100">@{{ completed.percent_complete }}%</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Ranking: 10th
+                                        <div class="row my-2">
+                                            Ranking: @{{completed.ranking}}
                                         </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Finished: 7/15/19 11:00 PM
-                                            <div class="rounded-circle challenge-finished-indicator-complete">
+                                        <div class="row my-2">
+                                            Finished: @{{ completed.finish_time }}
+                                            <div v-if="completed.finished == 1" class="rounded-circle challenge-finished-indicator-success mx-2">
 
                                             </div>
+                                            <div v-else class="rounded-circle challenge-finished-indicator-fail mx-2">
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row w-100">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
-                                            aria-expanded="false"
-                                            aria-controls="my-challenge-8" value="View Challenge" data-target="#my-challenge-8"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="challenge-info collapse"  id="my-challenge-8">
-                            <div class="row challenge-desc">
-                                <p class="mx-5 card-text challenge-desc-content">
-                                    This is a challenge. Challenges encourage students to complete tasks on time
-                                    by motivating them with points one a task is completed. Parents can then use
-                                    these points to give their children rewards. The goal of this is to make learning fun.
-                                </p>
-                            </div>
-                            <div class="row challenge-data mx-5">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Sender: user
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Start Time: 7/12/19 3:43 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Due Time: 7/15/19 11:59 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Reward: 10 points
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            <label>Current Progress: </label>
-                                            25/25
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Percent Complete:
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Ranking: 10th
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Finished: 7/15/19 11:00 PM
-                                            <div class="rounded-circle challenge-finished-indicator-complete">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row w-100">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h1 class="card-title">This is a challenge</h1>
-                            <div class="row button-container over mr-4">
-                                <div class="col-md-12">
-                                    <input  class="btn btn-primary view-challenge-button float-right" type="button" data-toggle="collapse"
-                                            aria-expanded="false"
-                                            aria-controls="my-challenge-9" value="View Challenge" data-target="#my-challenge-9"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="challenge-info collapse"  id="my-challenge-9">
-                            <div class="row challenge-desc">
-                                <p class="mx-5 card-text challenge-desc-content">
-                                    This is a challenge. Challenges encourage students to complete tasks on time
-                                    by motivating them with points one a task is completed. Parents can then use
-                                    these points to give their children rewards. The goal of this is to make learning fun.
-                                </p>
-                            </div>
-                            <div class="row challenge-data mx-5">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Sender: user
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Start Time: 7/12/19 3:43 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Due Time: 7/15/19 11:59 PM
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Reward: 10 points
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            <label>Current Progress: </label>
-                                            25/25
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Percent Complete:
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Ranking: 10th
-                                        </div>
-                                        <div class="col-md-3 accepted-challenges-col">
-                                            Finished: 7/15/19 11:00 PM
-                                            <div class="rounded-circle challenge-finished-indicator-complete">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="card-footer">
+                            <h1 class="card-title">
+                                @{{ completed.title }}
+                            </h1>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
     </div>
-    </div>
-</div>
-<script>
-    $(document).ready(function () {
-        var viewChallengeButtons = $(".view-challenge-button");
-        $(viewChallengeButtons).each(function () {
+    <script>
+        $(document).ready(function () {
+            $(".my-challenge").each(function () {
+                $(this).on('click',function (e) {
+                    if(!($(e.target).is('input')))
+                    {
+                        $(this).find('.my-challenge-info').toggleClass('flip-challenge');
+                    }
+                })
 
-            $(this).on('click', function () {
-                if($(this).val() == "View Challenge")
-                {
-                    $(this).val("Hide Challenge")
-                }
-                else
-                {
-                    $(this).val("View Challenge")
-                }
             })
         })
-    });
+    </script>
+
+
+<script>
+    var pending_challenge_list_db = [
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            reward: '10 points'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            reward: '10 points'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            reward: '10 points'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            reward: '10 points'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            reward: '10 points'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            reward: '10 points'
+
+        }
+     ];
+
+    var current_challenge_list_db = [
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '20',
+            total_value: '25',
+            percent_complete: '80',
+            ranking: '10th',
+            finished: 0
+
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '20',
+            total_value: '25',
+            percent_complete: '80',
+            ranking: '10th',
+            finished: 0
+
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '20',
+            total_value: '25',
+            percent_complete: '80',
+            ranking: '10th',
+            finished: 0
+
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '20',
+            total_value: '25',
+            percent_complete: '80',
+            ranking: '10th',
+            finished: 0
+
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '20',
+            total_value: '25',
+            percent_complete: '80',
+            ranking: '10th',
+            finished: 0
+
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '20',
+            total_value: '25',
+            percent_complete: '80',
+            ranking: '10th',
+            finished: 0
+
+
+        }
+    ];
+
+    var completed_challenge_list_db = [
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '25',
+            total_value: '25',
+            percent_complete: '100',
+            ranking: '10th',
+            finished: 1,
+            finish_time: '7/15/19 11:00 PM'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '25',
+            total_value: '25',
+            percent_complete: '100',
+            ranking: '10th',
+            finished: 1,
+            finish_time: '7/15/19 11:00 PM'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '25',
+            total_value: '25',
+            percent_complete: '100',
+            ranking: '10th',
+            finished: 1,
+            finish_time: '7/15/19 11:00 PM'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '25',
+            total_value: '25',
+            percent_complete: '100',
+            ranking: '10th',
+            finished: 1,
+            finish_time: '7/15/19 11:00 PM'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '25',
+            total_value: '25',
+            percent_complete: '100',
+            ranking: '10th',
+            finished: 1,
+            finish_time: '7/15/19 11:00 PM'
+
+        },
+        {
+            title: 'Challenge',
+            image: 'frontend/images/person_speaking-512.png',
+            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
+                'by motivating them with points one a task is completed. Parents can then use ' +
+                'these points to give their children rewards. The goal of this is to make learning fun.',
+            sender: 'user',
+            start_time: '7/12/19 3:43 PM',
+            due_time: '7/15/19 11:59 PM',
+            reward: '10 points',
+            current_progress: '25',
+            total_value: '25',
+            percent_complete: '100',
+            ranking: '10th',
+            finished: 1,
+            finish_time: '7/15/19 11:00 PM'
+
+        }
+    ]
+    var my_challenges = new Vue({
+        el: '#my_challenge_container',
+        data: {
+            currentPendingChallenges: [],
+            currentAcceptedChallenges: [],
+            currentCompletedChallenges: [],
+
+           computed: {
+                currentPendingChallenges() {
+                    return pending_challenge_list_db.slice(0, 3);
+                },
+                currentAcceptedChallenges() {
+                    return current_challenge_list_db.slice(0, 3);
+                },
+                currentCompletedChallenges() {
+                    return completed_challenge_list_db.slice(0, 3);
+                }
+            }
+        }
+    })
+
 </script>
+
 @endsection
 
