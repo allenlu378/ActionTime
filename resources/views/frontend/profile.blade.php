@@ -5,7 +5,6 @@
 
 
     <!-- Fill in Info -->
-    <!-- Fill in Info -->
     @if($user['first_name'] != null)
         @php $first_name = $user['first_name'] @endphp
     @else
@@ -27,7 +26,6 @@
     @else
         @php $address = '' @endphp
     @endif
-    @php $pic_path = '' @endphp
 
     <div class="container-fluid">
         <div class="row">
@@ -40,12 +38,12 @@
                         <div class="overlay">
                             <div class="prof-icon-div">
                                 <i class="prof-icon fa fa-camera upload-button"></i>
-                                <input id="file" name="prof_pic" form='form' class="file-upload" type="file"
+                                <input name="img" id="img" form='form'
+                                       class="file-upload {{ $errors->has('img') ? ' is-invalid' : '' }}" type="file"
                                        accept="image/*">
                             </div>
 
                             <script>
-                                $pic_path = $("#prof-pic").attr('src');
                                 $(document).ready(function () {
 
 
@@ -76,6 +74,13 @@
                     </div>
 
                 </div>
+                <div class="row">
+                    @if ($errors->has('img'))
+                        <span class="ml-7 invalid-feedback" role="alert">
+                                        <strong>A profile picture is required.</strong>
+                                    </span>
+                    @endif
+                </div>
                 <div class="mt-4 mb-4 row">
                     <div class="vertical-menu shadow-sm" id="scrollSpy">
                         <a href="#panel1" id='nav1' class="border border-top-0 border-left-0 border-right-0">Personal
@@ -98,7 +103,7 @@
                     <div class="card-header">
                         Personal Information
                     </div>
-                    <form id='form' method="POST" action="{{route('profile.update', [$user['id']])}}">
+                    <form id='form' method="POST" action="{{route('profile.update', [$user['id']])}}" enctype="multipart/form-data">
                     @csrf
                     <!-- Name -->
                         <div class="input-group mt-4">

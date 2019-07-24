@@ -39,6 +39,7 @@ Route::get('/profile', 'FrontEnd\ProfileController@create')->name('profile');
 Route::get('/user/myprofile','UserController@myprofile')->name("user/myprofile");
 Route::post('/user/update','UserController@updateuser')->name("user/update");
 
+Route::post('group/create', 'GroupController@create')->name('group.create');
 Route::get('group/list',"GroupController@list")->name('group.list');
 Route::get('group/form',"GroupController@form")->name('group.form');
 Route::post('group/save',"GroupController@save")->name('group.save');

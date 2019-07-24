@@ -12,6 +12,7 @@ class UtilController extends Controller
 
         $input = Input::all();
         $file = $input['img'];
+
         if($file -> isValid()){
             $extension = $file -> getClientOriginalExtension(); //file extension
             $newName = date('YmdHis').mt_rand(100,999).'.'.$extension;

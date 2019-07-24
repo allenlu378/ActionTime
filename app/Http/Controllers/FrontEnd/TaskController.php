@@ -38,6 +38,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'img' => 'required',
+        ]);
         $info = $request->except('_token');
         if($info['type'] == 'Daily'){$info['type'] = '0';}
         else if($info['type'] == 'Weekly'){$info['type'] = '1';}

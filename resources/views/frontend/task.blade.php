@@ -33,7 +33,7 @@
                 <form method="POST" action="{{route('task.store')}}" enctype="multipart/form-data">
                     @csrf
                     <script>
-                        function upload(){
+                        function upload() {
                             window.alert('here');
                             $.post("FrontEnd/UtilController/upload()");
                         }
@@ -58,6 +58,7 @@
                                         <span class="input-group-text">Description</span>
                                     </div>
                                     <textarea name="description" class="form-control" aria-label="With textarea"
+                                              placeholder="Description"
                                               required></textarea>
                                 </div>
                             </div>
@@ -78,7 +79,7 @@
                                     <!-- Dropdown -->
                                     <div class="form-group list-input">
                                         <label for="sel1">Occurrence:</label>
-                                        <select name = "type" class="form-control" id="sel1">
+                                        <select name="type" class="form-control" id="sel1">
                                             <option>Daily</option>
                                             <option>Weekly</option>
                                             <option>Monthly</option>
@@ -92,7 +93,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Suggested Split</span>
                                         </div>
-                                        <input name='suggested_times' type="number" class="form-control" placeholder="Split"
+                                        <input name='suggested_times' type="number" class="form-control"
+                                               placeholder="Split"
                                                min="1"
                                                value="1"
                                                required>
@@ -114,8 +116,11 @@
                                     <div class="overlay">
                                         <div class="prof-icon-div">
                                             <i class="prof-icon fa fa-camera upload-button"></i>
-                                            <input name = "img" id="img" class="file-upload" type="file"
+                                            <input name="img" id="img"
+                                                   class="file-upload {{ $errors->has('img') ? ' is-invalid' : '' }}"
+                                                   type="file"
                                                    accept="image/*">
+
                                         </div>
 
                                         <script>
@@ -147,13 +152,20 @@
                                             });
                                         </script>
                                     </div>
+
                                 </div>
                             </div>
+                            <div class="row">
+                                @if ($errors->has('img'))
+                                    <span class="ml-7 invalid-feedback" role="alert">
+                                        <strong>A task image is required.</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <button type = 'submit' class="shadow-sm btn btn-primary save-btn">Create Task!</button>
-                    </div>
+                        <div class="row">
+                            <button type='submit' class="shadow-sm btn btn-primary save-btn">Create Task!</button>
+                        </div>
 
 
                 </form>
