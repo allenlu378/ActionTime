@@ -51,19 +51,19 @@ class GroupController extends Controller
         $ids = User::pluck('id')->toArray();
         $emails = User::pluck('email')->toArray();
         $pics = User::pluck('img')->toArray();
-//        $group_names = Group::where('manager_id', '=', Auth::user()['id'])->pluck('name')->toArray();
+        //$group_names = Group::where('manager_id', '=', Auth::user()['id'])->pluck('name')->toArray();
         $group_ids =  DB::table('group_member')->where('user_id', Auth::user()['id'])->pluck('group_id')->toArray();
-        $group_names = collect(DB::table('group_member')->join('user_group', 'user_group.id', '=', 'group_member.group_id')->whereIn('group_id', $group_ids)->select('name')->get())->toArray();
-//        $group_info = collect(DB::table('group_member')->whereIn('group_id', $group_ids)->select(['group_id', 'user_id', 'role'])->get())->toArray();
-////        $users = collect(User::whereHas('groups', function($q) use($group_ids) {
-//            $q->whereIn('group_id', $group_ids);
-//        })->get())->toArray();
-//        created_ids = collect(DB::table('group_member')->)
-        var_dump($group_names);
-//
-        //var_dump($emails);
+        $group_info= collect(DB::table('group_member')->join('user', 'user.id', '=', 'group_member.user_id')->join('user_group', 'user_group.id', '=', 'group_member.group_id')->whereIn('group_id', $group_ids)->select('user_name', 'email', 'group_id', 'name', 'role', 'img')->get())->toArray();
+        $num_groups = count($group_ids);
+        $group_sizes = [];
+        foreach($group_ids as $id){
+            $group_sizes[$id] = DB::table('group_member')->where('group_id', $id)->count();
+        }
+        //var_dump($group_sizes);
+        $email = Auth::user()['email'];
+        //var_dump($email);
         //var_dump($pics);
-        //return view($this->view_path . 'group', compact('emails', 'pics', 'ids'));
+        return view($this->view_path . 'group', compact('emails', 'pics', 'ids', 'group_info', 'num_groups', 'group_sizes', 'email'));
     }
 
     /*

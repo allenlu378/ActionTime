@@ -135,7 +135,7 @@ form{
     scroll-behavior: smooth !important;
     position: relative;
     overflow-y: auto;
-    height: 60vh;
+    height: 68vh;
 }
 .card-header{
     font-size: 35px;
@@ -160,5 +160,9 @@ form{
 .vertical-menu a.active {
     background-color: #4CAF50;
     color: white;
+}
+.panel-card{
+    width: 100% !important;
+    margin: auto;
 }
 
