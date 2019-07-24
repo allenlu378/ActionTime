@@ -21,6 +21,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 .front, .back {
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 
 }
 
