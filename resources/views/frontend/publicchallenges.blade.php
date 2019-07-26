@@ -1,13 +1,15 @@
 @extends('frontend/layout')
 @section('content')
     <link href="{{asset('frontend/css/challenges.css')}}" type="text/css" rel="stylesheet" media="all">
-    <script src="{{asset('/js/vue.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <div class="container-fluid">
         <div class="row">
             <h1>Public Challenges</h1>
         </div>
         <div id="public-challenge-container" class="row public-challenge-row">
-            <div class="col-md-4" v-for="challenge in computed.currentChallenges()">
+            @{{challenges}}
+            {{--<div class="col-md-4" v-for="challenge in computed.currentChallenges()">
                 <div class="card public-challenge">
                     <div class="row">
                         <div class="col cardBox">
@@ -38,6 +40,8 @@
                         </h1>
                     </div>
                 </div>
+            </div>--}}
+
             </div>
         </div>
         <script>
@@ -164,13 +168,31 @@
         var public_challenges = new Vue({
             el: '#public-challenge-container',
             data: {
-                currentChallenges: [],
 
-                computed: {
-                    currentChallenges() {
-                        return challenge_list_db.slice(0, 10);
+                    challenges: [],
+                    id: ''
+                },
+            methods: {
+                loadChallenges() {
+                    let $this = this;
+
+                    axios
+                        .post('/getpublicchallenges', {
+                            id: this.id,
+                            "_token": "{{ csrf_token() }}",
+                        })
+                        .then((response) => {
+                            console.log(response.data)
+                            console.log(this.challenges)
+                            this.challenges=this.challenges.concat( response.data)
+
+                        })
                     }
-                }
+
+
+            },
+            mounted() {
+                this.loadChallenges()
             }
         })
     </script>

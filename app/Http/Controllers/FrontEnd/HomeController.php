@@ -32,9 +32,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::check())
+        {
+            return view($this->view_path.'home');
+        }
+        else
+        {
+            $login_invalid = false;
+            return view($this->view_login.'login', compact('login_invalid'));
+        }
 
-
-        return view($this->view_path.'home');
     }
     public function welcome(){
         $login_invalid = false;
