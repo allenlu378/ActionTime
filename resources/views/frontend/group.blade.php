@@ -3,18 +3,21 @@
     {{--    <div class="nav-item">--}}
     {{--        <input id="friend-search" type="text" name="friend-search" placeholder="email">--}}
     {{--    </div>--}}
-
-    <link href="{{asset('frontend/css/group.css')}}" type="text/css" rel="stylesheet" media="all">
+    @php $group_id = "" @endphp
+    <link href="{{asset('frontend/css/group.css')}}" type="text/css" rel="stylesheet" media="all"
+          xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <div class="container-fluid mt-4">
         <div class="row mb-4">
             <div class="mt-4 mb-4 col-sm-3">
                 <div class="row mt-5">
                     <div class="vertical-menu shadow-sm" id="scrollSpy">
-                        <a href="#panel1" id='nav1' class="border border-top-0 border-left-0 border-right-0">Your
-                            Groups</a>
-                        <a href="#panel2" id='nav2' class="border border-top-0 border-left-0 border-right-0">Created by
+                        <a href="#panel1" id='nav1' class="border border-top-0 border-left-0 border-right-0">Created by
                             You</a>
+                        <a href="#panel2" id='nav2' class="border border-top-0 border-left-0 border-right-0">Your
+                            Groups</a>
                         <a href="#panel3" id='nav3'
                            class=" border border-top-0 border-left-0 border-right-0">Invites</a>
 
@@ -25,23 +28,85 @@
                             type="button"
                             class="btn btn-primary btn-lg"
                             data-toggle="modal"
-                            data-target="#createModal">
+                            data-target="#createModal"
+                            onclick="clear_empty()">
                         Create a Group!
                     </button>
                 </div>
 
             </div>
 
+
             <div class="panel-container col-sm-8" id='panel-container'>
 
                 <div id="panel1" class="mb-5 card">
-                    <div class="card-header mb-3">
-                        Your Groups
+                    <div class="card-header mb-4">
+                        Created By You
                     </div>
-                    <div class="row">
-                        <div class='col-md-4' v-for='group in computed.createdGroups()'>
-                            <div class=" panel-card card mb-3">
-                                @{{ group.Name }}
+                    <div class="group-cont">
+                        <div class="group-row row">
+                            <div class='col-md-4 mb-4 group' v-for='group in computed.createdGroups()'>
+                                <div class="panel-card card mb-3" v-bind:id="group.Id">
+
+                                    <div class="front">
+                                        <div class="group-header card-header mb-3">
+                                            @{{ group.Name }}
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 btn-col">
+                                                <button v-bind:id="'edit-' + group.Id"
+                                                        class="btn btn-primary group-btn ml-3" data-toggle="modal"
+                                                        data-target="#editModal">Edit
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6 btn-col">
+                                                <button v-bind:id="'btn-' + group.Id"
+                                                        class="btn btn-info group-btn mr-3">
+                                                    Members
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <form onsubmit="return confirm('Would you like to delete this group?');"
+                                                  class="delete_form" method="POST" action="{{route('group.delete')}}">
+                                                @csrf
+                                                <input name="group_id" class="display-none" v-bind:value="group.Id">
+                                                <button type="submit" v-bind:id="'delete-' + group.Id"
+                                                        class="btn btn-danger group-btn">Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                    <div class="back">
+                                        <div class="sticky-top">
+                                            <div class="group-header-back card-header mb-3">
+                                                @{{ group.Name }}
+                                            </div>
+                                            <i onclick="flip()" v-bind:id="'back-' + group.Id"
+                                               class="fas fa-angle-double-left icon-back ml-2"></i>
+                                        </div>
+                                        <div class="list-members">
+                                            <div class="mx-0 row hints mem-list mb-3 ml-2"
+                                                 v-bind:id="'list-' + computed.list_count()"
+                                                 v-for="member in group.Members">
+                                                <span class='mem-lbl mr-2 font-weight-light'>@{{computed.list_count()}}.</span>
+                                                <img class='member-prof img-list'
+                                                     v-bind:src="'../../../upload/' + member.Image">
+                                                <span class='font-weight-light'>@{{ member.Email }}</span>
+                                                @{{computed.count() }}
+                                            </div>
+
+
+                                        </div>
+                                        @{{ computed.clear() }}
+                                    </div>
+
+
+                                </div>
+
+
                             </div>
 
                         </div>
@@ -51,11 +116,64 @@
 
                 <div id="panel2" class="card mb-5">
                     <div class="card-header mb-3">
-                        Created By You
+                        Your Groups
                     </div>
-                    <div class="row>">
-                        <div class='panel-card card mb-3 col-md-4' v-for='group in computed.memberGroups()'>
-                            @{{ group.Name }}
+                    <div class="group-cont">
+                        <div class="group-row row">
+
+                            <div class='col-md-4 mb-6 group' v-for='group in computed.memberGroups()'>
+                                <div class="panel-card card mb-3" v-bind:id="group.Id">
+                                    <div class="front">
+                                        <div class="group-header card-header mb-3">
+                                            @{{ group.Name }}
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 btn-col">
+                                                <form onsubmit="return confirm('Would you like to leave this group?');"
+                                                      class="leave_form" method="POST" action="{{route('group.leave')}}">
+                                                    @csrf
+                                                    <input name="group_id" class="display-none" v-bind:value="group.Id">
+                                                    <button v-bind:id="group.Id"
+                                                            class="btn btn-danger group-btn ml-3">Leave
+                                                    </button>
+                                                </form>
+
+                                            </div>
+                                            <div class="col-md-6 btn-col">
+                                                <button v-bind:id="'btn-' + group.Id"
+                                                        class="btn btn-info group-btn mr-3">
+                                                    Members
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="back">
+                                        <div class="sticky-top">
+                                            <div class="group-header-back card-header mb-3">
+                                                @{{ group.Name }}
+                                            </div>
+                                            <i onclick="flip()" v-bind:id="'back-' + group.Id"
+                                               class="fas fa-angle-double-left icon-back ml-2"></i>
+                                        </div>
+                                        <div class="list-members">
+                                            <div class="mx-0 row hints mem-list mb-3 ml-2"
+                                                 v-bind:id="'list-' + computed.list_count()"
+                                                 v-for="member in group.Members">
+                                                <span class='mem-lbl mr-2 font-weight-light'>@{{computed.list_count()}}.</span>
+                                                <img class='member-prof img-list'
+                                                     v-bind:src="'../../../upload/' + member.Image">
+                                                <span class='font-weight-light'>@{{ member.Email }}</span>
+                                                @{{computed.count() }}
+                                            </div>
+
+
+                                        </div>
+                                        @{{ computed.clear() }}
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
@@ -71,13 +189,117 @@
                     </ul>
                 </div>
 
+
             </div>
+            <script>
+
+                group_id = 0;
+                $(document).ready(function () {
+                    $(".btn-info").each(function () {
+                        $(this).on('click', function (e) {
+                            var btn_id = $(this).attr('id');
+                            var card_id = "#" + btn_id.slice(4);
+                            $(card_id).toggleClass('group-flip');
+
+
+                        })
+
+                    })
+                });
+                $(document).ready(function () {
+                    $(".icon-back").each(function () {
+                        $(this).on('click', function (e) {
+                            var btn_id = $(this).attr('id');
+                            var card_id = "#" + btn_id.slice(5);
+                            $(card_id).toggleClass('group-flip');
+
+
+                        })
+
+                    })
+                });
+                $(document).ready(function () {
+                    $(".btn-primary").each(function () {
+                        $(this).on('click', function (e) {
+                            var btn_id = $(this).attr('id');
+                            group_id = btn_id.slice(5);
+
+                        })
+
+                    })
+                });
+
+
+            </script>
         </div>
         <div class="col-sm-1">
         </div>
 
     </div>
+    <div class="modal fade" id="editModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="favoritesModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Edit a Group</h1>
+                </div>
+                <form method="POST" action="{{route('group.edit')}}">
+                    @csrf
+                    <div class="modal-body">
 
+                        <!-- Group ID -->
+                        <input name="id" class="display-none" id="group_id">
+
+                        <!-- Group Name -->
+                        <div class="input-group mt-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Group Name</span>
+                            </div>
+                            <input id="name_edit" name='name' type="text"
+                                   class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                   placeholder="Name"
+                                   aria-label="username"
+                                   aria-describedby="basic-addon1" required>
+                            @if ($errors->has('name'))
+                                <span class="ml-4 invalid-feedback" role="alert">
+                                        <strong>Group Name has already been taken.</strong>
+                                    </span>
+                            @endif
+                        </div>
+
+                        <!-- Members -->
+                        <div class="input-group mt-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Add Members</span>
+                            </div>
+                            <input id='user-search-edit' type="text"
+                                   class="form-control {{ $errors->has('member1') ? ' is-invalid' : '' }}"
+                                   autocomplete="randomString"
+                                   placeholder="User Email"
+                                   aria-label="username"
+                                   aria-describedby="basic-addon1">
+                            @if ($errors->has('member1'))
+                                <span class="ml-8 invalid-feedback" role="alert">
+                                        <strong>A group needs to have at least one member.</strong>
+                                    </span>
+                            @endif
+                        </div>
+
+                        <h2 class='add-mem-lbl'>Members</h2>
+                        <hr class="hor-bar">
+                        <div class="add-mem-cont" id='member-cont-edit'>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type='submit' class="shadow-sm btn btn-primary submit-btn">Update Group</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
     <div class="modal fade" id="createModal"
          tabindex="-1" role="dialog"
          aria-labelledby="favoritesModalLabel">
@@ -148,12 +370,12 @@
         var email = @json($email);
         var created = false;
         group = {};
+        member = {};
         var created_groups_list_db = [];
         var member_groups_list_db = [];
 
         function parseMember(item) {
             item = Object.values(item);
-            var mem = {};
             //User is manager
             if (item[4] == 2 && item[1] == email) {
                 group['Manager'] = email;
@@ -174,10 +396,9 @@
             else {
 
             }
-            mem['Image'] = item[5];
-            mem['Email'] = item[1];
-            mem['Username'] = item[0];
-            return mem;
+            member['Image'] = item[5];
+            member['Email'] = item[1];
+            member['Username'] = item[0];
         }
 
         var k = 0;
@@ -186,10 +407,13 @@
             group['Members'] = [];
             var stop = group_sizes[i] + k;
             for (j = k; j < stop; j++) {
-                var member = parseMember(group_info[k]);
+                parseMember(group_info[k]);
                 k = k + 1;
                 group['Members'].push(member);
+                member = {};
+
             }
+
             if (created) {
                 created_groups_list_db.push(group);
             } else {
@@ -197,7 +421,7 @@
             }
             created = false;
         }
-
+        var count = 1;
         var public_challenges = new Vue({
             el: '#panel-container',
             data: {
@@ -211,7 +435,17 @@
                     },
                     memberGroups() {
                         return member_groups_list_db;
+                    },
+                    list_count() {
+                        return count;
+                    },
+                    count() {
+                        count += 1;
+                    },
+                    clear() {
+                        count = 1;
                     }
+
 
                 }
             }
@@ -230,67 +464,97 @@
         //     error_member = false;
         //     document.getElementById('modal_btn').click();
         // }
+
         var ids = @json($ids);
         var emails = @json($emails);
         var pics = @json($pics);
         added_members = [];
         pic = "";
+        $(document).ready(function () {
+            $(".btn-primary").each(function () {
+                $(this).on('click', function (e) {
+                    var btn_id = $(this).attr('id');
+                    var group_id = btn_id.slice(5);
+                    document.getElementById('group_id').value = group_id;
 
-        function clear() {
-            var cont = document.getElementById('member-cont');
+                })
+
+            })
+        });
+
+        function clear_empty() {
+            empty();
+            clear('');
+        }
+
+        function clear(edit) {
+            var cont_name = "member-cont" + edit;
+            var cont = document.getElementById(cont_name);
             var length = cont.childNodes.length;
             for (var l = 0; l < length; l++) {
                 cont.removeChild(cont.childNodes[0]);
             }
         }
 
-        function list_members() {
-            clear();
+        function empty() {
+            added_members = [];
+        }
+
+        function list_members(edit) {
+            clear(edit);
             for (let j = 0; j < added_members.length; j++) {
                 i = added_members[j];
                 c = document.createElement("DIV");
                 c.setAttribute("class", "hints mb-3");
-                if (pics[i] == null) {
-                    pic = '../../../images/prof.png';
-                } else {
-                    pic = '../../../upload/' + pics[i];
-                }
+
+                pic = '../../../upload/' + pics[i];
+
                 /*make the matching letters bold:*/
                 c.innerHTML = "<span class = 'mem-lbl mr-2 font-weight-light' >" + (j + 1) + ".</span>";
-                c.innerHTML += "<img class = 'member-pic'>";
-                c.innerHTML += "<input class = 'd-none'>";
+                c.innerHTML += "<img class = 'member-pic" + edit + "'>";
+                c.innerHTML += "<input class = 'd-none " + edit + "'>";
                 c.innerHTML += "<span class = 'font-weight-light'>" + emails[i] + "</span>";
-                c.innerHTML += "<img class = 'remove-button mt-2' src = '../../../images/remove.png'>";
-                document.getElementById('member-cont').appendChild(c);
-                var len = document.getElementById('member-cont').childNodes.length;
-                document.getElementsByClassName('d-none')[j].setAttribute('name', 'member' + (j + 1));
-                document.getElementsByClassName('d-none')[j].setAttribute('value', ids[i]);
-                document.getElementsByClassName('member-pic')[j].src = pic;
-                document.getElementsByClassName('remove-button')[j].setAttribute('onclick', 'remove(' + i + ')');
+                c.innerHTML += "<img class = 'remove-button" + edit + " mt-2' src = '../../../images/remove.png'>";
+                var cont = "member-cont" + edit;
+                document.getElementById(cont).appendChild(c);
+                var none = "d-none " + edit;
+                var remove_name = 'remove-button' + edit;
+                var pic_ele = 'member-pic' + edit;
+                document.getElementsByClassName(none)[j].setAttribute('name', 'member' + (j + 1));
+                document.getElementsByClassName(none)[j].setAttribute('value', ids[i]);
+                document.getElementsByClassName(pic_ele)[j].src = pic;
+                document.getElementsByClassName(remove_name)[j].setAttribute('onclick', "remove(" + i + ", '" + edit + "')");
 
 
             }
         }
 
-        function remove(num) {
+        function remove(num, edit) {
             for (k = 0; k < added_members.length; k++) {
                 if (added_members[k] == num) {
                     added_members.splice(k, 1);
                     break;
                 }
             }
-            list_members();
+            list_members(edit);
         }
 
         function add(num) {
             added_members.push(num);
             document.getElementById('user-search').value = '';
             document.getElementById('user-search').focus();
-            list_members();
+            list_members('');
+        }
+
+        function add_edit(num) {
+            added_members.push(num);
+            document.getElementById('user-search-edit').value = '';
+            document.getElementById('user-search-edit').focus();
+            list_members('-edit');
         }
 
 
-        function autocomplete(inp, arr) {
+        function autocomplete(inp, arr, edit) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
             var currentFocus;
@@ -336,7 +600,8 @@
 
                             a.appendChild(b);
                             document.getElementsByClassName('hint-pic')[num_hints].src = pic;
-                            document.getElementsByClassName('add-button')[num_hints].setAttribute('onclick', 'add(' + i + ')');
+                            var onclick = 'add' + edit + '(' + i + ')';
+                            document.getElementsByClassName('add-button')[num_hints].setAttribute('onclick', onclick);
                             num_hints += 1;
                         }
 
@@ -403,8 +668,40 @@
             document.addEventListener("click", function (e) {
                 closeAllLists(e.target);
             });
+
+            // Clear lists
+            $(document).click(function (event) {
+                $target = $(event.target);
+                if (!$target.closest('.modal').length &&
+                    !$target.closest('.add-button').length && !$target.closest('.remove-button').length && !$target.closest('.remove-button-edit').length && !$target.closest('.btn-primary').length) {
+                    added_members = [];
+                    pic = "";
+                    empty();
+
+                }
+            });
+
         }
 
-        autocomplete(document.getElementById("user-search"), emails);
+        autocomplete(document.getElementById("user-search"), emails, '');
+        autocomplete(document.getElementById("user-search-edit"), emails, '_edit');
+    </script>
+    <script>
+
+        $(document).on("click", ".btn-primary", function () {
+            var group_id = $(this).attr('id').slice(5);
+            for (let j = 0; j < created_groups_list_db.length; j++) {
+                if (group_id == created_groups_list_db[j]['Id']) {
+                    $('#name_edit').val(created_groups_list_db[j]['Name']);
+                    empty();
+                    for (let k = 0; k < created_groups_list_db[j]['Members'].length; k++) {
+                        var index = emails.indexOf(created_groups_list_db[j]['Members'][k]['Email']);
+                        add_edit(index);
+                    }
+                    break;
+                }
+
+            }
+        });
     </script>
 @endsection

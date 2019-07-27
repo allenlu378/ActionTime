@@ -75,9 +75,8 @@ class ProfileController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'img' => 'required',
-        ]);
+
+
         $info = $request->except('_token');
         $user = User::find($id);
         $user->first_name = $info['first_name'];
@@ -92,10 +91,14 @@ class ProfileController extends Controller
         $user->state = $splitAddress[2];
         $user->zip_code = $splitAddress[3];
         $user->country = $splitAddress[4];
-        unset($info['img']);
+        if(array_key_exists('img', $info)){
+            unset($info['img']);
+            $img = app('App\Http\Controllers\UtilController')->upload();
+            $user->img = $img;
+        }
 
-        $img = app('App\Http\Controllers\UtilController')->upload();
-        $user->img = $img;
+
+
         $user->save();
         return view($this->view_path.'home');
 

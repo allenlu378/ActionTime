@@ -1,8 +1,10 @@
 @extends('frontend/layout')
 @section('content')
-    <link href="{{asset('frontend/css/task.css')}}" type="text/css" rel="stylesheet" media="all">
 
-    <div class="container-fluid mt-2 border mt-4 flip">
+    <link href="{{asset('frontend/css/task.css')}}" type="text/css" rel="stylesheet" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <div class="container-fluid mt-2 border mt-4">
         <div class="front">
             <div class="row row-create">
                 <div class="col-lg-12">
@@ -14,9 +16,83 @@
 
             </div>
             <div class="row row-content">
-                <h1>Your Tasks</h1>
+                <h1 class="mb-5">Your Tasks</h1>
+
+            </div>
+            <div class="task-cont" id="task-cont">
+                <div class="task-row">
+                    <div class='col-md-4 mb-4' v-for='task in computed.tasks()'>
+                        <div class="card mb-4 task-background" v-bind:id="'card-'+task.Name"
+                             v-bind:style="{ backgroundImage: 'url(../../../upload/'+task.Image+')'}">
+                            <div class="front-task">
+                                <div class="img-cont">
+                                    <img class="card-img-top p-0">
+                                </div>
+                                <div class="card-footer">
+                                    <h1 class="card-title">
+                                        @{{ task.Name }}
+                                    </h1>
+                                </div>
+
+                            </div>
+                            <div class="back-task">
+
+                                <h5 class="w-100 back-title-description">Description</h5>
+                                <div class="my-2 description">
+                                    @{{ task.Description }}
+                                </div>
+                                <div class = "row attr-row mx-0">
+                                    <div class = "col px-0">
+                                        <h5 class = "back-title">Total</h5>
+                                        @{{ task.Total }}
+
+                                    </div>
+                                    <div class = 'vert-line'>
+                                    </div>
+                                    <div class = "col px-0">
+                                        <h5 class = "back-title">Type</h5>
+                                        @{{ task.Type }}
+                                    </div>
+                                </div>
+                                <div class = "row attr-row mx-0">
+                                    <div class = "col px-0">
+                                        <h5 class = "back-title">Portions</h5>
+                                        @{{ task.Suggested }}
+
+                                    </div>
+                                    <div class = 'vert-line'>
+                                    </div>
+                                    <div class = "col px-0">
+                                        <h5 class = "back-title">Average</h5>
+                                        @{{ task.Average }}
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <h1 class="card-title">
+                                        @{{ task.Name }}
+                                    </h1>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".card").each(function () {
+                    $(this).on('click', function (e) {
+                        card_id = "#" + $(this).attr('id');
+                        $(card_id).toggleClass('task-flip');
+
+
+                    })
+
+                })
+            });
+        </script>
         <div class="back">
 
             <div class="row row-create">
@@ -46,9 +122,17 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Name</span>
                                     </div>
-                                    <input name='name' type="text" class="form-control" placeholder="Name"
+                                    <input name='name' type="text"
+                                           class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                           placeholder="Name"
                                            aria-label="username"
                                            aria-describedby="basic-addon1" required>
+                                    @if ($errors->has('name'))
+                                        <span class="ml-4_2 invalid-feedback" role="alert">
+                                        <strong>Group Name has already been taken.</strong>
+                                    </span>
+                                    @endif
+
                                 </div>
                             </div>
                             <div class="row row-input ml-5 mt-3">
@@ -177,5 +261,78 @@
         function flip() {
             $(".container-fluid").toggleClass('flip');
         }
+    </script>
+    @if($errors->has('name'))
+        <script>flip();</script>
+    @endif
+    <script>
+        tasks_unparsed = @json($tasks);
+        var tasks_list_db = [];
+
+        function randomColor() {
+            var letters = '01234567';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 8)];
+            }
+            return color;
+        }
+
+
+
+
+
+
+        for (index in tasks_unparsed) {
+            var task = {};
+            task['Name'] = tasks_unparsed[index]['name'];
+            task['Description'] = tasks_unparsed[index]['description'];
+            task['Total'] = tasks_unparsed[index]['total_value'];
+            task['Average'] = tasks_unparsed[index]['average_workload'];
+            task['Suggested'] = tasks_unparsed[index]['suggested_times'];
+            if(tasks_unparsed[index]['type'] == 0){
+                task['Type'] = 'Daily';
+            }
+            else if(tasks_unparsed[index]['type'] == 1){
+                task['Type'] = 'Weekly';
+            }
+            else{
+                task['Type'] = 'Monthly';
+            }
+            task['Image'] = tasks_unparsed[index]['img'];
+            tasks_list_db.push(task);
+        }
+
+
+        var tasksVue = new Vue({
+            el: '#task-cont',
+            data: {
+                tasks: [],
+                computed: {
+                    tasks() {
+
+                        return tasks_list_db;
+                    },
+                }
+            }
+        });
+        for(let i=0;i<$('.back-title-description').length;i++){
+            var color = randomColor();
+            var element1 = document.getElementsByClassName('back-title-description')[i];
+            element1.style.backgroundColor = color;
+            var element2 = document.getElementsByClassName('back-title')[i*4];
+            element2.style.backgroundColor = color;
+            var element3 = document.getElementsByClassName('back-title')[i*4+1];
+            element3.style.backgroundColor = color;
+            var element4 = document.getElementsByClassName('back-title')[i*4+2];
+            element4.style.backgroundColor = color;
+            var element5 = document.getElementsByClassName('back-title')[i*4+3];
+            element5.style.backgroundColor = color;
+            var footer = document.getElementsByClassName('card-footer')[i*2+1];
+            footer.style.backgroundColor = color;
+
+        }
+
+
     </script>
 @endsection

@@ -37,7 +37,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 
 .flip {
-    transform: rotateY(180deg) scale(2, 2) translate(0px, 10px) !important;
+    transform: rotateY(180deg) scale(2, 2) translate(0px, 30px) !important;
 }
 
 .static {
@@ -294,7 +294,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 
 .expand {
-    transform: matrix(2, 0, 0, 2, 0, 20);
+    transform: matrix(2, 0, 0, 2, 0, 60);
     cursor: default !important;
     z-index: 10000 !important;
     transition: transform 2s !important;
@@ -3569,6 +3569,13 @@ h2.typoh2 {
     cursor: pointer;
 }
 .member-pic {
+    height: 5.5vh;
+    width: 5.5vh;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.member-pic-edit {
     height: 5.5vh;
     width: 5.5vh;
     border-radius: 50%;

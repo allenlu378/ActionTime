@@ -14,9 +14,13 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    protected $path = 'frontend/task';
+    public function list()
     {
-        //
+        $error = false;
+        $user = Auth::user();
+        $tasks = collect(Task::where('created_by', '=', $user['id'])->select('name', 'description', 'total_value', 'average_workload', 'suggested_times', 'type', 'img')->get())->toArray();
+        return view($this->path, compact('tasks', 'user', 'error'));
     }
 
     /**
@@ -24,10 +28,10 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected $path = 'frontend/task';
+
     public function create()
     {
-        return view($this->path);
+
     }
 
     /**
@@ -40,7 +44,9 @@ class TaskController extends Controller
     {
         $request->validate([
             'img' => 'required',
+            'name' =>'unique:task',
         ]);
+
         $info = $request->except('_token');
         if($info['type'] == 'Daily'){$info['type'] = '0';}
         else if($info['type'] == 'Weekly'){$info['type'] = '1';}
@@ -50,8 +56,7 @@ class TaskController extends Controller
         unset($info['img']);
         $img = app('App\Http\Controllers\UtilController')->upload();
         Task::create($info + ['average_workload'=>$avg_workload, 'created_by'=>Auth::user()['id'], 'img'=>$img]);
-        return view($this->path);
-
+        return redirect('task/list');
     }
 
     /**

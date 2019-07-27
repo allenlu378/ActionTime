@@ -22,9 +22,14 @@
         @php $cellphone = '' @endphp
     @endif
     @if($user['address'] != null)
-        @php $address = $user['address'].', '.$user['city'].', '.$user['zip_code'].', '.$user['state'].', '.$user['country']  @endphp
+        @php $address = trim($user['address']).', '.trim($user['city']).', '.trim($user['zip_code']).', '.trim($user['state']).', '.trim($user['country'])@endphp
     @else
         @php $address = '' @endphp
+    @endif
+    @if($user['img'] != null)
+        @php $image = '../../../upload/'.$user['img'] @endphp
+    @else
+        @php $image = "../../../images/prof.png" @endphp
     @endif
 
     <div class="container-fluid">
@@ -33,7 +38,7 @@
                 <div class="mt-4 row">
                     <div class="prof-container shadow-sm">
                         <input type="image" id="prof-pic" class="prof-pic"
-                               src="{{asset('frontend/images/head.png')}}">
+                               src= {{$image}}>
 
                         <div class="overlay">
                             <div class="prof-icon-div">
@@ -103,7 +108,8 @@
                     <div class="card-header">
                         Personal Information
                     </div>
-                    <form id='form' method="POST" action="{{route('profile.update', [$user['id']])}}" enctype="multipart/form-data">
+                    <form id='form' method="POST" action="{{route('profile.update', [$user['id']])}}"
+                          enctype="multipart/form-data">
                     @csrf
                     <!-- Name -->
                         <div class="input-group mt-4">

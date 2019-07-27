@@ -1,3 +1,28 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .border {
     border: 2px solid blue !important;
 }
@@ -37,16 +62,32 @@ h1 {
     margin-right: auto;
 }
 .front {
-    height: 0;
+     height: 0 !important;
+     transform: rotateY(0deg);
+ }
+.mb-6{
+    margin-top: 8rem !important;
+}
+.back {
+    transform: rotateY(180deg);
+}
+.front-task {
     transform: rotateY(0deg);
 }
 
-.back {
+.back-task {
     transform: rotateY(180deg);
+    position: absolute;
+    width: 100%;
     height: 100%;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.125);
 }
 
 .front, .back {
+    backface-visibility: hidden;
+}
+.front-task, .back-task {
     backface-visibility: hidden;
 }
 
@@ -141,3 +182,87 @@ form {
     color: black;
     border: 1px solid #ced4da;
 }
+.task-cont{
+    width: 95%;
+    margin: auto;
+    overflow: auto;
+    height: 45vh;
+}
+.card{
+    width: 90%;
+    margin: auto;
+    transition: transform 2s;
+}
+.card-footer{
+    background: rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 200;
+}
+
+
+.task-row{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.card-img-top{
+    width: auto;
+    position: relative;
+}
+.ml-4_2{
+    margin-left: 4.2rem !important;
+}
+.img-cont{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+.task-background{
+    background-size: cover;
+    background-position-x: center;
+}
+.description{
+    height: 31%;
+    overflow: auto;
+}
+.back-title{
+    background-color: rgba(0,0,0,0.2);
+    border-bottom-left-radius: 20% 100%;
+    border-bottom-right-radius: 20% 100%;
+    margin-bottom: .3rem !important;
+    color: white;
+}
+.vert-line{
+    border-left: 1px solid rgba(0,0,0,0.125);
+    width: 0;
+}
+.back-title-description{
+    color: white;
+    border-bottom-left-radius: 10% 100%;
+    border-bottom-right-radius: 10% 100%;
+}
+.attr-row{
+    height: 19.1%;
+}
+/*Flip*/
+.task-flip {
+    transform: rotateY(180deg) !important;
+    animation: 1s background;
+    animation-fill-mode: forwards;
+}
+@keyframes background {
+    99% {
+        background-size: cover;
+        background-position-x: center;
+    }
+    100% {
+        background-color: white;
+    }
+}
+
+

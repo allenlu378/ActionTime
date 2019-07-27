@@ -21,7 +21,7 @@ class GroupController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:user_group',
-            'member1' =>'required'
+            'member1' => 'required'
         ]);
         $info = $request->except('_token');
         $group_info = ['name' => $info['name'], 'manager_id' => Auth::user()['id']];
@@ -45,18 +45,20 @@ class GroupController extends Controller
 
         return redirect('group/list');
     }
-
+    public function leave(){
+        var_dump('leave');
+    }
     public function list()
     {
         $ids = User::pluck('id')->toArray();
         $emails = User::pluck('email')->toArray();
         $pics = User::pluck('img')->toArray();
         //$group_names = Group::where('manager_id', '=', Auth::user()['id'])->pluck('name')->toArray();
-        $group_ids =  DB::table('group_member')->where('user_id', Auth::user()['id'])->pluck('group_id')->toArray();
-        $group_info= collect(DB::table('group_member')->join('user', 'user.id', '=', 'group_member.user_id')->join('user_group', 'user_group.id', '=', 'group_member.group_id')->whereIn('group_id', $group_ids)->select('user_name', 'email', 'group_id', 'name', 'role', 'img')->get())->toArray();
+        $group_ids = DB::table('group_member')->where('user_id', Auth::user()['id'])->pluck('group_id')->toArray();
+        $group_info = collect(DB::table('group_member')->join('user', 'user.id', '=', 'group_member.user_id')->join('user_group', 'user_group.id', '=', 'group_member.group_id')->whereIn('group_id', $group_ids)->select('user_name', 'email', 'group_id', 'name', 'role', 'img')->get())->toArray();
         $num_groups = count($group_ids);
         $group_sizes = [];
-        foreach($group_ids as $id){
+        foreach ($group_ids as $id) {
             $group_sizes[$id] = DB::table('group_member')->where('group_id', $id)->count();
         }
         //var_dump($group_sizes);
@@ -71,18 +73,45 @@ class GroupController extends Controller
      * @param $group_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($group_id)
+    public function edit(Request $request)
     {
-        $group = Group::find($group_id);
-        //unnecessary*****************
-//        $user_ids = DB::table('group_member')
-//                    ->select('user_id')
-//                    ->where('group_id',$group_id)
-//                    ->get();
+        $info = $request->except('_token');
+        $cur_name = Group::where('id', '=',$info['id'])->pluck('name')->toArray();
+        //var_dump($cur_name[0]);
+        //var_dump($info['name']);
 
-        $user_ids = array_column($group->users->toArray(), 'id');
-        $candidates = User::whereNotIn('id', $user_ids)->get();
-        return view($this->view_path . "edit", compact('group', 'candidates'));
+        if(strcmp($cur_name[0], $info['name']) == 0){
+        }
+        else{
+            $request->validate([
+                'name' => 'unique:user_group',
+            ]);
+        }
+        $request->validate([
+            'name' => 'required',
+            'member1' => 'required',
+        ]);
+        Group::where('id', '=',$info['id'])->delete();
+        DB::table('group_member')->where('group_id', '=', $info)->delete();
+        unset($info['id']);
+        $group_info = ['name' => $info['name'], 'manager_id' => Auth::user()['id']];
+        $group = Group::create($group_info);
+        //var_dump($info);
+        unset($info['name']);
+        $role = 3;
+        foreach ($info as $id) {
+            if ($id == Auth::user()['id']) {
+                $role = 2;
+            }
+            DB::table('group_member')
+                ->insert([
+                    'group_id' => $group['id'],
+                    'user_id' => $id,
+                    'role' => $role
+                ]);
+            $role = 3;
+        }
+        return redirect('group/list');
     }
 
     /**
@@ -142,15 +171,20 @@ class GroupController extends Controller
         return redirect(route('group.edit', ['group_id' => $group_id]));
     }
 
+
     /**
      *
      * delete an group
      * @param $group_id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function delete($group_id)
+    public function delete(Request $request)
     {
-//        Award::where('id',$award_id)->delete();
-//        return redirect('award/list');
+        $info = $request->except('_token')['group_id'];
+        $group = Group::find($info);
+        $group->delete();
+        DB::table('group_member')->where('group_id', '=', $info)->delete();
+        //var_dump($group_members);
+        return redirect(route('group.list'));
     }
 }
