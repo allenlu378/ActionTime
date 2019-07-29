@@ -507,7 +507,11 @@
                 c = document.createElement("DIV");
                 c.setAttribute("class", "hints mb-3");
 
-                pic = '../../../upload/' + pics[i];
+                if (pics[i] == null) {
+                    pic = '../../../images/prof.png';
+                } else {
+                    pic = '../../../upload/' + pics[i];
+                }
 
                 /*make the matching letters bold:*/
                 c.innerHTML = "<span class = 'mem-lbl mr-2 font-weight-light' >" + (j + 1) + ".</span>";

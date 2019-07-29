@@ -19,7 +19,7 @@ class TaskController extends Controller
     {
         $error = false;
         $user = Auth::user();
-        $tasks = collect(Task::where('created_by', '=', $user['id'])->select('name', 'description', 'total_value', 'average_workload', 'suggested_times', 'type', 'img')->get())->toArray();
+        $tasks = collect(Task::where('created_by', '=', $user['id'])->select('id', 'name', 'description', 'total_value', 'average_workload', 'suggested_times', 'type', 'img')->get())->toArray();
         return view($this->path, compact('tasks', 'user', 'error'));
     }
 
@@ -43,7 +43,6 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'img' => 'required',
             'name' =>'unique:task',
         ]);
 
@@ -53,9 +52,14 @@ class TaskController extends Controller
         else if($info['type'] == 'Monthly'){$info['type'] = '2';}
         $avg_workload = $info['total_value']/$info['suggested_times'];
         //var_dump($info);
-        unset($info['img']);
-        $img = app('App\Http\Controllers\UtilController')->upload();
-        Task::create($info + ['average_workload'=>$avg_workload, 'created_by'=>Auth::user()['id'], 'img'=>$img]);
+        if(array_key_exists('img', $info)){
+            unset($info['img']);
+            $img = app('App\Http\Controllers\UtilController')->upload();
+            Task::create($info + ['average_workload'=>$avg_workload, 'created_by'=>Auth::user()['id'], 'img'=>$img]);
+        }
+        else{
+            Task::create($info + ['average_workload'=>$avg_workload, 'created_by'=>Auth::user()['id']]);
+        }
         return redirect('task/list');
     }
 
@@ -76,9 +80,46 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $info = $request->except('_token');
+        $cur_name = Task::where('id', '=', $info['id'])->pluck('name')->toArray();
+        $info['name'] = $info['name_edit'];
+        unset($info['name_edit']);
+        if($info['type'] == 'Daily'){
+            $info['type'] = 0;
+        }
+        if($info['type'] == 'Weekly'){
+            $info['type'] = 1;
+        }
+        else{
+            $info['type'] = 2;
+        }
+        if(strcmp($cur_name[0], $info['name']) == 0){
+        }
+        else{
+            $check = Task::where('name', '=', $info['name'])->count();
+            if($check != 0){
+                $error = \Illuminate\Validation\ValidationException::withMessages([
+                    'name_edit' => ['Task name has already been taken.'],
+                ]);
+                throw $error;
+            }
+        }
+        if(array_key_exists('img_edit', $info)){
+            unset($info['img_edit']);
+            $img = app('App\Http\Controllers\UtilController')->upload();
+            $info['img'] = $img;
+            Task::where('id', '=', $info['id'])->update($info);
+        }
+        else{
+            Task::where('id', '=', $info['id'])->update($info);
+        }
+        return redirect('task/list');
+
+
+
+
     }
 
     /**
@@ -99,8 +140,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        $info = $request->except('_token');
+        Task::where('name', '=', $info['task_name'])->delete();
+        return redirect('task/list');
     }
+
 }
