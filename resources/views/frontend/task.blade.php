@@ -295,7 +295,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type='submit' class="shadow-sm btn btn-primary save-btn">Update Task</button>
+                            <button type='submit' class="shadow-sm btn btn-secondary save-btn">Update Task</button>
                         </div>
 
                     </div>
@@ -457,7 +457,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type='submit' class="shadow-sm btn btn-primary save-btn">Create Task!</button>
+                            <button type='submit' class="shadow-sm btn btn-secondary save-btn">Create Task!</button>
                         </div>
 
                     </div>
