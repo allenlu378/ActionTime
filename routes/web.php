@@ -31,12 +31,12 @@ Route::get('/gologin', 'FrontEnd\HomeController@login')->name('go-login');
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home');
 
 //////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
-Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
+Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
-Route::any('/getpublicchallenges', 'FrontEnd\ChallengeController@getPublicChallenges')->name('publicchallenges.list');
+Route::post('/getpublicchallenges', 'FrontEnd\ChallengeController@getPublicChallenges')->name('publicchallenges.list');
 Route::post('/getpendingchallenges', 'FrontEnd\ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
-Route::post('/getcurrentchallenges', 'FrontEnd\ChallengeController@getCurrentChallenges')->name('mychallenges.current.list');
-Route::post('/getcompletedchallenges', 'FrontEnd\ChallengeController@getCompletedChallenges')->name('mychallenges.completed.list');
+Route::get('/getcurrentchallenges', 'FrontEnd\ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
+Route::post('/getcompletedchallenges', 'FrontEnd\ChallengeProgressController@getCompletedChallenges')->name('mychallenges.completed.list');
 
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////
 Route::post('profile/update/{user_id}','FrontEnd\ProfileController@update')->name('profile.update');

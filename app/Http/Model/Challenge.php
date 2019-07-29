@@ -23,7 +23,7 @@ class Challenge extends Model
 //    }
 
     public function task(){
-        return $this->hasOne('App\Http\Model\Task');
+        return $this->belongsTo('App\Http\Model\Task','task_id');
     }
 
     public function user() {

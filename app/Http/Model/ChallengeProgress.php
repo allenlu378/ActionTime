@@ -19,7 +19,7 @@ class ChallengeProgress extends Model
     ];
 
     public function challenge(){
-        return $this->hasOne('App\Http\Model\Challenge');
+        return $this->belongsTo('App\Http\Model\Challenge','challenge_id');
     }
     public function user() {
         return $this->hasOne('App\Http\Providers\User');
