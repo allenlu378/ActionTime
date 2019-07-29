@@ -31,9 +31,8 @@ class Task extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assigments(){
-        return $this->hasMany('App\Http\Model\Assignment');
+    public function challenges(){
+        return $this->hasMany('App\Http\Model\Challenge');
     }
-
 
 }

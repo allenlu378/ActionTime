@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,18 +15,24 @@ class Challenge extends Model
         'verified'
     ];
 
+//    protected $appends =[
+//        'task'
+//    ];
+//    public function getTaskAttribute(){
+//        return $this->task();
+//    }
+
     public function task(){
-        return $this->hasOne('App\Http\Model\Task');
+        return $this->belongsTo('App\Http\Model\Task','task_id');
     }
-    public function startBy(){
-        return $this->hasOne('App\Http\Providers\User');
-    }
+
     public function user() {
         return $this->hasOne('App\Http\Providers\User');
     }
     public function group() {
         return $this->hasOne('App\Http\Model\Group');
     }
+
 
 
 }

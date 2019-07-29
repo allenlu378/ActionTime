@@ -177,8 +177,8 @@
 
             <div class="navbar-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href = "/welcome" class="link link--yaku">Welcome</a></li>
                     <li><a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a></li>
+                    <li><a href = "{{route('logout')}}" class="link link--yaku"><span>L</span><span>O</span><span>G</span><span>O</span><span>U</span><span>T</span></a></li>
 
                     @guest
                        {{-- <li><a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a></li>

@@ -9,7 +9,7 @@
 
                 <!-- Top Left -->
                 <div class="row">
-                    <a href = "/publicchallenges" class="card topLeft">
+                    <a href = "{{route('publicchallenges')}}" class="card topLeft">
                         <img class="card-img-top w-auto" src="{{asset('frontend/images/megaphone.png')}}">
                         <div class="card-footer">
                             <h1 class="card-title">Public Challenges</h1>

@@ -13,17 +13,17 @@
             <h1>About ActionTime</h1>
         </div>
         <div class="row">
-            <p class="desc">ActionTime is a planner that can be used to build habits and complete tasks.</p>
+            <p class="desc">ActionThjkl;ime is a planner that can be used to build habits and complete tasks.</p>
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <div class="card left">
+                <a class="card left" href = "{{route('publicchallenges')}}">
                     <img class="gif card-img-top" src="{{asset('frontend/images/megaphone.png')}}">
                 <!--<img src="{{asset('frontend/images/megaphone.png')}}" class="card-img-top" alt="...">-->
                     <div class="card-footer">
                         <h1 class="card-title">Public Challenges</h1>
                     </div>
-                </div>
+                </a>
             </div>
             <script>
                 $(document).ready(function () {

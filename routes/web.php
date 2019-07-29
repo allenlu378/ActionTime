@@ -21,16 +21,22 @@ Route::get('/', "FrontEnd\HomeController@index");
 
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('task/store', 'FrontEnd\TaskController@store')->name('task.store');
 //Auth::routes();
 
-Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
-Route::get('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
 Route::get('/task', 'FrontEnd\TaskController@create')->name('task.create');
 Route::get('/welcome', 'FrontEnd\HomeController@welcome')->name('welcome');
 Route::get('/gologin', 'FrontEnd\HomeController@login')->name('go-login');
-Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
+Route::get('/home', 'FrontEnd\HomeController@index')->name('home');
 
+//////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
+Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
+Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
+Route::post('/getpublicchallenges', 'FrontEnd\ChallengeController@getPublicChallenges')->name('publicchallenges.list');
+Route::post('/getpendingchallenges', 'FrontEnd\ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
+Route::get('/getcurrentchallenges', 'FrontEnd\ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
+Route::post('/getcompletedchallenges', 'FrontEnd\ChallengeProgressController@getCompletedChallenges')->name('mychallenges.completed.list');
 
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////
 Route::post('profile/update/{user_id}','FrontEnd\ProfileController@update')->name('profile.update');
@@ -49,8 +55,6 @@ Route::get('group/removeMember/{group_id}/{user_id}',"GroupController@removeMemb
 Route::get('group/addMember/{group_id}/{user_id}',"GroupController@addMember")->name('group.addMember');
 
 //Route::get('group/delete/{award_id}',"AwardController@delete")->name('award/delete');
-
-
 
 Route::get('task/list',"TaskController@list")->name('task/list');
 Route::get('task/form',"TaskController@form")->name('task/form');
