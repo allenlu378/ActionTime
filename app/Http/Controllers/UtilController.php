@@ -11,7 +11,13 @@ class UtilController extends Controller
     public function upload(){
 
         $input = Input::all();
-        $file = $input['img'];
+        if(array_key_exists('img', $input)){
+            $file = $input['img'];
+        }
+        else if(array_key_exists('img_edit', $input)){
+            $file = $input['img_edit'];
+        }
+
 
         if($file -> isValid()){
             $extension = $file -> getClientOriginalExtension(); //file extension

@@ -42,7 +42,7 @@
 
                 <!-- Bottom Middle -->
                 <div class="row">
-                    <a class="card bot-mid" href = "/task">
+                    <a class="card bot-mid" href = "{{route('task.list')}}">
                         <img class="btmMid-img card-img-top bounce-img w-auto" src="{{asset('frontend/images/task.png')}}">
                         <div class="card-footer">
                             <h1 class="card-title">My Tasks</h1>

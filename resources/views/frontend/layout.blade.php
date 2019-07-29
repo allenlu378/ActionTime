@@ -9,7 +9,7 @@
     <link href="{{asset('bootstrap4/css/bootstrap.min.css')}}" type="text/css" rel="stylesheet" media="all">
     <link href="{{asset('frontend/css/style.css')}}" type="text/css" rel="stylesheet" media="all">
     <link href='{{asset('frontend/css/simplelightbox.css')}}' rel='stylesheet' type='text/css'>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset("frontend/css/flexslider.css")}}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{asset("frontend/css/jquery.flipster.css")}}">
     <!-- //Custom Theme files -->
