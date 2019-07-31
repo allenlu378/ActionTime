@@ -18,10 +18,10 @@
                         <div class="row">
                             <div class="col cardBox">
                                 <div class="my-challenge-info card" :class="{ 'flip-challenge': pending_isFlipped[index] }">
-                                    <div class="front">
+                                    <div class="front" :class="{'card-hidden':pending_isFlipped[index]}">
                                         <img class="card-img-top" :src="'/upload/' + pending.task.img">
                                     </div>
-                                    <div class="back mx-4">
+                                    <div class="back mx-4" :class="{'card-hidden': !pending_isFlipped[index]}">
                                         <div class="row my-2">
                                             @{{ pending.task.description }}
                                         </div>
@@ -68,10 +68,10 @@
                         <div class="row">
                             <div class="col cardBox">
                                 <div class="my-challenge-info card" :class="{ 'flip-challenge': current_isFlipped[index] }">
-                                    <div class="front">
+                                    <div class="front" :class="{'card-hidden': current_isFlipped[index]}">
                                         <img class="card-img-top" :src="'/upload/' + current.challenge.task.img">
                                     </div>
-                                    <div class="back mx-4">
+                                    <div class="back mx-4" :class="{'card-hidden': !current_isFlipped[index]}">
                                         <div class="row my-2">
                                             @{{ current.challenge.task.description }}
                                         </div>
@@ -143,10 +143,10 @@
                         <div class="row">
                             <div class="col cardBox">
                                 <div class="my-challenge-info card" :class="{ 'flip-challenge': completed_isFlipped[index] }">
-                                    <div class="front">
+                                    <div class="front" :class="{'card-hidden': completed_isFlipped[index]}">
                                         <img class="card-img-top" :src="'/upload/' + completed.challenge.task.img">
                                     </div>
-                                    <div class="back mx-4">
+                                    <div class="back mx-4" :class="{'card-hidden': !completed_isFlipped[index]}">>
                                         <div class="row my-2">
                                             @{{ completed.challenge.task.description }}
                                         </div>
@@ -235,7 +235,7 @@
             loadPendingChallenges() {
                 let $this = this;
                 axios
-                    .post('/getpendingchallenges', {
+                    .post('/mychallenges/pending/list', {
                         id: this.pending_id,
                         "_token": "{{ csrf_token() }}",
                     })
@@ -264,7 +264,7 @@
             loadCurrentChallenges() {
                 let $this = this;
                 axios
-                    .post('/getcurrentchallenges', {
+                    .post('/mychallenges/current/list', {
                         id: this.current_id,
                         "_token": "{{ csrf_token() }}",
                     })
@@ -291,7 +291,7 @@
             loadCompletedChallenges() {
                 let $this = this;
                 axios
-                    .post('/getcompletedchallenges', {
+                    .post('/mychallenges/completed/list', {
                         id: this.completed_id,
                         "_token": "{{ csrf_token() }}",
                     })

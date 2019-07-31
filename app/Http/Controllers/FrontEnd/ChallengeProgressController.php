@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Model\ChallengeProgress;
+use App\Http\Model\Challenge;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -72,5 +73,11 @@ class ChallengeProgressController extends Controller
             $completed_challenges = "not logged in";
         }
         return $completed_challenges;
+    }
+
+    public function acceptPublicChallenges(Request $request)
+    {
+        $id = $request->input('id');
+
     }
 }

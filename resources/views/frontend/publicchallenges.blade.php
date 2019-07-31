@@ -13,10 +13,10 @@
                     <div class="row">
                         <div class="col cardBox">
                             <div class="public-challenge-info card" :class="{ 'flip-challenge': isFlipped[index] }">
-                            <div class="front">
+                            <div class="front" :class="{'card-hidden': isFlipped[index]}">
                             <img class="card-img-top" :src="'/upload/' + challenge.task.img">
                             </div>
-                            <div class="back col-md-12 h-100 my-auto">
+                            <div class="back mx-4" :class="{'card-hidden': !isFlipped[index]}">
                                 <div class="row my-2">
                                     @{{ challenge.task.description }}
                                 </div>
@@ -52,7 +52,8 @@
 
      </div>
     <script>
-
+        var auth_user = @json($user);
+        console.log(auth_user);
         var public_challenges = new Vue({
             el: '#public-challenge-container',
             data: {
@@ -60,13 +61,14 @@
                     challenges: [],
                     id: '',
                     isFlipped: [],
-                    more_challenges: true
+                    more_challenges: true,
+                    height: 0
                 },
             methods: {
                 loadChallenges() {
                     let $this = this;
                     axios
-                        .post('/getpublicchallenges', {
+                        .post('/publicchallenges/list', {
                             id: this.id,
                             "_token": "{{ csrf_token() }}",
                         })
@@ -92,7 +94,24 @@
 
 
                         })
-                    }
+                    },
+                acceptChallenge(challenge_id) {
+                   if(auth_user!=null)
+                   {
+                       axios
+                           .post('/publicchallenges/accept', {
+                               id: challenge_id,
+                               "_token": "{{ csrf_token() }}",
+                           })
+                           .then((response) => {
+                               window.location.replace(response.data());
+                           })
+                   }
+                   else {
+                       window.location.href = "/gologin";
+                   }
+
+                }
 
 
             },
