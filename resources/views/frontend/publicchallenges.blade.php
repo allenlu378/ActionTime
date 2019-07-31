@@ -44,14 +44,13 @@
                 <div class="row button-container my-2 mr-4">
                     <div class="col-md-12">
                         <input id="view-more-button" class="btn btn-primary float-right" type="button"
-                               value="View More" @click="loadChallenges()" v-if="id!=1"/>
+                               value="View More" @click="loadChallenges()" v-if="id!=1 && more_challenges"/>
                     </div>
                 </div>
             </div>
         </div>
 
      </div>
-    </div>
     <script>
 
         var public_challenges = new Vue({
@@ -60,12 +59,12 @@
 
                     challenges: [],
                     id: '',
-                    isFlipped: []
+                    isFlipped: [],
+                    more_challenges: true
                 },
             methods: {
                 loadChallenges() {
                     let $this = this;
-                    console.log('here')
                     axios
                         .post('/getpublicchallenges', {
                             id: this.id,
@@ -73,21 +72,24 @@
                         })
                         .then((response) => {
                             var currentLength =this.challenges.length;
-                            /*console.log(response.data[2].id)
-                            console.log(this.challenges)*/
                             this.challenges=this.challenges.concat( response.data);
                             var numberAdded = this.challenges.length-currentLength;
-                            /*console.log(this.challenges)*/
-                            this.id = response.data[numberAdded - 1].id;
-                            console.log(this.id)
-                            for (var i = 0;i<numberAdded;i++)
+                            if(numberAdded==0)
                             {
-                                this.isFlipped.push(false);
+                                this.moreChallenges = false;
+                            }
+                            else
+                            {
+                                this.id = response.data[numberAdded - 1].id;
+                                console.log(this.id)
+                                for (var i = 0;i<numberAdded;i++)
+                                {
+                                    this.isFlipped.push(false);
+                                }
+
+                                console.log(this.isFlipped)
                             }
 
-                            /*console.log(this.id)*/
-                            console.log(this.isFlipped)
-                            console.log(this.isFlipped.includes(0))
 
                         })
                     }

@@ -8,7 +8,7 @@ class ChallengeProgress extends Model
 {
     public $timestamps = false;
 
-    protected $table = 'challenge__progress';
+    protected $table = 'challenge_progress';
 
     protected $fillable = [
         'current_value',
@@ -19,9 +19,10 @@ class ChallengeProgress extends Model
     ];
 
     public function challenge(){
-        return $this->belongsTo('App\Http\Model\Challenge','challenge_id');
+        return $this->belongsTo('App\Http\Model\Challenge','challenge_id')->with('Task', 'startedBy');
     }
     public function user() {
-        return $this->hasOne('App\Http\Providers\User');
+        return $this->hasOne('App\User');
     }
+
 }
