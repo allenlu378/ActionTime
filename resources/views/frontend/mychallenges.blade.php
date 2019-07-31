@@ -1,39 +1,40 @@
 @extends('frontend/layout')
 @section('content')
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="{{asset('frontend/css/challenges.css')}}" type="text/css" rel="stylesheet" media="all">
     <div class="container-fluid">
         <div class="row">
             <h1>My Challenges</h1>
         </div>
-        <div id="my_challenge_container" class="row mx-4">
-            <div class="row pending-challenges my-challenge-headings">
+        <div id="my_challenge_container" class="row">
+            <div class="col-md-12 pending-challenges my-challenge-headings">
             <h2 class="mx-5">
                 Pending Challenges
             </h2>
             <div id="pending-challenge-container" class="row pending-challenge-row">
-                <div class="col-md-4" v-for="pending in computed.currentPendingChallenges()">
-                    <div class="card my-challenge my-2">
+                <div class="col-md-4" v-for="(pending,index) in pending_challenges" :key="index">
+                    <div class="card my-challenge my-2" @click="pending_isFlipped.splice(index,1,!pending_isFlipped[index])">
                         <div class="row">
                             <div class="col cardBox">
-                                <div class="my-challenge-info card">
+                                <div class="my-challenge-info card" :class="{ 'flip-challenge': pending_isFlipped[index] }">
                                     <div class="front">
-                                        <img class="card-img-top" :src=pending.image>
+                                        <img class="card-img-top" :src="'/upload/' + pending.task.img">
                                     </div>
                                     <div class="back mx-4">
                                         <div class="row my-2">
-                                            @{{ pending.description }}
+                                            @{{ pending.task.description }}
                                         </div>
                                         <div class="row my-2">
-                                            Sender:  @{{ pending.sender }}
+                                            Sender:  @{{ pending.started_by.user_name }}
                                         </div>
                                         <div class="row my-2">
-                                            Reward:  @{{ pending.reward }}
+                                            Reward:  @{{ pending.task.award_id }}
                                         </div>
                                         <div class="row button-container my-2 mr-4">
                                             <div class="col-md-12">
                                                 <input  class="btn btn-primary  float-right" type="button"
-                                                        value="Accept Challenge" />
+                                                        value="Accept Challenge" @click.stop/>
                                             </div>
                                         </div>
                                     </div>
@@ -42,54 +43,62 @@
                         </div>
                         <div class="card-footer">
                             <h1 class="card-title">
-                                @{{ pending.title }}
+                                @{{ pending.task.name }}
                             </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row button-container my-2 mr-4">
+                        <div class="col-md-12">
+                            <input id="view-more-pending-button" class="btn btn-primary float-right" type="button"
+                                   value="View More" @click="loadPendingChallenges()" v-if="pending_id!=1 && more_pending"/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row current-challenges my-challenge-headings">
+        <div class="col-md-12 current-challenges my-challenge-headings">
             <h2 class="mx-5">
                 Current Challenges
             </h2>
             <div id="current-challenge-container" class="row current-challenge-row">
-                <div class="col-md-4" v-for="accepted in computed.currentAcceptedChallenges()">
-                    <div class="card my-challenge my-2">
+                <div class="col-md-4" v-for="(current,index) in current_challenges" :key="index">
+                    <div class="card my-challenge my-2" @click="current_isFlipped.splice(index,1,!current_isFlipped[index])">
                         <div class="row">
                             <div class="col cardBox">
-                                <div class="my-challenge-info card">
+                                <div class="my-challenge-info card" :class="{ 'flip-challenge': current_isFlipped[index] }">
                                     <div class="front">
-                                        <img class="card-img-top" :src=accepted.image>
+                                        <img class="card-img-top" :src="'/upload/' + current.challenge.task.img">
                                     </div>
                                     <div class="back mx-4">
                                         <div class="row my-2">
-                                            @{{ accepted.description }}
+                                            @{{ current.challenge.task.description }}
                                         </div>
                                         <div class="row my-2">
-                                            Sender:  @{{ accepted.sender }}
+                                            Sender:  @{{ current.challenge.started_by.user_name }}
                                         </div>
                                         <div class="row my-2">
-                                            Start Time:  @{{ accepted.start_time }}
+                                            Start Time:  @{{ current.start_time }}
                                         </div>
                                         <div class="row my-2">
-                                            Due Time:  @{{ accepted.due_time }}
+                                            Due Time:  @{{ current.challenge.due_time }}
                                         </div>
                                         <div class="row my-2">
-                                            Reward:  @{{ accepted.reward }}
+                                            Reward:  @{{ current.challenge.task.award_id }}
                                         </div>
                                         <div class="row my-2">
                                             <label for="current-progress">Current Progress: </label>
-                                            <input id="current-progress" type="number" :value=accepted.current_progress :min=accepted.current_progress :max=accepted.total_value step="0.5"/>/@{{accepted.total_value}}
+                                            <input id="current-progress" type="number" :value=current.current_value :min=current.current_value :max=current.challenge.task.total_value step="0.5"/>/@{{current.challenge.task.total_value}}
                                         </div>
                                         <div class="row my-2">
                                             Percent Complete:
                                             <div class="progress col-md-12 mx-8">
-                                                <div class="progress-bar" role="progressbar" v-bind:style="{width: accepted.percent_complete + '%'}" :aria-valuenow=accepted.percent_complete aria-valuemin="0" aria-valuemax="100">@{{ accepted.percent_complete }}%</div>
+                                                <div class="progress-bar" role="progressbar" :style="{width: current.percent + '%'}" :aria-valuenow=current.percent aria-valuemin="0" aria-valuemax="100">@{{ current.percent }}%</div>
                                             </div>
                                         </div>
                                         <div class="row my-2">
-                                            Ranking: @{{accepted.ranking}}
+                                            Ranking: @{{current.ranking}}
                                         </div>
                                         <div class="row my-2">
                                             Finished:
@@ -100,7 +109,7 @@
                                         <div class="row button-container my-2 mr-4">
                                             <div class="col-md-12">
                                                 <input  class="btn btn-primary  float-right" type="button"
-                                                        value="Submit Progress" />
+                                                        value="Submit Progress" @click.stop/>
                                             </div>
                                         </div>
                                     </div>
@@ -109,49 +118,57 @@
                         </div>
                         <div class="card-footer">
                             <h1 class="card-title">
-                                @{{ accepted.title }}
+                                @{{ current.challenge.task.name }}
                             </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row button-container my-2 mr-4">
+                        <div class="col-md-12">
+                            <input id="view-more-current-button" class="btn btn-primary float-right" type="button"
+                                   value="View More" @click="loadCurrentChallenges()" v-if="current_id!=1 && more_current"/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row complete-challenges my-challenge-headings">
+        <div class="col-md-12 complete-challenges my-challenge-headings">
             <h2 class="mx-5">
                 Completed Challenges
             </h2>
             <div id="complete-challenge-container" class="row complete-challenge-row">
-                <div class="col-md-4" v-for="completed in computed.currentCompletedChallenges()">
-                    <div class="card my-challenge my-2">
+                <div class="col-md-4" v-for="(completed,index) in completed_challenges" :key="index">
+                    <div class="card my-challenge my-2" @click="completed_isFlipped.splice(index,1,!completed_isFlipped[index])">
                         <div class="row">
                             <div class="col cardBox">
-                                <div class="my-challenge-info card">
+                                <div class="my-challenge-info card" :class="{ 'flip-challenge': completed_isFlipped[index] }">
                                     <div class="front">
-                                        <img class="card-img-top" :src=completed.image>
+                                        <img class="card-img-top" :src="'/upload/' + completed.challenge.task.img">
                                     </div>
                                     <div class="back mx-4">
                                         <div class="row my-2">
-                                            @{{ completed.description }}
+                                            @{{ completed.challenge.task.description }}
                                         </div>
                                         <div class="row my-2">
-                                            Sender:  @{{ completed.sender }}
+                                            Sender:  @{{ completed.challenge.started_by.user_name }}
                                         </div>
                                         <div class="row my-2">
                                             Start Time:  @{{ completed.start_time }}
                                         </div>
                                         <div class="row my-2">
-                                            Due Time:  @{{ completed.due_time }}
+                                            Due Time:  @{{ completed.challenge.due_time }}
                                         </div>
                                         <div class="row my-2">
-                                            Reward:  @{{ completed.reward }}
+                                            Reward:  @{{ completed.challenge.task.award_id }}
                                         </div>
                                         <div class="row my-2">
-                                            Current Progress: @{{ completed.current_progress }}/@{{completed.total_value}}
+                                            Current Progress: @{{ completed.current_value }}/@{{completed.challenge.task.total_value}}
                                         </div>
                                         <div class="row my-2">
                                             Percent Complete:
                                             <div class="progress col-md-12 mx-8">
-                                                <div class="progress-bar" role="progressbar" v-bind:style="{width: completed.percent_complete + '%'}" :aria-valuenow=completed.percent_complete aria-valuemin="0" aria-valuemax="100">@{{ completed.percent_complete }}%</div>
+                                                <div class="progress-bar" role="progressbar" :style="{width: completed.percent + '%'}" :aria-valuenow=completed.percent aria-valuemin="0" aria-valuemax="100">@{{ completed.percent }}%</div>
                                             </div>
                                         </div>
                                         <div class="row my-2">
@@ -159,7 +176,7 @@
                                         </div>
                                         <div class="row my-2">
                                             Finished: @{{ completed.finish_time }}
-                                            <div v-if="completed.finished == 1" class="rounded-circle challenge-finished-indicator-success mx-2">
+                                            <div v-if="completed.finish_flag == 1" class="rounded-circle challenge-finished-indicator-success mx-2">
 
                                             </div>
                                             <div v-else class="rounded-circle challenge-finished-indicator-fail mx-2">
@@ -173,8 +190,16 @@
                         </div>
                         <div class="card-footer">
                             <h1 class="card-title">
-                                @{{ completed.title }}
+                                @{{ completed.challenge.task.name }}
                             </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row button-container my-2 mr-4">
+                        <div class="col-md-12">
+                            <input id="view-more-completed-button" class="btn btn-primary float-right" type="button"
+                                   value="View More" @click="loadCompletedChallenges()" v-if="completed_id!=1 && more_completed"/>
                         </div>
                     </div>
                 </div>
@@ -182,324 +207,126 @@
         </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $(".my-challenge").each(function () {
-                $(this).on('click',function (e) {
-                    if(!($(e.target).is('input')))
-                    {
-                        $(this).find('.my-challenge-info').toggleClass('flip-challenge');
-                    }
-                })
-
-            })
-        })
-    </script>
-
 
 <script>
-    var pending_challenge_list_db = [
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            reward: '10 points'
 
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            reward: '10 points'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            reward: '10 points'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            reward: '10 points'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            reward: '10 points'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            reward: '10 points'
-
-        }
-     ];
-
-    var current_challenge_list_db = [
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '20',
-            total_value: '25',
-            percent_complete: '80',
-            ranking: '10th',
-            finished: 0
-
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '20',
-            total_value: '25',
-            percent_complete: '80',
-            ranking: '10th',
-            finished: 0
-
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '20',
-            total_value: '25',
-            percent_complete: '80',
-            ranking: '10th',
-            finished: 0
-
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '20',
-            total_value: '25',
-            percent_complete: '80',
-            ranking: '10th',
-            finished: 0
-
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '20',
-            total_value: '25',
-            percent_complete: '80',
-            ranking: '10th',
-            finished: 0
-
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '20',
-            total_value: '25',
-            percent_complete: '80',
-            ranking: '10th',
-            finished: 0
-
-
-        }
-    ];
-
-    var completed_challenge_list_db = [
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '25',
-            total_value: '25',
-            percent_complete: '100',
-            ranking: '10th',
-            finished: 1,
-            finish_time: '7/15/19 11:00 PM'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '25',
-            total_value: '25',
-            percent_complete: '100',
-            ranking: '10th',
-            finished: 1,
-            finish_time: '7/15/19 11:00 PM'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '25',
-            total_value: '25',
-            percent_complete: '100',
-            ranking: '10th',
-            finished: 1,
-            finish_time: '7/15/19 11:00 PM'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '25',
-            total_value: '25',
-            percent_complete: '100',
-            ranking: '10th',
-            finished: 1,
-            finish_time: '7/15/19 11:00 PM'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '25',
-            total_value: '25',
-            percent_complete: '100',
-            ranking: '10th',
-            finished: 1,
-            finish_time: '7/15/19 11:00 PM'
-
-        },
-        {
-            title: 'Challenge',
-            image: 'frontend/images/person_speaking-512.png',
-            description: 'This is a challenge. Challenges encourage students to complete tasks on time ' +
-                'by motivating them with points one a task is completed. Parents can then use ' +
-                'these points to give their children rewards. The goal of this is to make learning fun.',
-            sender: 'user',
-            start_time: '7/12/19 3:43 PM',
-            due_time: '7/15/19 11:59 PM',
-            reward: '10 points',
-            current_progress: '25',
-            total_value: '25',
-            percent_complete: '100',
-            ranking: '10th',
-            finished: 1,
-            finish_time: '7/15/19 11:00 PM'
-
-        }
-    ]
     var my_challenges = new Vue({
         el: '#my_challenge_container',
         data: {
-            currentPendingChallenges: [],
-            currentAcceptedChallenges: [],
-            currentCompletedChallenges: [],
+            pending_challenges: [],
+            pending_id: '',
+            pending_isFlipped: [],
+            more_pending: true,
 
-           computed: {
-                currentPendingChallenges() {
-                    return pending_challenge_list_db.slice(0, 3);
-                },
-                currentAcceptedChallenges() {
-                    return current_challenge_list_db.slice(0, 3);
-                },
-                currentCompletedChallenges() {
-                    return completed_challenge_list_db.slice(0, 3);
-                }
+            current_challenges: [],
+            current_id: '',
+            current_isFlipped: [],
+            more_current: true,
+
+            completed_challenges: [],
+            completed_id: '',
+            completed_isFlipped: [],
+            more_completed: true
+
+
+
+        },
+        methods: {
+            loadPendingChallenges() {
+                let $this = this;
+                axios
+                    .post('/getpendingchallenges', {
+                        id: this.pending_id,
+                        "_token": "{{ csrf_token() }}",
+                    })
+                    .then((response) => {
+                        var currentLength =this.pending_challenges.length;
+                        this.pending_challenges=this.pending_challenges.concat( response.data);
+                        var numberAdded = this.pending_challenges.length-currentLength;
+                        if(numberAdded == 0)
+                        {
+                            this.more_pending = false;
+                        }
+                        else
+                        {
+                            this.pending_id = response.data[numberAdded - 1].id;
+
+                            for (var i = 0;i<numberAdded;i++)
+                            {
+                                this.pending_isFlipped.push(false);
+                            }
+                        }
+
+                    })
+
+            },
+
+            loadCurrentChallenges() {
+                let $this = this;
+                axios
+                    .post('/getcurrentchallenges', {
+                        id: this.current_id,
+                        "_token": "{{ csrf_token() }}",
+                    })
+                    .then((response) => {
+                        var currentLength =this.current_challenges.length;
+                        this.current_challenges=this.current_challenges.concat( response.data);
+                        var numberAdded = this.current_challenges.length-currentLength;
+                        if(numberAdded == 0)
+                        {
+                            this.more_current = false;
+                        }
+                        else
+                        {
+                            this.current_id = response.data[numberAdded - 1].id;
+                            for (var i = 0;i<numberAdded;i++)
+                            {
+                                this.current_isFlipped.push(false);
+                            }
+                        }
+
+
+                    })
+            },
+            loadCompletedChallenges() {
+                let $this = this;
+                axios
+                    .post('/getcompletedchallenges', {
+                        id: this.completed_id,
+                        "_token": "{{ csrf_token() }}",
+                    })
+                    .then((response) => {
+                        var currentLength =this.completed_challenges.length;
+                        this.completed_challenges=this.completed_challenges.concat( response.data);
+                        console.log(response.data)
+                        var numberAdded = this.completed_challenges.length-currentLength;
+                        if(numberAdded == 0)
+                        {
+                            this.more_completed = false;
+                        }
+                        else
+                        {
+                            this.completed_id = response.data[numberAdded - 1].id;
+                            console.log(this.completed_id)
+                            for (var i = 0;i<numberAdded;i++)
+                            {
+                                this.completed_isFlipped.push(false);
+                            }
+                        }
+
+
+
+                    })
             }
+
+
+        },
+
+        mounted() {
+            this.loadPendingChallenges()
+            this.loadCurrentChallenges()
+            this.loadCompletedChallenges()
+
         }
     })
 

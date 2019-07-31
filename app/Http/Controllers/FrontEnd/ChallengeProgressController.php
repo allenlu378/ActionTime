@@ -16,11 +16,11 @@ class ChallengeProgressController extends Controller
 
         $current_challenges = "";
 
-        $challenges = ChallengeProgress::with('Challenge')::with('Task');
+        $challenges = ChallengeProgress::with('Challenge');
         if($username)
         {
             $current_challenges = $challenges->where('challenge_progress.user_id', Auth::user()['id'])->
-            where('finish_flag',0);
+            where('finish_flag','=',0);
 
             if($request->input('id') > 0)
             {
@@ -46,17 +46,18 @@ class ChallengeProgressController extends Controller
 
         $username = Auth::user();
 
-        $challenges = ChallengeProgress::with('Challenge')::with('Task');
+        $challenges = ChallengeProgress::with('Challenge');
 
         if($username)
         {
-            $all_user_challenges  = $challenges->where('challenge_progress.user_id', Auth::user()['id']);
-            $completed_challenges = $all_user_challenges->where('finish_flag',-1)->
-            orWhere('finish_flag',1);
+            $all_user_challenges  = $challenges->where('user_id', Auth::user()['id']);
+            $completed_challenges = $all_user_challenges->where(function ($query) {
+                $query->where('finish_flag','=',-1)->orWhere('finish_flag','=',1);
+            });
 
             if($request->input('id') > 0)
             {
-                $completed_challenges = $completed_challenges->where('challenge_progress.id', '<', $request->input('id'))->orderByDesc('id')->
+                $completed_challenges = $completed_challenges->where('id', '<', $request->input('id'))->orderByDesc('challenge_progress.id')->
                 limit(3)->select('*')->get()->toJson();
             }
             else

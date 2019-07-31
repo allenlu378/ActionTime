@@ -34,7 +34,7 @@ Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mych
 Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
 Route::post('/getpublicchallenges', 'FrontEnd\ChallengeController@getPublicChallenges')->name('publicchallenges.list');
 Route::post('/getpendingchallenges', 'FrontEnd\ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
-Route::get('/getcurrentchallenges', 'FrontEnd\ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
+Route::post('/getcurrentchallenges', 'FrontEnd\ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
 Route::post('/getcompletedchallenges', 'FrontEnd\ChallengeProgressController@getCompletedChallenges')->name('mychallenges.completed.list');
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
 Route::get('/signout', 'Auth\LoginController@signOut')->name('signout');
