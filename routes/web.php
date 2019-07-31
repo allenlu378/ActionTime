@@ -28,7 +28,6 @@ Route::post('task/store', 'FrontEnd\TaskController@store')->name('task.store');
 Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 Route::get('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
 Route::get('/gologin', 'FrontEnd\HomeController@login')->name('go-login');
-Route::get('/home', 'FrontEnd\HomeController@index')->name('home');
 
 //////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
 Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
@@ -37,7 +36,8 @@ Route::post('/getpublicchallenges', 'FrontEnd\ChallengeController@getPublicChall
 Route::post('/getpendingchallenges', 'FrontEnd\ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
 Route::get('/getcurrentchallenges', 'FrontEnd\ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
 Route::post('/getcompletedchallenges', 'FrontEnd\ChallengeProgressController@getCompletedChallenges')->name('mychallenges.completed.list');
-
+Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
+Route::get('/signout', 'Auth\LoginController@signOut')->name('signout');
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////
 Route::post('profile/update/{user_id}','FrontEnd\ProfileController@update')->name('profile.update');
 Route::get('/profile', 'FrontEnd\ProfileController@create')->name('profile');

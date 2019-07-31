@@ -90,10 +90,8 @@
                     <div class="vertical-menu shadow-sm" id="scrollSpy">
                         <a href="#panel1" id='nav1' class="border border-top-0 border-left-0 border-right-0">Personal
                             Information</a>
-                        <a href="#panel2" id='nav2' class="border border-top-0 border-left-0 border-right-0">Authentication</a>
-                        <a href="#panel3" id='nav3' class=" border border-top-0 border-left-0 border-right-0">Your
-                            Groups</a>
-                        <a href="#panel4" id='nav4' class="">Achievements</a>
+                        <a href="#panel2" id='nav2' class="border border-top-0 border-left-0 border-right-0">Rewards</a>
+
                     </div>
 
                 </div>
@@ -230,7 +228,7 @@
 
                 <div id="panel2" class="card mb-5">
                     <div class="card-header">
-                        Authentication
+                        Rewards
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Cras justo odio</li>
@@ -238,26 +236,7 @@
                         <li class="list-group-item">Vestibulum at eros</li>
                     </ul>
                 </div>
-                <div id="panel3" class="card mb-5">
-                    <div class="card-header">
-                        Groups
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                </div>
-                <div id="panel4" class="card">
-                    <div class="card-header">
-                        Achievements
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                </div>
+
                 <script>
                     function panel(panel_num) {
 
