@@ -18,10 +18,9 @@ class ChallengeController extends Controller
           if($username)
           {
 
-           $progress_challenges = DB::table('challenge_progress')->where('user_id', Auth::user()['id'])->
-           select('challenge_id')->get()->toArray();
+           $progress_challenges = DB::table('challenge_progress')->where('user_id', Auth::user()['id'])->pluck('challenge_id')->toArray();
 
-           $public_challenges =$challenges->whereNotIn('challenges.id',$progress_challenges)->select('*');
+           $public_challenges =$challenges->whereNotIn('challenges.id',$progress_challenges);
           }
           else
           {
@@ -30,13 +29,13 @@ class ChallengeController extends Controller
 
           if($request->input('id') > 0)
           {
-            $public_challenges = $public_challenges->where('challenges.id', '<', $request->input('id'))->orderByDesc('id')->
+            $public_challenges = $public_challenges->where('id', '<', $request->input('id'))->orderByDesc('id')->
             limit(3)->select('*')->get()->toJson();
           }
           else
           {
 
-              $public_challenges = $public_challenges->orderByDesc('challenges.id')->limit(3)->select('*')->get()->toJson();
+              $public_challenges = $public_challenges->orderByDesc('id')->limit(3)->select('*')->get()->toJson();
           }
 
           return $public_challenges;
@@ -47,19 +46,21 @@ class ChallengeController extends Controller
 
          $pending_challenges = "";
 
-         $challenges = $challenges = Challenge::with('Task');
+         $challenges = $challenges = Challenge::with('Task','startedBy');
 
 
          if($username)
          {
 
              $progress_challenges =  DB::table('challenge_progress')->where('user_id', Auth::user()['id'])->
-             select('challenge_progress.challenge_id')->get()->toArray();
+             pluck('challenge_progress.challenge_id')->toArray();
 
              $pending_challenges = $challenges->whereNotIn('id',$progress_challenges)->
-             where('user_id', Auth::user()['id'])->orWhereIn('group_id',
-                 DB::table('group_member')->where('user_id', Auth::user()['id'])->
-                 pluck('group_id')->toArray());
+                where(function ($query) {
+                    $query->where('user_id', Auth::user()['id'])->orWhereIn('group_id',
+                    DB::table('group_member')->where('user_id', Auth::user()['id'])->
+                    pluck('group_id')->toArray());
+                });
 
              if($request->input('id') > 0)
              {

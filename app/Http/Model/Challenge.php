@@ -26,11 +26,8 @@ class Challenge extends Model
         return $this->belongsTo('App\Http\Model\Task','task_id');
     }
 
-    public function user() {
-        return $this->hasOne('App\Http\Providers\User');
-    }
-    public function group() {
-        return $this->hasOne('App\Http\Model\Group');
+    public function startedBy() {
+        return $this->belongsTo('App\User','start_by');
     }
 
 
