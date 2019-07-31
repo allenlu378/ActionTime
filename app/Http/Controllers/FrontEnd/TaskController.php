@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Model\Task;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Model\Group;
+use App\User;
 
 class TaskController extends Controller
 {
@@ -153,10 +154,13 @@ class TaskController extends Controller
     public function createAssign($name){
         $task = collect(Task::where('name','=', $name)->select('id', 'name', 'description', 'total_value', 'average_workload', 'suggested_times', 'type', 'img')->get())->toArray()[0];
         //var_dump($task);
+        $users = collect(User::select('id', 'email', 'img')->get())->toArray();
+        //var_dump($users);
+
         $id = Auth::user()['id'];
         $groups = collect(Group::where('manager_id', '=', $id)->select('id', 'name')->get())->toArray();
         //var_dump($groups);
-        return view($this->assign, compact('task', 'groups'));
+        return view($this->assign, compact('task', 'groups', 'users'));
 
     }
 

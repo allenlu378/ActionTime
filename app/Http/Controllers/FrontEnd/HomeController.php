@@ -30,7 +30,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function info(){
+        return view($this->view_path.'info');
+    }
     public function index()
     {
         if (Auth::check())

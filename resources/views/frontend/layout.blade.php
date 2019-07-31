@@ -35,7 +35,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src="{{asset('bootstrap4/js/bootstrap.js')}}"></script>
-    <script src="{{asset('/js/jquery-ui.min.js')}}"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <!-- //js -->
     <!-- web-fonts -->
@@ -183,7 +183,7 @@
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header navbar-left">
-                <h1><a href="index.html">ActionTime<span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i
+                <h1><a href="/">ActionTime<span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i
                                     class="logo-w3l3"> Laugh.</i> <i class="logo-w3l4"> Grow.</i></span></a></h1>
             </div>
             <!-- navigation -->
@@ -192,7 +192,7 @@
 
             <div class="navbar-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="/" class="link link--yaku home"><span>H</span><span>O</span><span>M</span><span>E</span></a>
+
                     </li>
                     {{--                    @guest--}}
                     {{--                        <li><a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a></li>--}}
@@ -218,12 +218,13 @@
                 </ul>
 
                 <div class="clearfix"></div>
+                @auth
                 @php $img = '../../../upload/'.Auth::user()['img']; @endphp
             </div><!-- //navigation -->
             <div class="profile">
                 <div class="row nav-row">
 
-                    <div class="col-md-9">
+                    <div class="col-md-9" id = "nav-col-9">
                         <a id = "username" href="/profile" class="link link--yaku navbar-user mt-3" onmouseover="deeperColorUser()" onmouseout="normalColorUser()">{{Auth::user()['user_name']}}</a>
 
                     </div>
@@ -262,6 +263,7 @@
                     }
                 }
             </script>
+            @endauth
 
         </div>
     </nav>
