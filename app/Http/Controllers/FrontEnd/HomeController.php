@@ -30,16 +30,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
 
 
         return view($this->view_path.'home');
     }
-    public function welcome(){
-        $login_invalid = false;
-        return view($this->view_login.'login', compact('login_invalid'));
-    }
+
     public function login(){
         $login_invalid = false;
         return view($this->view_login.'login', compact('login_invalid'));

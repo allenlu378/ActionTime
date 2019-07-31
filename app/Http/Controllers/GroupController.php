@@ -29,6 +29,7 @@ class GroupController extends Controller
         //var_dump($info);
         unset($info['name']);
         $role = 3;
+        DB::table('group_member')->insert(['group_id' => $group['id'], 'user_id' => Auth::user()['id'], 'role' => 2]);
         foreach ($info as $id) {
             if ($id == Auth::user()['id']) {
                 $role = 2;
@@ -99,6 +100,7 @@ class GroupController extends Controller
         //var_dump($info);
         unset($info['name']);
         $role = 3;
+        DB::table('group_member')->insert(['group_id' => $group['id'], 'user_id' => Auth::user()['id'], 'role' => 2]);
         foreach ($info as $id) {
             if ($id == Auth::user()['id']) {
                 $role = 2;

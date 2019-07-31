@@ -26,10 +26,9 @@ Route::post('task/store', 'FrontEnd\TaskController@store')->name('task.store');
 
 Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 Route::get('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
-Route::get('/welcome', 'FrontEnd\HomeController@welcome')->name('welcome');
 Route::get('/gologin', 'FrontEnd\HomeController@login')->name('go-login');
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
-
+Route::get('/signout', 'Auth\LoginController@signOut')->name('signout');
 
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////
 Route::post('profile/update/{user_id}','FrontEnd\ProfileController@update')->name('profile.update');
@@ -48,7 +47,6 @@ Route::get('group/removeMember/{group_id}/{user_id}',"GroupController@removeMemb
 Route::get('group/addMember/{group_id}/{user_id}',"GroupController@addMember")->name('group.addMember');
 Route::post('group/delete', 'GroupController@delete')->name('group.delete');
 Route::post('group/leave', 'GroupController@leave')->name('group.leave');
-
 //Route::get('group/delete/{award_id}',"AwardController@delete")->name('award/delete');
 
 
@@ -60,9 +58,8 @@ Route::post('task/delete', "FrontEnd\TaskController@delete")->name('task.delete'
 Route::get('task/pick/{task_id}',"TaskController@pick")->name('task/pick');
 Route::post('task/edit',"FrontEnd\TaskController@edit")->name('task.edit');
 Route::post('task/update',"TaskController@update")->name('task.update');
-Route::get('task/assign/{task_id}',"TaskController@assign")->name('task.assign');
 Route::post('task/doAssign',"TaskController@doAssign")->name('task.doAssign');
-
+Route::get('task/assign/{name}', "FrontEnd\TaskController@createAssign")->name('task.assign');
 
 
 Route::get('award/list',"AwardController@list")->name('award/list');
