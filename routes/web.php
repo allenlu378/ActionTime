@@ -28,7 +28,7 @@ Route::post('task/store', 'FrontEnd\TaskController@store')->name('task.store');
 Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 Route::get('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
 Route::get('/gologin', 'FrontEnd\HomeController@login')->name('go-login');
-
+Route::get('/info', 'FrontEnd\HomeController@info')->name('info');
 //////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
 Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');

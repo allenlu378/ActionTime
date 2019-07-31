@@ -3,6 +3,11 @@
 
     <link href="{{asset('frontend/css/assign.css')}}" type="text/css" rel="stylesheet" media="all"
           xmlns:v-bind="http://www.w3.org/1999/xhtml">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     @if($task['img'] == null)
         @php $task['img'] = "../../../frontend/images/task.png" @endphp
@@ -62,8 +67,8 @@
                                     <span class="input-group-text">Description</span>
                                 </div>
                                 <textarea id="desc_edit" name="description" class="form-control"
-                                          aria-label="With textarea" value="{{$task['description']}}"
-                                          disabled></textarea>
+                                          aria-label="With textarea"
+                                          disabled>{{$task['description']}}</textarea>
                             </div>
                         </div>
                         <div class="row row-input ml-5 mt-3">
@@ -105,11 +110,28 @@
                             </div>
 
                         </div>
+                        <div class="row ml-5 mr-0 font-si">
+                            <h3>Assign task to:</h3>
+                        </div>
                         <div class="row ml-5 mr-0">
-                            <div class="col-md-6 px-0">
+                            <div class="col-md-2">
+                                <div class="custom-control custom-radio ml-4 mt-public">
+                                    <input type="radio" class="custom-control-input" id="public" name="radio1"
+                                           onchange="changeCheck()">
+                                    <label class="custom-control-label" for="public">Public</label>
+                                </div>
+                            </div>
+                            <div class="col-md-1 px-0">
+                                <div class="custom-control custom-radio mt-radio ml-4">
+                                    <input type="radio" class="custom-control-input" id="group" name="radio1"
+                                           onchange="changeCheck()">
+                                    <label class="custom-control-label" for="group"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 px-0">
                                 <div class="input-group mt-4">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Assign to Group</span>
+                                        <span class="input-group-text" id="basic-addon1">Group</span>
                                     </div>
                                     <input id='group-search'
                                            class="form-control"
@@ -120,7 +142,69 @@
 
                                 </div>
                             </div>
+
+                            <div class="col-md-1 px-0">
+                                <div class="custom-control custom-radio mt-radio ml-4">
+                                    <input type="radio" class="custom-control-input float-left" id="user" name="radio1"
+                                           onchange="changeCheck()">
+                                    <label class="custom-control-label" for="user"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 px-0">
+                                <div class="input-group mt-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">User</span>
+                                    </div>
+                                    <input id='user-search'
+                                           class="form-control"
+                                           autocomplete="randomString"
+                                           placeholder="User"
+                                           aria-label="username"
+                                           aria-describedby="basic-addon1">
+
+                                </div>
+                            </div>
+
                         </div>
+                        <script>
+                            group_input = document.getElementById('group-search');
+                            user_input = document.getElementById('user-search');
+                            group_radio = document.getElementById('group');
+                            user_radio = document.getElementById('user');
+                            public_radio = document.getElementById('public');
+                            group_radio.checked = true;
+                            user_input.disabled = true;
+                            group_input.required = true;
+
+                            function changeCheck() {
+                                group_input.value = "";
+                                user_input.value = "";
+
+
+                                if (group_radio.checked) {
+                                    user_input.disabled = true;
+                                    group_input.disabled = false;
+                                    group_input.required = true;
+                                    user_input.required = false;
+                                    return;
+                                } else if (user_radio.checked) {
+                                    user_input.disabled = false;
+                                    group_input.disabled = true;
+                                    group_input.required = false;
+                                    user_input.required = true;
+                                    return;
+                                }
+                                else if(public_radio.checked){
+                                    user_input.disabled = true;
+                                    group_input.disabled = true;
+                                    group_input.required = false;
+                                    user_input.required = false;
+                                    return;
+                                }
+
+                            }
+
+                        </script>
                     </div>
                     <div class="col-md-3 pic-col mt-2">
                         <!-- Picture -->
@@ -142,12 +226,36 @@
                                     </span>
                             @endif
                         </div>
+                        <div class="row mt-due">
+                            <h3>Due Date</h3>
+                        </div>
+                        <div class="row">
+
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-calendar" style="font-size:24px"></i>
+                                            </span>
+
+                                        </div>
+                                        <input type='text' class="form-control" required/>
+                                        <div class="input-group-addon"></div>
+                                    </div>
+                                </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#datetimepicker1').datepicker();
+                                });
+                            </script>
+                        </div>
+
+
                     </div>
                     <div class="row">
                         <button type='submit' class="shadow-sm btn btn-secondary save-btn">Assign Task</button>
                     </div>
 
-                </div>
             </form>
         </div>
     </div>
@@ -155,12 +263,22 @@
     <script>
         task = @json($task);
         groups = @json($groups);
+        users = @json($users);
         group_names = [];
+        user_emails = [];
+        user_ids = [];
+        user_imgs = [];
         group_ids = [];
         for (let i = 0; i < groups.length; i++) {
             group_ids.push(groups[i]['id']);
             group_names.push(groups[i]['name']);
         }
+        for (let i = 0; i < users.length; i++) {
+            user_emails.push(users[i]['email']);
+            user_ids.push(users[i]['id']);
+            user_imgs.push(users[i]['img']);
+        }
+
         document.getElementById('drop_edit').value = task['type'];
 
 
@@ -187,7 +305,7 @@
                 /*create a DIV element that will contain the items (values):*/
                 a = document.createElement("DIV");
                 a.setAttribute("id", this.id + "autocomplete-list");
-                a.setAttribute("class", "nav-item autocomplete-items");
+                a.setAttribute("class", "nav-item autocomplete-items-assign");
                 /*append the DIV element as a child of the autocomplete container:*/
                 this.parentNode.appendChild(a);
                 /*for each item in the array...*/
@@ -205,7 +323,7 @@
                             /*make the matching letters bold:*/
                             b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>" + "<span>" + arr[i].substr(val.length) + "</span>";
                             b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                            b.addEventListener("click", function(e) {
+                            b.addEventListener("click", function (e) {
                                 /*insert the value for the autocomplete text field:*/
                                 inp.value = this.getElementsByTagName("input")[0].value;
                                 /*close the list of autocompleted values,
@@ -268,7 +386,7 @@
             function closeAllLists(elmnt) {
                 /*close all autocomplete lists in the document,
                 except the one passed as an argument:*/
-                var x = document.getElementsByClassName("autocomplete-items");
+                var x = document.getElementsByClassName("autocomplete-items-assign");
                 for (var i = 0; i < x.length; i++) {
                     if (elmnt != x[i] && elmnt != inp) {
                         x[i].parentNode.removeChild(x[i]);
@@ -287,6 +405,7 @@
         }
 
         autocomplete(document.getElementById("group-search"), group_names);
+        autocomplete(document.getElementById("user-search"), user_emails);
 
     </script>
 

@@ -162,24 +162,24 @@
     autocomplete(document.getElementById("friend-search"), users);
     </script>-->
 <!-- header -->
-<div class="headerw3l">
+<div class="headerw3l" id = "header">
     <nav class="navbar navbar-default">
         <div class="container">
-            <!--<div class="navbar-header navbar-left">
-                <h1><a href="index.html">Kids Care <span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i class="logo-w3l3"> Laugh.</i> <i class="logo-w3l4"> Grow.</i></span></a></h1>
-            </div>-->
+            <div class="navbar-header navbar-left">
+                <h1><a href="/">ActionTime <span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i class="logo-w3l3"> Laugh.</i> <i class="logo-w3l4"> Grow.</i></span></a></h1>
+            </div>
             <!-- navigation -->
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="navbar-right" id="bs-example-navbar-collapse-1">
+{{--            <div class="navbar-right" id="bs-example-navbar-collapse-1">--}}
 
-                <a href = "/login" class="link link--yaku">{{ __('Login') }}</a>
-                <a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a>
-                @guest
-                    <a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a>
+{{--                <a href = "/login" class="link link--yaku">{{ __('Login') }}</a>--}}
+{{--                <a href="/" class="link link--yaku"><span>H</span><span>O</span><span>M</span><span>E</span></a>--}}
+{{--                @guest--}}
+{{--                    <a href="{{ route('login') }}" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>I</span><span>N</span></a>--}}
 
-                    <a href="#" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>U</span><span>P</span></a>
-                @else
+{{--                    <a href="#" class="link link--yaku"><span>S</span><span>I</span><span>G</span><span>N</span><span>&nbsp;</span><span>U</span><span>P</span></a>--}}
+{{--                @else--}}
 
 {{--                    <a href="#" class="dropdown-toggle link link--yaku" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>{{Auth::user()->name}}</span><span class="caret"></span>--}}
 {{--                        <ul class="dropdown-menu">--}}
@@ -194,11 +194,11 @@
 {{--                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
 {{--                        @csrf--}}
 {{--                    </form>--}}
-                @endguest
+{{--                @endguest--}}
 
 
-                <div class="clearfix"> </div>
-            </div><!-- //navigation -->
+{{--                <div class="clearfix"> </div>--}}
+{{--            </div><!-- //navigation -->--}}
         </div>
     </nav>
 </div>
@@ -207,11 +207,30 @@
     @yield('content')
 </div>
 <!-- footer -->
-<div class="copy-right fixed-bottom">
+<div class="copy-right fixed-bottom" id = "footer">
     <div class="container">
-        <p>© 2018 Kids Care . All rights reserved | Design by <a href="#"> Monmouth University</a></p>
+        <p>© 2019 ActionTime . All rights reserved | Design by <a href="#"> Monmouth University</a></p>
     </div>
 </div>
+<script>
+    function randomColor() {
+        var letters = '89ABC';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 5)];
+        }
+        return color;
+    }
+
+    color = randomColor();
+    var header = document.getElementById("header");
+    header.style.backgroundColor = color;
+    var footer = document.getElementById("footer");
+    footer.style.background = color;
+
+
+
+</script>
 <script>
     let copyright = $(".copy-right");
     let copyrightHeight = parseFloat(copyright.css("height"));

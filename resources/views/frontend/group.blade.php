@@ -113,7 +113,7 @@
 
                 </div>
 
-                <div id="panel2" class="card mb-5">
+                <div id="panel2" class="card">
                     <div class="card-header mb-3">
                         Your Groups
                     </div>
