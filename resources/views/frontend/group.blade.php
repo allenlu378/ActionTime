@@ -18,8 +18,7 @@
                             You</a>
                         <a href="#panel2" id='nav2' class="border border-top-0 border-left-0 border-right-0">Your
                             Groups</a>
-                        <a href="#panel3" id='nav3'
-                           class=" border border-top-0 border-left-0 border-right-0">Invites</a>
+
 
                     </div>
                 </div>
@@ -84,7 +83,7 @@
                                             <div class="group-header-back card-header mb-3">
                                                 @{{ group.Name }}
                                             </div>
-                                            <i onclick="flip()" v-bind:id="'back-' + group.Id"
+                                            <i v-bind:id="'back-' + group.Id"
                                                class="fas fa-angle-double-left icon-back ml-2"></i>
                                         </div>
                                         <div class="list-members">
@@ -153,7 +152,7 @@
                                             <div class="group-header-back card-header mb-3">
                                                 @{{ group.Name }}
                                             </div>
-                                            <i onclick="flip()" v-bind:id="'back-' + group.Id"
+                                            <i v-bind:id="'back-' + group.Id"
                                                class="fas fa-angle-double-left icon-back ml-2"></i>
                                         </div>
                                         <div class="list-members">
@@ -178,16 +177,7 @@
                     </div>
 
                 </div>
-                <div id="panel3" class="card">
-                    <div class="card-header">
-                        Invites
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                </div>
+
 
 
             </div>
@@ -468,6 +458,7 @@
         var ids = @json($ids);
         var emails = @json($emails);
         var pics = @json($pics);
+        email = @json($email);
         added_members = [];
         pic = "";
         $(document).ready(function () {
@@ -502,11 +493,14 @@
 
         function list_members(edit) {
             clear(edit);
+            var num_members = 0;
             for (let j = 0; j < added_members.length; j++) {
                 i = added_members[j];
                 c = document.createElement("DIV");
                 c.setAttribute("class", "hints mb-3");
-
+                if(emails[i] == email){
+                    continue;
+                }
                 if (pics[i] == null) {
                     pic = '../../../images/prof.png';
                 } else {
@@ -514,7 +508,7 @@
                 }
 
                 /*make the matching letters bold:*/
-                c.innerHTML = "<span class = 'mem-lbl mr-2 font-weight-light' >" + (j + 1) + ".</span>";
+                c.innerHTML = "<span class = 'mem-lbl mr-2 font-weight-light' >" + (num_members + 1) + ".</span>";
                 c.innerHTML += "<img class = 'member-pic" + edit + "'>";
                 c.innerHTML += "<input class = 'd-none " + edit + "'>";
                 c.innerHTML += "<span class = 'font-weight-light'>" + emails[i] + "</span>";
@@ -524,11 +518,11 @@
                 var none = "d-none " + edit;
                 var remove_name = 'remove-button' + edit;
                 var pic_ele = 'member-pic' + edit;
-                document.getElementsByClassName(none)[j].setAttribute('name', 'member' + (j + 1));
-                document.getElementsByClassName(none)[j].setAttribute('value', ids[i]);
-                document.getElementsByClassName(pic_ele)[j].src = pic;
-                document.getElementsByClassName(remove_name)[j].setAttribute('onclick', "remove(" + i + ", '" + edit + "')");
-
+                document.getElementsByClassName(none)[num_members].setAttribute('name', 'member' + (num_members + 1));
+                document.getElementsByClassName(none)[num_members].setAttribute('value', ids[i]);
+                document.getElementsByClassName(pic_ele)[num_members].src = pic;
+                document.getElementsByClassName(remove_name)[num_members].setAttribute('onclick', "remove(" + i + ", '" + edit + "')");
+                num_members +=1;
 
             }
         }
@@ -581,6 +575,9 @@
                 /*for each item in the array...*/
                 var num_hints = 0;
                 for (i = 0; i < arr.length; i++) {
+                    if(arr[i] == email){
+                        continue;
+                    }
                     /*check if the item starts with the same letters as the text field value:*/
                     if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                         /*create a DIV element for each matching element:*/

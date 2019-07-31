@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Task;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Model\Group;
 
 class TaskController extends Controller
 {
@@ -145,6 +146,18 @@ class TaskController extends Controller
         $info = $request->except('_token');
         Task::where('name', '=', $info['task_name'])->delete();
         return redirect('task/list');
+    }
+
+    protected $assign = 'frontend/assign';
+
+    public function createAssign($name){
+        $task = collect(Task::where('name','=', $name)->select('id', 'name', 'description', 'total_value', 'average_workload', 'suggested_times', 'type', 'img')->get())->toArray()[0];
+        //var_dump($task);
+        $id = Auth::user()['id'];
+        $groups = collect(Group::where('manager_id', '=', $id)->select('id', 'name')->get())->toArray();
+        //var_dump($groups);
+        return view($this->assign, compact('task', 'groups'));
+
     }
 
 }

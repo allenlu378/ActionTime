@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <h1 class="card-title">
-                                        @{{ task.Name }}
+                                        @{{ task.DisplayName }}
                                     </h1>
                                 </div>
 
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <h1 class="card-title">
-                                        @{{ task.Name }}
+                                        @{{ task.DisplayName }}
                                     </h1>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                                     <button v-bind:id = "'edit-'+task.Name" class="btn btn-primary w-100 btn-card-left">Edit</button>
                                 </div>
                                 <div class="col-sm-6 px-0">
-                                    <button class="btn btn-success w-100 btn-card-right">Assign</button>
+                                    <a v-bind:id = "'assign-'+task.Name" class="btn btn-success w-100 btn-card-right">Assign</a>
                                 </div>
                             </div>
                             <div class="back-btns row mx-0 w-100">
@@ -113,7 +113,7 @@
                         task_name = card_id.slice(5);
                         var task_edit = getTask(task_name);
                         $("#task_id").val(task_edit['Id']);
-                        $("#name_edit").val(task_edit['Name']);
+                        $("#name_edit").val(task_edit['DisplayName']);
                         $("#desc_edit").val(task_edit['Description']);
                         $("#total_edit").val(task_edit['Total']);
                         $("#drop_edit").val(task_edit['Type']);
@@ -122,6 +122,15 @@
 
 
                     })
+
+                })
+            });
+            $(document).ready(function () {
+                $(".btn-success").each(function () {
+                    var task_id = $(this).attr('id');
+                    var task_name = task_id.slice(7);
+                    task_name = task_name.split('-').join(' ');
+                    $(this).attr('href', "assign/"+task_name);
 
                 })
             });
@@ -295,7 +304,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type='submit' class="shadow-sm btn btn-primary save-btn">Update Task</button>
+                            <button type='submit' class="shadow-sm btn btn-secondary save-btn">Update Task</button>
                         </div>
 
                     </div>
@@ -457,7 +466,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button id = "btn_create" type='submit' class="shadow-sm btn btn-secondary save-btn">Create Task!</button>
+                            <button type='submit' class="shadow-sm btn btn-secondary save-btn">Create Task!</button>
                         </div>
 
                     </div>
@@ -521,7 +530,8 @@
         for (index in tasks_unparsed) {
             var task = {};
             task['Id'] = tasks_unparsed[index]['id'];
-            task['Name'] = tasks_unparsed[index]['name'];
+            task['DisplayName'] = tasks_unparsed[index]['name'];
+            task['Name'] = tasks_unparsed[index]['name'].split(' ').join('-');
             task['Description'] = tasks_unparsed[index]['description'];
             task['Total'] = tasks_unparsed[index]['total_value'];
             task['Average'] = tasks_unparsed[index]['average_workload'];
