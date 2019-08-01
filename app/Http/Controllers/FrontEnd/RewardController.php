@@ -12,7 +12,9 @@ class RewardController extends Controller
     public $reward_path = 'frontend/';
 
     public function list(){
-        return view($this->reward_path.'rewards');
+        $user = Auth::user();
+        $rewards = collect(Award::where('offered_by', '=', $user['id'])->select('id', 'award_name', 'description', 'total_num', 'remaining_num', 'img')->get())->toArray();
+        return view($this->reward_path.'rewards', compact('rewards', 'user'));
     }
 
     public function store(Request $request){

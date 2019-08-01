@@ -472,6 +472,64 @@
         @if($errors->has('award_name'))
             <script>flip_y();</script>
         @endif
+        <script>
+            rewards_unparsed = @json($rewards);
+            var rewards_list_db = [];
+
+            function randomColor() {
+                var letters = '01234567';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 8)];
+                }
+                return color;
+            }
+
+            function getReward(name) {
+                for (index in rewards_list_db) {
+                    if (rewards_list_db[index]['Name'] == name) {
+                        return rewards_list_db[index];
+                    }
+                }
+            }
+
+            length = rewards_unparsed.length;
+            for (index in rewards_unparsed) {
+                var reward = {};
+                reward['Id'] = rewards_unparsed[index]['id'];
+                reward['DisplayName'] = rewards_unparsed[index]['name'];
+                reward['Name'] = rewards_unparsed[index]['award_name'].split(' ').join('-');
+                reward['Description'] = rewards_unparsed[index]['description'];
+                reward['Total'] = rewards_unparsed[index]['total_num'];
+                reward['Remaining'] = rewards_unparsed[index]['remaining_num'];
+
+                if (rewards_unparsed[index]['img'] == null) {
+                    reward['Image'] = "../../../frontend/images/task.png";
+                } else {
+                    reward['Image'] = rewards_unparsed[index]['img'];
+                }
+                if (length - index <= 3) {
+                    reward['LastRow'] = true;
+                } else {
+                    reward['LastRow'] = false;
+                }
+                rewards_list_db.push(reward);
+            }
+
+
+            var tasksVue = new Vue({
+                el: '#task-cont',
+                data: {
+                    tasks: [],
+                    computed: {
+                        tasks() {
+
+                            return tasks_list_db;
+                        },
+                    }
+                }
+            });
+        </script>
 
     </div>
 @endsection
