@@ -12,7 +12,7 @@
 .bot-mid{
     background: #996533;
 }
-.container-fluid{
+body {
     background-image: url("../../../frontend/images/background.jpg");
     background-size: 100% 100%;
 
