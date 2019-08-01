@@ -11,6 +11,8 @@ class ChallengeProgress extends Model
     protected $table = 'challenge_progress';
 
     protected $fillable = [
+        'challenge_id',
+        'user_id',
         'current_value',
         'percent',
         'ranking',

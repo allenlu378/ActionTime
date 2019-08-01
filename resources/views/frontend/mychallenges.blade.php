@@ -34,7 +34,7 @@
                                         <div class="row button-container my-2 mr-4">
                                             <div class="col-md-12">
                                                 <input  class="btn btn-primary  float-right" type="button"
-                                                        value="Accept Challenge" @click.stop/>
+                                                        value="Accept Challenge" @click.stop @click="acceptPending(pending.id)"/>
                                             </div>
                                         </div>
                                     </div>
@@ -260,6 +260,17 @@
                     })
 
             },
+            acceptPending(challenge_id) {
+
+                    axios
+                        .post('/mychallenges/pending/create', {
+                            id: challenge_id,
+                            "_token": "{{ csrf_token() }}",
+                        })
+                        .then((response) => {
+                            window.location.replace(response.data);
+                        })
+                },
 
             loadCurrentChallenges() {
                 let $this = this;

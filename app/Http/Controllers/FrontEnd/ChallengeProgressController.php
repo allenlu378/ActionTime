@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Model\ChallengeProgress;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class ChallengeProgressController extends Controller
 {
@@ -73,4 +74,24 @@ class ChallengeProgressController extends Controller
         }
         return $completed_challenges;
     }
+
+
+    public function acceptChallenges(Request $request)
+    {
+        $id = $request->input('id');
+        $user_id = Auth::user()['id'];
+        $current_value = 0;
+        $percent = 0;
+        $current_participants = ChallengeProgress::where('challenge_id',$id)->distinct()->count('ranking');
+        $rank = $current_participants +1;
+        $time = Carbon::now();
+        $finished = 0;
+        ChallengeProgress::create(['challenge_id' => $id, 'user_id' => $user_id, 'current_value' => $current_value,
+            'percent' => $percent, 'ranking' => $rank, 'start_time' => $time, 'finish_flag' => $finished]);
+        return route('mychallenges');
+
+
+
+    }
+
 }
