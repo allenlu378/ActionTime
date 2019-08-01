@@ -39,13 +39,21 @@ Route::post('/reward/store','FrontEnd\RewardController@store')->name('reward.sto
 
 //////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
 Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
-Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
-Route::post('/publicchallenges/list', 'FrontEnd\ChallengeController@getPublicChallenges')->name('publicchallenges.list');
+
 Route::post('/mychallenges/pending/list', 'FrontEnd\ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
+Route::post('/mychallenges/pending/create', 'FrontEnd\ChallengeProgressController@acceptChallenges')->name('mychallenges.pending.create');
+
 Route::post('/mychallenges/current/list', 'FrontEnd\ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
 Route::post('/mychallenges/completed/list', 'FrontEnd\ChallengeProgressController@getCompletedChallenges')->name('mychallenges.completed.list');
+
+Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
+
+Route::post('/publicchallenges/list', 'FrontEnd\ChallengeController@getPublicChallenges')->name('publicchallenges.list');
+Route::post('/publicchallenges/pending/create', 'FrontEnd\ChallengeProgressController@acceptChallenges')->name('publicchallenges.create');
+
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
 Route::get('/signout', 'Auth\LoginController@signOut')->name('signout');
+
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////
 Route::post('profile/update/{user_id}','FrontEnd\ProfileController@update')->name('profile.update');
 Route::get('/profile', 'FrontEnd\ProfileController@create')->name('profile');

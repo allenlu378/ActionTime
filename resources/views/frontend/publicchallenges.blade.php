@@ -26,7 +26,7 @@
                                 <div class="row button-container my-2 mr-4">
                                     <div class="col-md-12">
                                         <input  class="btn btn-primary  float-right" type="button"
-                                                value="Accept Challenge" @click.stop/>
+                                                value="Accept Challenge" @click.stop @click="acceptChallenge(challenge.id)"/>
                                     </div>
                                 </div>
                             </div>
@@ -73,19 +73,15 @@
                             "_token": "{{ csrf_token() }}",
                         })
                         .then((response) => {
-                            var currentLength =this.challenges.length;
-                            this.challenges=this.challenges.concat( response.data);
-                            var numberAdded = this.challenges.length-currentLength;
-                            if(numberAdded==0)
-                            {
+                            var currentLength = this.challenges.length;
+                            this.challenges = this.challenges.concat(response.data);
+                            var numberAdded = this.challenges.length - currentLength;
+                            if (numberAdded == 0) {
                                 this.moreChallenges = false;
-                            }
-                            else
-                            {
+                            } else {
                                 this.id = response.data[numberAdded - 1].id;
                                 console.log(this.id)
-                                for (var i = 0;i<numberAdded;i++)
-                                {
+                                for (var i = 0; i < numberAdded; i++) {
                                     this.isFlipped.push(false);
                                 }
 
@@ -94,25 +90,24 @@
 
 
                         })
-                    },
+
+
+                },
+
                 acceptChallenge(challenge_id) {
-                   if(auth_user!=null)
-                   {
-                       axios
-                           .post('/publicchallenges/accept', {
-                               id: challenge_id,
-                               "_token": "{{ csrf_token() }}",
-                           })
-                           .then((response) => {
-                               window.location.replace(response.data());
-                           })
-                   }
-                   else {
-                       window.location.href = "/gologin";
-                   }
-
+                    if (auth_user != null) {
+                        axios
+                            .post('/publicchallenges/pending/create', {
+                                id: challenge_id,
+                                "_token": "{{ csrf_token() }}",
+                            })
+                            .then((response) => {
+                                window.location.replace(response.data);
+                            })
+                    } else {
+                        window.location.href = "/gologin";
+                    }
                 }
-
 
             },
             mounted() {
