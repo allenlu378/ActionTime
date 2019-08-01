@@ -36,6 +36,10 @@ class LoginController extends Controller
      *
      * @return void
      */
+    public function signOut(){
+        Auth::logout();
+        return redirect('/gologin');
+    }
     public function login(Request $request){
         $credentials = $request->except('_token');
         $credentials['email'] = $credentials['email_log'];
@@ -58,7 +62,7 @@ class LoginController extends Controller
 
     public function logout(Request $request) {
         Auth::logout();
-        return redirect('/welcome');
+        return redirect('/gologin');
     }
 
 }

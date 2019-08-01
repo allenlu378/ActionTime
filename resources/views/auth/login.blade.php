@@ -195,12 +195,12 @@
 
 
             <div class="col-sm-3">
-                <div class="card right">
-                    <img src="{{asset('frontend/images/info.jpg')}}" class="card-img-top" alt="...">
+                <a class="card right" href="{{route('info')}}">
+                    <img src="{{asset('frontend/images/info.png')}}" class="card-img-top" alt="...">
                     <div class="card-footer">
                         <h1 class="card-title">Learn More</h1>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>

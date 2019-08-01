@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +16,8 @@ class PublicChallengesController extends Controller
      */
     public function index()
     {
-        return view($this->view_path.'publicchallenges');
+        $user = Auth::user();
+        return view($this->view_path.'publicchallenges', compact('user'));
     }
 
     /**

@@ -5,11 +5,11 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Left Column -->
-            <div class="col-md-4 left-col">
+            <div class="col-md-2 left-col mx-2">
 
                 <!-- Top Left -->
-                <div class="row">
-                    <a href = "{{route('publicchallenges')}}" class="card topLeft">
+                <div class="row mb-3">
+                    <a href = "/publicchallenges" class="card topLeft">
                         <img class="card-img-top w-auto" src="{{asset('frontend/images/megaphone.png')}}">
                         <div class="card-footer">
                             <h1 class="card-title">Public Challenges</h1>
@@ -29,9 +29,9 @@
                 </div>
             </div>
             <!-- Middle Column -->
-            <div class="col-md-4 mid-col">
+            <div class="col-md-2 mid-col mx-2">
                 <!-- Top Middle -->
-                <a class="row" href = '/mychallenges'>
+                <a class="row mb-3" href = '/mychallenges'>
                     <div class="card top-mid">
                         <img class="topMid-img card-img-top bounce-img w-auto" src="{{asset('frontend/images/person_speaking-512.png')}}">
                         <div class="card-footer">
@@ -42,7 +42,7 @@
 
                 <!-- Bottom Middle -->
                 <div class="row">
-                    <a class="card bot-mid" href = "/task">
+                    <a class="card bot-mid" href = "{{route('task.list')}}">
                         <img class="btmMid-img card-img-top bounce-img w-auto" src="{{asset('frontend/images/task.png')}}">
                         <div class="card-footer">
                             <h1 class="card-title">My Tasks</h1>
@@ -66,8 +66,8 @@
             </script>
 
             <!-- Top Right -->
-            <div class="col-md-4 right-col">
-                <div class="row">
+            <div class="col-md-2 right-col mx-2">
+                <div class="row mb-3">
                     <a class="card topRight" href="/profile">
                         <img src="{{asset('frontend/images/login.png')}}"
                              class="topRight-img bounce-img img-responsive card-img-top w-auto" alt="...">
