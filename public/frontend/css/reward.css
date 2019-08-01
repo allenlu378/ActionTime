@@ -1,0 +1,325 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.border {
+    border: 2px solid blue !important;
+}
+
+.container-fluid {
+    height: 70vh;
+    width: 70%;
+    transform-style: preserve-3d;
+    transition: all 2s;
+}
+
+.row-content {
+    height: auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+}
+.col-md-3, .col-md-4{
+    padding: 0;
+}
+
+/*Flip*/
+.flip-Y {
+    transform: rotateY(180deg) !important;
+    transition: all 2s;
+}
+.flip-X {
+    transform: rotateX(180deg) !important;
+    transition: all 2s;
+}
+
+.row-input{
+    width: 95%;
+}
+.list-input{
+    width: 80%;
+    margin-top: -9%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.front {
+    height: 0 !important;
+    transform: rotateY(0deg);
+}
+.mb-8{
+    margin-bottom: 8rem !important;
+}
+
+.back {
+    height: 0;
+    transform: rotateY(180deg);
+}
+.back-edit{
+    position: absolute;
+    transform: rotateX(180deg);
+    height: 100%;
+    margin-right: 15px;
+}
+.front-task {
+    transform: rotateY(0deg);
+}
+
+.back-task {
+    transform: rotateY(180deg);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+.front, .back, .back-edit {
+    backface-visibility: hidden;
+}
+.front-task, .back-task {
+    backface-visibility: hidden;
+}
+
+.invalid-feedback{
+    color: red;
+    display: block;
+}
+
+form {
+    width: 100%;
+}
+.ml-7{
+    margin-left: 5rem !important;
+}
+.mt-12 {
+    margin-top: 12rem !important;
+}
+
+/*Back*/
+
+.dropdown {
+    position: relative;
+    text-align:center;
+}
+
+.prof-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: relative;
+    height: 25vh;
+    width: 25vh;
+    overflow: hidden;
+    border: 2px solid rgba(0, 0, 0, .4);
+}
+.pic-col{
+    margin-top: -2%;
+}
+.prof-pic {
+    flex-shrink: 0;
+    width: auto;
+    height: 105%;
+    position: relative;
+    cursor: pointer;
+}
+
+.overlay {
+    opacity: 0;
+    width: 25vh;
+    height: 25vh;
+    border-radius: 50%;
+    position: absolute;
+    background-color: #000;
+    transition: .5s ease;
+    top: 0;
+}
+
+.prof-container:hover .overlay {
+    opacity: 0.6;
+}
+
+.prof-icon-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+}
+
+.prof-icon {
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.prof-icon:hover {
+    opacity: 1;
+    transition: ease 0.5s;
+}
+
+.file-upload {
+    display: none;
+}
+
+.dropdown-row {
+}
+
+.dropdown-toggle {
+    background-color: #e9ecef;
+    color: black;
+    border: 1px solid #ced4da;
+}
+.task-cont{
+    width: 95%;
+    margin: auto;
+    overflow: auto;
+    height: 45vh;
+}
+.card{
+    width: 90%;
+    z-index: 100;
+    margin: auto;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: transform 2s;
+    position: relative;
+}
+
+.card-footer{
+    background: rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 200;
+}
+
+
+.task-row{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.card-img-top{
+    width: auto;
+    position: relative;
+}
+.ml-4_2{
+    margin-left: 4.2rem !important;
+}
+.img-cont{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+.task-background{
+    background-size: cover;
+    background-position-x: center;
+}
+.description{
+    height: 31%;
+    overflow: auto;
+}
+.back-title{
+    background-color: rgba(0,0,0,0.2);
+    border-bottom-left-radius: 20% 100%;
+    border-bottom-right-radius: 20% 100%;
+    margin-bottom: .3rem !important;
+    color: white;
+}
+.vert-line{
+    border-left: 1px solid rgba(0,0,0,0.125);
+    width: 0;
+    height: 100%;
+}
+.back-title-description{
+    color: white;
+    border-bottom-left-radius: 10% 100%;
+    border-bottom-right-radius: 10% 100%;
+}
+.attr-row{
+    height: 19.1%;
+}
+.btn-row{
+    width: 90%;
+    margin: auto;
+    transition: transform 2s;
+    transform-style: preserve-3d;
+    z-index: 200;
+    position: relative;
+}
+.btn-card-left{
+    border-radius: 0 0 0 .25rem;
+}
+.btn-card-right{
+    border-radius: 0 0 .25rem 0;
+    color: white !important;
+}
+.btn-card{
+    border-radius: 0 0 .25rem .25rem;
+}
+
+
+
+
+
+
+/*Flip*/
+.task-flip {
+    transform: rotateY(180deg) !important;
+    animation: 1s background;
+    animation-fill-mode: forwards;
+}
+@keyframes background {
+    99% {
+        background-size: cover;
+        background-position-x: center;
+    }
+    100% {
+        background-color: white;
+    }
+}
+.btns-flip{
+    transform: rotateZ(180deg) rotateX(180deg) !important;
+}
+.front-btns{
+    transform: rotateY(0deg);
+}
+.back-btns{
+    transform: rotateY(180deg);
+    position: absolute;
+    height: 100%;
+    z-index: 1000;
+    background: white;
+}
+.front-btns, .back-btns{
+    backface-visibility: hidden;
+}
+
+

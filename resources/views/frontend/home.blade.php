@@ -19,13 +19,13 @@
 
                 <!-- Bottom Left -->
                 <div class="row">
-                    <div class="card bottomLeft">
+                    <a class="card bottomLeft" href = "{{route('reward.list')}}">
                         <img src="{{asset('frontend/images/rewards.png')}}"
                              class="rotate-img img-responsive card-img-top w-auto" alt="...">
                         <div class="card-footer">
                             <h1 class="card-title">Rewards</h1>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <!-- Middle Column -->
@@ -33,7 +33,7 @@
                 <!-- Top Middle -->
                 <a class="row mb-3" href = '/mychallenges'>
                     <div class="card top-mid">
-                        <img class="topMid-img card-img-top bounce-img w-auto" src="{{asset('frontend/images/person_speaking-512.png')}}">
+                        <img class="topMid-img card-img-top bounce-img w-auto" src="{{asset('frontend/images/challenges.png')}}">
                         <div class="card-footer">
                             <h1 class="card-title">My Challenges</h1>
                         </div>

@@ -29,6 +29,14 @@ Route::get('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mych
 Route::get('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
 Route::get('/gologin', 'FrontEnd\HomeController@login')->name('go-login');
 Route::get('/info', 'FrontEnd\HomeController@info')->name('info');
+
+
+Route::get('/reward/list', 'FrontEnd\RewardController@list')->name('reward.list');
+Route::post('/reward/store','FrontEnd\RewardController@store')->name('reward.store');
+
+
+
+
 //////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
 Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
