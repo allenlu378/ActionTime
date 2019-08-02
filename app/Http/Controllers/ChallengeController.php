@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\FrontEnd;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,11 +10,15 @@ use App\Http\Controllers\Controller;
 
 class ChallengeController extends Controller
 {
+    public function assignChallenge(Request $request)
+    {
+
+    }
     public function getPublicChallenges(Request $request) {
 
           $username = Auth::user();
 
-          $challenges = Challenge::with('Task')->where('challenge_type',0)->where('verified',1);
+          $challenges = Challenge::with('Task')->where('challenge_type',0)->where('verified','=',1);
           if($username)
           {
 
@@ -79,6 +83,28 @@ class ChallengeController extends Controller
          }
          return $pending_challenges;
      }
+     public function getUnverifiedPublicChallenges()
+     {
+         $admin_id = DB::table('user_group')->where('name','admin')->pluck('id');
+         $user_admin = DB::table('group_member')->where('group_id',$admin_id)->
+         where('user_id', Auth::user()['id'])->get()->count();
+         $challenges = Challenge::with('Task')->where('challenge_type',0)->
+         where('verified','=',0)->select('*')->get()->toJson();
+         if($user_admin > 0)
+         {
+             return $challenges;
+         }
+         return 'not admin';
+     }
+
+    public function VerifyPublicChallenge(Request $request)
+    {
+        $id = $request->input('id');
+        $decision = $request->input('admin_decision');
+        Challenge::where('id',$id)->update(['verified' => $decision]);
+        return route('publicchallenges');
+
+    }
 
 
 }

@@ -232,7 +232,7 @@
                         <div class="row">
 
                                 <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker1'>
+                                    <div class='input-group date' id=>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fa fa-calendar" style="font-size:24px"></i>
@@ -243,11 +243,7 @@
                                         <div class="input-group-addon"></div>
                                     </div>
                                 </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#datetimepicker1').datepicker();
-                                });
-                            </script>
+
                         </div>
 
 

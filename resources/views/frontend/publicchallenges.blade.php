@@ -62,7 +62,7 @@
                     id: '',
                     isFlipped: [],
                     more_challenges: true,
-                    height: 0
+
                 },
             methods: {
                 loadChallenges() {

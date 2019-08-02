@@ -32,19 +32,24 @@ Route::get('/info', 'FrontEnd\HomeController@info')->name('info');
 //////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
 Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 
-Route::post('/mychallenges/pending/list', 'FrontEnd\ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
-Route::post('/mychallenges/pending/create', 'FrontEnd\ChallengeProgressController@acceptChallenges')->name('mychallenges.pending.create');
+Route::post('/mychallenges/pending/list', 'ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
+Route::post('/mychallenges/pending/create', 'ChallengeProgressController@acceptChallenges')->name('mychallenges.pending.create');
 
-Route::post('/mychallenges/current/list', 'FrontEnd\ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
-Route::post('/mychallenges/completed/list', 'FrontEnd\ChallengeProgressController@getCompletedChallenges')->name('mychallenges.completed.list');
+Route::post('/mychallenges/current/list', 'ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
+Route::post('/mychallenges/completed/list', 'ChallengeProgressController@getCompletedChallenges')->name('mychallenges.completed.list');
 
 Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->name('publicchallenges');
 
-Route::post('/publicchallenges/list', 'FrontEnd\ChallengeController@getPublicChallenges')->name('publicchallenges.list');
-Route::post('/publicchallenges/pending/create', 'FrontEnd\ChallengeProgressController@acceptChallenges')->name('publicchallenges.create');
+Route::post('/publicchallenges/list', 'ChallengeController@getPublicChallenges')->name('publicchallenges.list');
+Route::post('/publicchallenges/pending/create', 'ChallengeProgressController@acceptChallenges')->name('publicchallenges.create');
 
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
 Route::get('/signout', 'Auth\LoginController@signOut')->name('signout');
+
+//////////////////////////////   Admin   ////////////////////////////////////////////////////////////
+Route::get('/admin/approve/publicchallenges', 'Admin\ApprovePublicChallengesController@index')->name('admin.approve.publicchallenges');
+Route::get('/admin/approve/publicchallenges/list', 'FrontEnd\ChallengeController@getUnverifiedPublicChallenges')->name('admin.approve.publicchallenges.list');
+Route::post('/admin/approve/publicchallenges/update', 'FrontEnd\ChallengeController@VerifyPublicChallenge')->name('admin.approve.publicchallenges.list');
 
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////
 Route::post('profile/update/{user_id}','FrontEnd\ProfileController@update')->name('profile.update');
