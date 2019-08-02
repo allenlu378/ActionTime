@@ -68,19 +68,22 @@ h1 {
 .front {
     height: 0 !important;
     transform: rotateY(0deg);
+    z-index: 1000;
+    position: relative;
 }
 .mb-8{
     margin-bottom: 8rem !important;
 }
 
 .back {
+    margin-top: -70vh;
     height: 0;
     transform: rotateY(180deg);
 }
 .back-edit{
-    position: absolute;
+    margin-top: 70vh;
     transform: rotateX(180deg);
-    height: 100%;
+    height: 0;
     margin-right: 15px;
 }
 .front-task {
@@ -112,6 +115,9 @@ form {
 }
 .ml-7{
     margin-left: 5rem !important;
+}
+.ml-9{
+    margin-left: 6.25rem !important;
 }
 .mt-12 {
     margin-top: 12rem !important;
@@ -243,7 +249,7 @@ form {
     background-position-x: center;
 }
 .description{
-    height: 31%;
+    height: 50%;
     overflow: auto;
 }
 .back-title{
@@ -259,6 +265,7 @@ form {
     height: 100%;
 }
 .back-title-description{
+    background-color: rgba(0,0,0,0.2);
     color: white;
     border-bottom-left-radius: 10% 100%;
     border-bottom-right-radius: 10% 100%;

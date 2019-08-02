@@ -61,9 +61,12 @@ h1 {
 }
 .list-input{
     width: 80%;
-    margin-top: -9%;
+    margin-top: 3%;
     margin-left: auto;
     margin-right: auto;
+}
+.assign-row{
+    margin-top: -3%;
 }
 #group-searchautocomplete-list{
     position: absolute;
@@ -72,17 +75,34 @@ h1 {
     border-top: none;
     z-index: 200;
     /*position the autocomplete items to be the same width as the container:*/
-    margin-top: 13.5%;
+    margin-top: 12%;
     left: 0;
     right: 0;
-    width: 76%;
-    margin-left: auto !important;
+    width: 100%;
+}
+
+.hint-pic {
+    height: 4.5vh;
+    width: 4.5vh;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.reward-row{
+    width: 87%;
 }
 .mt-public{
-    margin-top: 2rem !important;
+    margin-top: 2.5rem !important;
+}
+.custom-control-label{
+    font-size: 18px;
+    font-weight: 500;
+}
+.due-row{
+    justify-content: unset;
 }
 .mt-radio{
-    margin-top: 0.9rem !important;
+    margin-top: 1rem !important;
 }
 #group-searchautocomplete-list div {
     padding: 10px;
@@ -95,29 +115,59 @@ h1 {
     background-color: #e9e9e9;
 }
 #user-searchautocomplete-list{
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    border-bottom: none;
-    border-top: none;
-    z-index: 200;
-    /*position the autocomplete items to be the same width as the container:*/
-    margin-top: 13.5%;
-    left: 0;
-    right: 0;
-    width: 79.5%;
-    margin-left: auto !important;
-}
+     position: absolute;
+     border: 1px solid #d4d4d4;
+     border-bottom: none;
+     border-top: none;
+     z-index: 200;
+     /*position the autocomplete items to be the same width as the container:*/
+     margin-top: 13.5%;
+     left: 0;
+     right: 0;
+     width: 100%;
+     overflow: hidden;
+     white-space: nowrap;
+     text-overflow: ellipsis;
+ }
 .mt-due{
     margin-top: 2.6rem !important;
 }
+
 #user-searchautocomplete-list div {
-    padding: 10px;
+    padding: 6px;
     background-color: #fff;
     border-bottom: 1px solid #d4d4d4;
 }
 
 /*when hovering an item:*/
 #user-searchautocomplete-list div:hover {
+    background-color: #e9e9e9;
+}
+#reward-searchautocomplete-list{
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 200;
+    /*position the autocomplete items to be the same width as the container:*/
+    margin-top: 30.25%;
+    left: 0;
+
+    width: 83.5%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: auto !important;
+}
+
+#reward-searchautocomplete-list div {
+    padding: 6px;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+#reward-searchautocomplete-list div:hover {
     background-color: #e9e9e9;
 }
 

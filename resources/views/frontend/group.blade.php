@@ -44,8 +44,8 @@
                     </div>
                     <div class="group-cont">
                         <div class="group-row row">
-                            <div class='col-md-4 mb-4 group' v-for='group in computed.createdGroups()'>
-                                <div class="panel-card card mb-1-5" v-bind:id="group.Id">
+                            <div class='col-md-4 group mb-3' v-for='group in computed.createdGroups()'>
+                                <div class="h-75 panel-card card mb-1-5" v-bind:id="group.Id">
 
                                     <div class="front">
                                         <div class="group-header card-header mb-3">
@@ -121,7 +121,7 @@
                         <div class="group-row row">
 
                             <div class='col-md-4 mb-4 group' v-for='group in computed.memberGroups()'>
-                                <div class="panel-card card mb-2-5" v-bind:id="group.Id">
+                                <div class="panel-card-2 card mb-2-5" v-bind:id="group.Id">
                                     <div class="front">
                                         <div class="group-header card-header mb-1">
                                             @{{ group.Name }}
@@ -132,7 +132,7 @@
                                         <div class="row ml-2">
                                             <div class="col-sm-2 px-0">
                                                 <img class='manager-pic'
-                                                     v-bind:src="'../../../frontend/images/task.png'">
+                                                     v-bind:src="'../../../upload/'+group.ManagerPic">
                                             </div>
                                             <div class="col-sm-10 px-0 mt-2 text-left">
                                                 @{{ group.Manager }}
@@ -382,6 +382,7 @@
             //User is manager
             if (item[4] == 2 && item[1] == email) {
                 group['Manager'] = email;
+                group['ManagerPic'] = item[5];
                 group['Id'] = item[2];
                 group['Name'] = item[3];
                 created = true;
@@ -391,14 +392,12 @@
             //Manager
             else if (item[4] == 2) {
                 group['Manager'] = item[1];
+                group['ManagerPic'] = item[5];
                 group['Id'] = item[2];
                 group['Name'] = item[3];
             }
 
-            //Member
-            else {
 
-            }
             member['Image'] = item[5];
             member['Email'] = item[1];
             member['Username'] = item[0];
@@ -416,6 +415,9 @@
                 member = {};
 
             }
+            //window.alert(i + "    " + (num_created-i));
+
+
 
             if (created) {
                 created_groups_list_db.push(group);

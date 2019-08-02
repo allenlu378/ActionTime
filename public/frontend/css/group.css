@@ -194,6 +194,12 @@ form {
     width: 100% !important;
     margin: auto;
     transform-style: preserve-3d;
+    height: 90% !important;
+}
+.panel-card-2 {
+    width: 100% !important;
+    margin: auto;
+    transform-style: preserve-3d;
 }
 
 
@@ -254,7 +260,6 @@ form {
     margin-bottom: 2.5rem !important;
 }
 .manager-pic{
-    border: 1px solid black;
     height: 5.5vh;
     width: 5.5vh;
     border-radius: 50%;

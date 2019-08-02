@@ -8,6 +8,8 @@ use App\Http\Model\Task;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Model\Group;
 use App\User;
+use App\Http\Model\Award;
+
 
 class TaskController extends Controller
 {
@@ -104,6 +106,7 @@ class TaskController extends Controller
             if($check != 0){
                 $error = \Illuminate\Validation\ValidationException::withMessages([
                     'name_edit' => ['Task name has already been taken.'],
+                    'task_name' => [$cur_name[0]],
                 ]);
                 throw $error;
             }
@@ -156,11 +159,12 @@ class TaskController extends Controller
         //var_dump($task);
         $users = collect(User::select('id', 'email', 'img')->get())->toArray();
         //var_dump($users);
-
+        $rewards = collect(Award::where('offered_by', '=', Auth::user()['id'])->select('id', 'award_name', 'img')->get())->toArray();
+        //var_dump($rewards);
         $id = Auth::user()['id'];
         $groups = collect(Group::where('manager_id', '=', $id)->select('id', 'name')->get())->toArray();
         //var_dump($groups);
-        return view($this->assign, compact('task', 'groups', 'users'));
+        return view($this->assign, compact('task', 'groups', 'users', 'rewards'));
 
     }
 

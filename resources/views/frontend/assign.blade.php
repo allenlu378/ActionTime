@@ -3,11 +3,24 @@
 
     <link href="{{asset('frontend/css/assign.css')}}" type="text/css" rel="stylesheet" media="all"
           xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    {{--    <script type="text/javascript"--}}
+    {{--            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>--}}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    {{--    <link rel="stylesheet"--}}
+    {{--          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>--}}
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {{--    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--}}
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+
 
     @if($task['img'] == null)
         @php $task['img'] = "../../../frontend/images/task.png" @endphp
@@ -25,13 +38,13 @@
         <div class="row row-content">
             <div class="row w-100 mx-0">
                 <div class="col-lg-12">
-                    <a href="{{route('task.list')}}"><img class="back-arrow float-left ml-4"
+                    <a href="{{route('task.list')}}"><img class="back-arrow float-left"
                                                           src= {{asset('frontend/images/back.png')}}></a>
 
                 </div>
             </div>
 
-            <h1>Assign a Task</h1>
+            <h1 class="my-0">Assign a Task</h1>
             <form method="POST" action="{{route('task.edit')}}" enctype="multipart/form-data" class="w-100">
                 @csrf
                 <input name="id" class="d-none" id="task_id">
@@ -44,10 +57,9 @@
                     <div class="col-md-9 col-input">
                         <div class="row row-input ml-5 mt-2">
                             <!-- Task Name -->
-                            <div class="input-group input-group-full mt-2 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Name</span>
-                                </div>
+                            <div class="input-group input-group-full mt-2 mb-0">
+
+                                <h4 id="basic-addon1">Name:</h4>
                                 <input id="name_edit" name='name_edit' type="text"
                                        class="form-control {{ $errors->has('name_edit') ? ' is-invalid' : '' }}"
                                        aria-label="username"
@@ -63,31 +75,27 @@
                         <div class="row row-input ml-5 mt-3">
                             <!-- Text Description -->
                             <div class="input-group input-group-full mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Description</span>
-                                </div>
+                                <h4 id="basic-addon1">Description:</h4>
                                 <textarea id="desc_edit" name="description" class="form-control"
                                           aria-label="With textarea"
                                           disabled>{{$task['description']}}</textarea>
                             </div>
                         </div>
-                        <div class="row row-input ml-5 mt-3">
-                            <div class="col-md-4 w-75">
+                        <div class="row ml-5">
+                            <div class="col-md-4 w-75 pl-0">
                                 <!-- Task Total -->
-                                <div class="input-group mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Total</span>
-                                    </div>
+                                <div class="input-group mb-0">
+                                    <h4 id="basic-addon1">Total:</h4>
                                     <input id="total_edit" name='total_value' type="number" class="form-control"
                                            min="1"
                                            value="{{$task['total_value']}}"
                                            disabled>
                                 </div>
                             </div>
-                            <div class="col-md-4 w-50 dropdown-col">
+                            <div class="col-md-4 w-50">
                                 <!-- Dropdown -->
                                 <div class="form-group list-input">
-                                    <label for="sel1">Occurrence:</label>
+                                    <h4 id="basic-addon1">Occurrence:</h4>
                                     <select name="type" class="form-control" id="drop_edit" disabled>
                                         <option>Daily</option>
                                         <option>Weekly</option>
@@ -98,10 +106,9 @@
                             </div>
                             <div class="col-md-4">
                                 <!-- Task Suggested -->
-                                <div class="input-group mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Suggested Split</span>
-                                    </div>
+                                <div class="input-group mb-0">
+                                    <h4 id="basic-addon1">Suggested Split:</h4>
+
                                     <input id="sugg_edit" name='suggested_times' type="number" class="form-control"
                                            min="1"
                                            value="{{$task['suggested_times']}}"
@@ -110,19 +117,19 @@
                             </div>
 
                         </div>
-                        <div class="row ml-5 mr-0 font-si">
-                            <h3>Assign task to:</h3>
+                        <div class="row ml-5 mr-0 assign-row">
+                            <h3 class="mb-0">Assign task:</h3>
                         </div>
-                        <div class="row ml-5 mr-0">
+                        <div class="row ml-5 mr-0" style="margin-top: -3%">
                             <div class="col-md-2">
                                 <div class="custom-control custom-radio ml-4 mt-public">
-                                    <input type="radio" class="custom-control-input" id="public" name="radio1"
-                                           onchange="changeCheck()">
+                                    <input type="radio" class="custom-control-input m-auto" id="public" name="radio1"
+                                           onchange="changeCheck()" style='height:50px; width: 50px'>
                                     <label class="custom-control-label" for="public">Public</label>
                                 </div>
                             </div>
                             <div class="col-md-1 px-0">
-                                <div class="custom-control custom-radio mt-radio ml-4">
+                                <div class="custom-control custom-radio mt-radio ml-4" style="padding-left: 5rem;">
                                     <input type="radio" class="custom-control-input" id="group" name="radio1"
                                            onchange="changeCheck()">
                                     <label class="custom-control-label" for="group"></label>
@@ -130,9 +137,7 @@
                             </div>
                             <div class="col-md-4 px-0">
                                 <div class="input-group mt-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Group</span>
-                                    </div>
+                                    <h4 id="basic-addon1">Group:</h4>
                                     <input id='group-search'
                                            class="form-control"
                                            autocomplete="randomString"
@@ -144,7 +149,7 @@
                             </div>
 
                             <div class="col-md-1 px-0">
-                                <div class="custom-control custom-radio mt-radio ml-4">
+                                <div class="custom-control custom-radio mt-radio ml-4" style="padding-left: 5rem;">
                                     <input type="radio" class="custom-control-input float-left" id="user" name="radio1"
                                            onchange="changeCheck()">
                                     <label class="custom-control-label" for="user"></label>
@@ -152,9 +157,7 @@
                             </div>
                             <div class="col-md-4 px-0">
                                 <div class="input-group mt-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">User</span>
-                                    </div>
+                                    <h4 id="basic-addon1">User:</h4>
                                     <input id='user-search'
                                            class="form-control"
                                            autocomplete="randomString"
@@ -166,6 +169,7 @@
                             </div>
 
                         </div>
+
                         <script>
                             group_input = document.getElementById('group-search');
                             user_input = document.getElementById('user-search');
@@ -193,8 +197,7 @@
                                     group_input.required = false;
                                     user_input.required = true;
                                     return;
-                                }
-                                else if(public_radio.checked){
+                                } else if (public_radio.checked) {
                                     user_input.disabled = true;
                                     group_input.disabled = true;
                                     group_input.required = false;
@@ -206,7 +209,7 @@
 
                         </script>
                     </div>
-                    <div class="col-md-3 pic-col mt-2">
+                    <div class="col-md-3 pic-col">
                         <!-- Picture -->
                         <div class="row">
                             <h3>Task Picture</h3>
@@ -226,28 +229,48 @@
                                     </span>
                             @endif
                         </div>
-                        <div class="row mt-due">
-                            <h3>Due Date</h3>
+                        <div class="row mt-1 due-row">
+                            <h4 class="ml-5">Due Date:</h4>
                         </div>
                         <div class="row">
 
-                                <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker1'>
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">
-                                                <i class="fa fa-calendar" style="font-size:24px"></i>
-                                            </span>
+                            <div class="form-group mb-0">
+                                <div class='input-group date' id='datetimepicker1'>
 
-                                        </div>
-                                        <input type='text' class="form-control" required/>
-                                        <div class="input-group-addon"></div>
-                                    </div>
+                                    <input name = 'due_time' data-format="dd/MM/yyyy hh:mm:ss" type='text' class="form-control" required/>
+                                    <div class="input-group-addon p-0"><span class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-calendar" style="font-size:24px"></i>
+                                            </span></div>
                                 </div>
+                            </div>
+
                             <script type="text/javascript">
                                 $(function () {
-                                    $('#datetimepicker1').datepicker();
+                                    $('#datetimepicker1').datetimepicker({
+                                        format: 'DD/MM/YYYY HH:mm'
+                                    });
                                 });
                             </script>
+
+                        </div>
+                        <div class="row" style="margin-top: -11%">
+                            <div class="form-group mb-0">
+                                <div class="input-group">
+                                    <h4 id="basic-addon1" style='margin-top: 15px; margin-bottom: 5px'>Reward:</h4>
+                                    <input id='reward-search'
+                                           class="form-control"
+                                           autocomplete="randomString"
+                                           placeholder="Reward"
+                                           aria-label="username"
+                                           aria-describedby="basic-addon1">
+                                    <div class="input-group-addon p-0"
+                                         style="vertical-align: bottom; background:none;border:none;"><span
+                                                class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-trophy" style="font-size:24px"></i>
+                                            </span></div>
+                                </div>
+
+                            </div>
                         </div>
 
 
@@ -264,11 +287,15 @@
         task = @json($task);
         groups = @json($groups);
         users = @json($users);
+        rewards = @json($rewards);
         group_names = [];
         user_emails = [];
         user_ids = [];
         user_imgs = [];
         group_ids = [];
+        reward_ids = [];
+        reward_names = [];
+        reward_imgs = [];
         for (let i = 0; i < groups.length; i++) {
             group_ids.push(groups[i]['id']);
             group_names.push(groups[i]['name']);
@@ -277,6 +304,11 @@
             user_emails.push(users[i]['email']);
             user_ids.push(users[i]['id']);
             user_imgs.push(users[i]['img']);
+        }
+        for (let i = 0; i < rewards.length; i++) {
+            reward_ids.push(rewards[i]['id']);
+            reward_names.push(rewards[i]['award_name']);
+            reward_imgs.push(rewards[i]['img']);
         }
 
         document.getElementById('drop_edit').value = task['type'];
@@ -288,7 +320,7 @@
         // }
 
 
-        function autocomplete(inp, arr) {
+        function autocomplete(inp, arr, pics, imgs, reward) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
             var currentFocus;
@@ -319,9 +351,23 @@
                         } else {
                             b = document.createElement("DIV");
                             b.setAttribute("class", "hints");
-
+                            var img = '';
+                            if (pics) {
+                                if (!reward && imgs[i] == null) {
+                                    img = '../../../images/prof.png';
+                                } else if (reward && imgs[i] == null) {
+                                    img = '../../../frontend/images/reward-img.png';
+                                }
+                                else{
+                                    img = '../../../upload/'+imgs[i];
+                                }
+                                b.innerHTML = "<img class = 'hint-pic' src = '" + img + "'>";
+                                b.innerHTML += "<strong>" + arr[i].substr(0, val.length) + "</strong>" + "<span>" + arr[i].substr(val.length) + "</span>";
+                            } else {
+                                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>" + "<span>" + arr[i].substr(val.length) + "</span>";
+                            }
                             /*make the matching letters bold:*/
-                            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>" + "<span>" + arr[i].substr(val.length) + "</span>";
+
                             b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                             b.addEventListener("click", function (e) {
                                 /*insert the value for the autocomplete text field:*/
@@ -404,8 +450,9 @@
 
         }
 
-        autocomplete(document.getElementById("group-search"), group_names);
-        autocomplete(document.getElementById("user-search"), user_emails);
+        autocomplete(document.getElementById("group-search"), group_names, false, [], false);
+        autocomplete(document.getElementById("user-search"), user_emails, true, user_imgs, false);
+        autocomplete(document.getElementById("reward-search"), reward_names, true, reward_imgs, true);
 
     </script>
 

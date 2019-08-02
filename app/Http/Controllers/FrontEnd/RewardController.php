@@ -35,4 +35,50 @@ class RewardController extends Controller
         }
         return redirect('reward/list');
     }
+    public function delete(Request $request)
+    {
+        $info = $request->except('_token');
+        Award::where('award_name', '=', $info['award_name'])->delete();
+        return redirect('reward/list');
+    }
+    public function edit(Request $request)
+    {
+        $info = $request->except('_token');
+        $cur_name = Award::where('id', '=', $info['id'])->pluck('award_name')->toArray();
+        $info['award_name'] = $info['name_edit'];
+        unset($info['name_edit']);
+        if($info['remaining_num'] > $info['total_num']){
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'remaining_num' => ['Remaining rewards cannot be greater than the total number.'],
+                'reward_name' => [$cur_name[0]],
+            ]);
+            throw $error;
+        }
+        if(strcmp($cur_name[0], $info['award_name']) == 0){
+        }
+        else{
+            $check = Award::where('award_name', '=', $info['award_name'])->count();
+            if($check != 0){
+                $error = \Illuminate\Validation\ValidationException::withMessages([
+                    'name_edit' => ['Reward name has already been taken.'],
+                    'reward_name' => [$cur_name[0]],
+                ]);
+                throw $error;
+            }
+        }
+        if(array_key_exists('img_edit', $info)){
+            unset($info['img_edit']);
+            $img = app('App\Http\Controllers\UtilController')->upload();
+            $info['img'] = $img;
+            Award::where('id', '=', $info['id'])->update($info);
+        }
+        else{
+            Award::where('id', '=', $info['id'])->update($info);
+        }
+        return redirect('reward/list');
+
+
+
+
+    }
 }

@@ -33,6 +33,9 @@ Route::get('/info', 'FrontEnd\HomeController@info')->name('info');
 
 Route::get('/reward/list', 'FrontEnd\RewardController@list')->name('reward.list');
 Route::post('/reward/store','FrontEnd\RewardController@store')->name('reward.store');
+Route::post('/reward/delete','FrontEnd\RewardController@delete')->name('reward.delete');
+Route::post('/reward/edit','FrontEnd\RewardController@edit')->name('reward.edit');
+
 
 
 

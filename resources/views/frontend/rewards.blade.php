@@ -3,14 +3,13 @@
     <link href="{{asset('frontend/css/reward.css')}}" type="text/css" rel="stylesheet" media="all">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-    <div class="container-fluid mt-2 border mt-4">
+    <div class="container-fluid border mt-2 mt-4">
         <div class="front">
             <div class="row row-create">
                 <div class="col-lg-12">
                     <button type="button" id='create-btn' class="btn btn-info btn-lg float-right mt-3"
                             onclick="flip_y()">
-                        New Task
-
+                        New Reward
                     </button>
                 </div>
 
@@ -19,19 +18,19 @@
                 <h1 class="mb-5">Your Rewards</h1>
 
             </div>
-            <div class="task-cont" id="task-cont">
+            <div class="task-cont" id="reward-cont">
                 <div class="task-row">
-                    <div class='col-md-4' v-for='task in computed.tasks()'
-                         v-bind:style="[task.LastRow ? {'margin-bottom': '0'}:{'margin-bottom':'3rem'}]">
-                        <div class="card task-background" v-bind:id="'card-'+task.Name"
-                             v-bind:style="{ backgroundImage: 'url(../../../upload/'+task.Image+')'}">
+                    <div class='col-md-4' v-for='reward in computed.rewards()'
+                         v-bind:style="[reward.LastRow ? {'margin-bottom': '0'}:{'margin-bottom':'3rem'}]">
+                        <div class="card task-background" v-bind:id="'card-'+reward.Name"
+                             v-bind:style="{ backgroundImage: 'url(../../../upload/'+reward.Image+')'}">
                             <div class="front-task">
                                 <div class="img-cont">
                                     <img class="card-img-top p-0">
                                 </div>
                                 <div class="card-footer">
                                     <h1 class="card-title">
-                                        @{{ task.DisplayName }}
+                                        @{{ reward.DisplayName }}
                                     </h1>
                                 </div>
 
@@ -40,58 +39,43 @@
 
                                 <h5 class="w-100 back-title-description">Description</h5>
                                 <div class="my-2 description">
-                                    @{{ task.Description }}
+                                    @{{ reward.Description }}
                                 </div>
                                 <div class="row attr-row mx-0">
                                     <div class="col px-0">
                                         <h5 class="back-title">Total</h5>
-                                        @{{ task.Total }}
+                                        @{{ reward.Total }}
 
                                     </div>
                                     <div class='vert-line'>
                                     </div>
                                     <div class="col px-0">
-                                        <h5 class="back-title">Type</h5>
-                                        @{{ task.Type }}
+                                        <h5 class="back-title">Remaining</h5>
+                                        @{{ reward.Remaining }}
                                     </div>
                                 </div>
-                                <div class="row attr-row mx-0">
-                                    <div class="col px-0">
-                                        <h5 class="back-title">Portions</h5>
-                                        @{{ task.Suggested }}
 
-                                    </div>
-                                    <div class='vert-line'>
-                                    </div>
-                                    <div class="col px-0">
-                                        <h5 class="back-title">Average</h5>
-                                        @{{ task.Average }}
-                                    </div>
-                                </div>
                                 <div class="card-footer">
                                     <h1 class="card-title">
-                                        @{{ task.DisplayName }}
+                                        @{{ reward.DisplayName }}
                                     </h1>
                                 </div>
                             </div>
                         </div>
-                        <div class="row btn-row px-0" v-bind:id="'btns-'+task.Name">
+                        <div class="row btn-row px-0" v-bind:id="'btns-'+reward.Name">
                             <div class="front-btns row w-100">
-                                <div class="col-sm-6 px-0">
-                                    <button v-bind:id="'edit-'+task.Name" class="btn btn-primary w-100 btn-card-left">
-                                        Edit
-                                    </button>
-                                </div>
-                                <div class="col-sm-6 px-0">
-                                    <a v-bind:id="'assign-'+task.Name" class="btn btn-success w-100 btn-card-right">Assign</a>
-                                </div>
+
+                                <button v-bind:id="'edit-'+reward.Name" class="btn btn-primary w-100 btn-card-left">
+                                    Edit
+                                </button>
+
                             </div>
                             <div class="back-btns row mx-0 w-100">
                                 <div class="col-sm-12 px-0">
-                                    <form onsubmit="return confirm('Would you like to delete this task?');"
-                                          class="w-100" method="POST" action="{{route('task.delete')}}">
+                                    <form onsubmit="return confirm('Would you like to delete this reward?');"
+                                          class="w-100" method="POST" action="{{route('reward.delete')}}">
                                         @csrf
-                                        <input name="task_name" class="d-none" v-bind:value="task.Name">
+                                        <input name="award_name" class="d-none" v-bind:value="reward.Name">
                                         <button type="submit" class="btn btn-danger w-100 btn-card">
                                             Delete
                                         </button>
@@ -111,15 +95,14 @@
                     $(this).on('click', function (e) {
                         flip_x();
                         card_id = $(this).attr('id');
-                        task_name = card_id.slice(5);
-                        var task_edit = getTask(task_name);
-                        $("#task_id").val(task_edit['Id']);
-                        $("#name_edit").val(task_edit['DisplayName']);
-                        $("#desc_edit").val(task_edit['Description']);
-                        $("#total_edit").val(task_edit['Total']);
-                        $("#drop_edit").val(task_edit['Type']);
-                        $("#sugg_edit").val(task_edit['Suggested']);
-                        $("#prof_pic_edit").attr("src", "../../../upload/" + task_edit['Image']);
+                        reward_name = card_id.slice(5);
+                        var reward_edit = getReward(reward_name);
+                        $("#reward_id").val(reward_edit['Id']);
+                        $("#name_edit").val(reward_edit['DisplayName']);
+                        $("#desc_edit").val(reward_edit['Description']);
+                        $("#total_edit").val(reward_edit['Total']);
+                        $("#remaining").val(reward_edit['Remaining']);
+                        $("#prof_pic_edit").attr("src", "../../../upload/" + reward_edit['Image']);
 
 
                     })
@@ -153,25 +136,21 @@
         </script>
         <div class="back-edit">
             <div class="row row-create">
-                <div class="col-lg-12">
+                <div class="col-lg-12 mx-0 px-0">
                     <button type="button" class="btn btn-info btn-lg float-right mt-3"
                             onclick="flip_y_back()">
-                        Your Tasks
+                        Your Rewards
 
                     </button>
                 </div>
 
             </div>
             <div class="row row-content">
-                <h1>Edit Your Task</h1>
-                <form method="POST" action="{{route('task.edit')}}" enctype="multipart/form-data">
+                <h1>Edit Your Reward</h1>
+                <form method="POST" action="{{route('reward.edit')}}" enctype="multipart/form-data">
                     @csrf
-                    <input name="id" class="d-none" id="task_id">
-                    <script>
-                        function upload() {
-                            $.post("FrontEnd/UtilController/upload()");
-                        }
-                    </script>
+                    <input name="id" class="d-none" id="reward_id">
+
                     <div class="row">
                         <div class="col-md-9 col-input">
                             <div class="row row-input ml-5 mt-2">
@@ -187,7 +166,7 @@
                                            aria-describedby="basic-addon1" required>
                                     @if ($errors->has('name_edit'))
                                         <span class="ml-4_2 invalid-feedback" role="alert">
-                                        <strong>Task name has already been taken.</strong>
+                                        <strong>Reward name has already been taken.</strong>
                                     </span>
                                     @endif
 
@@ -206,51 +185,47 @@
                                 </div>
                             </div>
                             <div class="row row-input ml-5 mt-3">
-                                <div class="col-md-4 w-75">
+                                <div class="col-sm-6">
                                     <!-- Task Total -->
                                     <div class="input-group mb-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Total</span>
                                         </div>
-                                        <input id="total_edit" name='total_value' type="number" class="form-control"
+                                        <input id="total_edit" name='total_num' type="number" class="form-control"
                                                placeholder="Total"
                                                min="1"
                                                value="1"
                                                required>
                                     </div>
                                 </div>
-                                <div class="col-md-4 w-50 dropdown-col">
-                                    <!-- Dropdown -->
-                                    <div class="form-group list-input">
-                                        <label for="sel1">Occurrence:</label>
-                                        <select name="type" class="form-control" id="drop_edit">
-                                            <option>Daily</option>
-                                            <option>Weekly</option>
-                                            <option>Monthly</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-4">
-                                    <!-- Task Suggested -->
+                                <div class="col-sm-6">
+                                    <!-- Task Remaining -->
                                     <div class="input-group mb-4">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Suggested Split</span>
+                                            <span class="input-group-text" id="basic-addon1">Remaining</span>
                                         </div>
-                                        <input id="sugg_edit" name='suggested_times' type="number" class="form-control"
-                                               placeholder="Split"
+                                        <input name='remaining_num' type="number"
+                                               class="form-control {{ $errors->has('remaining_num') ? ' is-invalid' : '' }}"
+                                               id="remaining"
+                                               placeholder="Remaining"
                                                min="1"
                                                value="1"
                                                required>
+                                        @if ($errors->has('remaining_num'))
+                                            <span class="ml-9 invalid-feedback" role="alert">
+                                        <strong>Remaining rewards cannot be greater than the total number.</strong>
+                                    </span>
+                                        @endif
                                     </div>
                                 </div>
+
 
                             </div>
                         </div>
                         <div class="col-md-3 pic-col mt-2">
                             <!-- Picture -->
                             <div class="row">
-                                <h3>Task Picture</h3>
+                                <h3>Reward Picture</h3>
                             </div>
                             <div class="row">
                                 <div class="prof-container shadow-sm">
@@ -307,7 +282,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type='submit' class="shadow-sm btn btn-secondary save-btn">Update Task</button>
+                            <button type='submit' class="shadow-sm btn btn-secondary save-btn">Update Reward</button>
                         </div>
 
                     </div>
@@ -469,9 +444,8 @@
 
 
         </script>
-        @if($errors->has('award_name'))
-            <script>flip_y();</script>
-        @endif
+
+
         <script>
             rewards_unparsed = @json($rewards);
             var rewards_list_db = [];
@@ -497,14 +471,14 @@
             for (index in rewards_unparsed) {
                 var reward = {};
                 reward['Id'] = rewards_unparsed[index]['id'];
-                reward['DisplayName'] = rewards_unparsed[index]['name'];
+                reward['DisplayName'] = rewards_unparsed[index]['award_name'];
                 reward['Name'] = rewards_unparsed[index]['award_name'].split(' ').join('-');
                 reward['Description'] = rewards_unparsed[index]['description'];
                 reward['Total'] = rewards_unparsed[index]['total_num'];
                 reward['Remaining'] = rewards_unparsed[index]['remaining_num'];
 
                 if (rewards_unparsed[index]['img'] == null) {
-                    reward['Image'] = "../../../frontend/images/task.png";
+                    reward['Image'] = "../../../frontend/images/reward-img.png";
                 } else {
                     reward['Image'] = rewards_unparsed[index]['img'];
                 }
@@ -517,19 +491,70 @@
             }
 
 
-            var tasksVue = new Vue({
-                el: '#task-cont',
+            var rewardsVue = new Vue({
+                el: '#reward-cont',
                 data: {
-                    tasks: [],
+                    rewards: [],
                     computed: {
-                        tasks() {
+                        rewards() {
 
-                            return tasks_list_db;
+                            return rewards_list_db;
                         },
                     }
                 }
             });
+
+            for (let i = 0; i < $('.back-title-description').length; i++) {
+                var color = randomColor();
+                var element1 = document.getElementsByClassName('back-title-description')[i];
+                element1.style.backgroundColor = color;
+                var element2 = document.getElementsByClassName('back-title')[i * 2];
+                element2.style.backgroundColor = color;
+                var element3 = document.getElementsByClassName('back-title')[i * 2 + 1];
+                element3.style.backgroundColor = color;
+                var footer = document.getElementsByClassName('card-footer')[i * 2 + 1];
+                footer.style.backgroundColor = color;
+                var vert1 = document.getElementsByClassName('vert-line')[i];
+                vert1.style.borderLeft = "1px solid " + color;
+                var card = document.getElementsByClassName('back-task')[i];
+                card.style.border = "2px solid " + color;
+
+            }
         </script>
 
     </div>
+    @if($errors->has('award_name'))
+        <script>flip_y();</script>
+
+    @elseif($errors->has('remaining_num'))
+        @php $reward = $errors->first('reward_name') @endphp
+        <script>
+            error_reward = @json($reward);
+            flip_x();
+            var reward_edit = getReward(error_reward);
+            $("#reward_id").val(reward_edit['Id']);
+            $("#name_edit").val(reward_edit['DisplayName']);
+            $("#desc_edit").val(reward_edit['Description']);
+            $("#total_edit").val(reward_edit['Total']);
+            $("#remaining").val(reward_edit['Remaining']);
+            $("#prof_pic_edit").attr("src", "../../../upload/" + reward_edit['Image']);
+
+        </script>
+
+
+    @elseif($errors->has('name_edit'))
+        @php $reward = $errors->first('reward_name') @endphp
+        <script>
+            error_reward = @json($reward);
+            flip_x();
+            var reward_edit = getReward(error_reward);
+            $("#reward_id").val(reward_edit['Id']);
+            $("#name_edit").val(reward_edit['DisplayName']);
+            $("#desc_edit").val(reward_edit['Description']);
+            $("#total_edit").val(reward_edit['Total']);
+            $("#remaining").val(reward_edit['Remaining']);
+            $("#prof_pic_edit").attr("src", "../../../upload/" + reward_edit['Image']);
+
+        </script>
+    @endif
 @endsection

@@ -595,4 +595,23 @@
 
 
     </script>
+    @if($errors->has('name'))
+        <script>flip_y();</script>
+    @endif
+    @if($errors->has('name_edit'))
+        @php $task = $errors->first('task_name') @endphp
+        <script>
+            error_task = @json($task);
+            flip_x();
+            var task_edit = getTask(error_task);
+            $("#task_id").val(task_edit['Id']);
+            $("#name_edit").val(task_edit['DisplayName']);
+            $("#desc_edit").val(task_edit['Description']);
+            $("#total_edit").val(task_edit['Total']);
+            $("#drop_edit").val(task_edit['Type']);
+            $("#sugg_edit").val(task_edit['Suggested']);
+            $("#prof_pic_edit").attr("src", "../../../upload/"+task_edit['Image']);
+
+        </script>
+    @endif
 @endsection
