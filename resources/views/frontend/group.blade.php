@@ -44,8 +44,8 @@
                     </div>
                     <div class="group-cont">
                         <div class="group-row row">
-                            <div class='col-md-4 mb-4 group' v-for='group in computed.createdGroups()'>
-                                <div class="panel-card card mb-3" v-bind:id="group.Id">
+                            <div class='col-md-4 group mb-3' v-for='group in computed.createdGroups()'>
+                                <div class="h-75 panel-card card mb-1-5" v-bind:id="group.Id">
 
                                     <div class="front">
                                         <div class="group-header card-header mb-3">
@@ -120,16 +120,31 @@
                     <div class="group-cont">
                         <div class="group-row row">
 
-                            <div class='col-md-4 mb-6 group' v-for='group in computed.memberGroups()'>
-                                <div class="panel-card card mb-3" v-bind:id="group.Id">
+                            <div class='col-md-4 mb-4 group' v-for='group in computed.memberGroups()'>
+                                <div class="panel-card-2 card mb-2-5" v-bind:id="group.Id">
                                     <div class="front">
-                                        <div class="group-header card-header mb-3">
+                                        <div class="group-header card-header mb-1">
                                             @{{ group.Name }}
                                         </div>
                                         <div class="row">
+                                            <h4>Group Manager:</h4>
+                                        </div>
+                                        <div class="row ml-2">
+                                            <div class="col-sm-2 px-0">
+                                                <img class='manager-pic'
+                                                     v-bind:src="'../../../upload/'+group.ManagerPic">
+                                            </div>
+                                            <div class="col-sm-10 px-0 mt-2 text-left">
+                                                @{{ group.Manager }}
+
+                                            </div>
+                                        </div>
+                                        <hr class="mt-1 mb-3">
+                                        <div class="row mb-3">
                                             <div class="col-md-6 btn-col">
                                                 <form onsubmit="return confirm('Would you like to leave this group?');"
-                                                      class="leave_form" method="POST" action="{{route('group.leave')}}">
+                                                      class="leave_form" method="POST"
+                                                      action="{{route('group.leave')}}">
                                                     @csrf
                                                     <input name="group_id" class="display-none" v-bind:value="group.Id">
                                                     <button v-bind:id="group.Id"
@@ -177,7 +192,6 @@
                     </div>
 
                 </div>
-
 
 
             </div>
@@ -350,7 +364,6 @@
             </div>
         </div>
     </div>
-    </div>
 
 
     <script>
@@ -369,6 +382,7 @@
             //User is manager
             if (item[4] == 2 && item[1] == email) {
                 group['Manager'] = email;
+                group['ManagerPic'] = item[5];
                 group['Id'] = item[2];
                 group['Name'] = item[3];
                 created = true;
@@ -378,14 +392,12 @@
             //Manager
             else if (item[4] == 2) {
                 group['Manager'] = item[1];
+                group['ManagerPic'] = item[5];
                 group['Id'] = item[2];
                 group['Name'] = item[3];
             }
 
-            //Member
-            else {
 
-            }
             member['Image'] = item[5];
             member['Email'] = item[1];
             member['Username'] = item[0];
@@ -403,6 +415,9 @@
                 member = {};
 
             }
+            //window.alert(i + "    " + (num_created-i));
+
+
 
             if (created) {
                 created_groups_list_db.push(group);
@@ -498,7 +513,7 @@
                 i = added_members[j];
                 c = document.createElement("DIV");
                 c.setAttribute("class", "hints mb-3");
-                if(emails[i] == email){
+                if (emails[i] == email) {
                     continue;
                 }
                 if (pics[i] == null) {
@@ -522,7 +537,7 @@
                 document.getElementsByClassName(none)[num_members].setAttribute('value', ids[i]);
                 document.getElementsByClassName(pic_ele)[num_members].src = pic;
                 document.getElementsByClassName(remove_name)[num_members].setAttribute('onclick', "remove(" + i + ", '" + edit + "')");
-                num_members +=1;
+                num_members += 1;
 
             }
         }
@@ -575,7 +590,7 @@
                 /*for each item in the array...*/
                 var num_hints = 0;
                 for (i = 0; i < arr.length; i++) {
-                    if(arr[i] == email){
+                    if (arr[i] == email) {
                         continue;
                     }
                     /*check if the item starts with the same letters as the text field value:*/

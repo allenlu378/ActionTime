@@ -13,6 +13,7 @@
         } </script>
     <!-- Custom Theme files-->
     <link href="{{asset('bootstrap4/css/bootstrap.min.css')}}" type="text/css" rel="stylesheet" media="all">
+
     <link href="{{asset('frontend/css/style.css')}}" type="text/css" rel="stylesheet" media="all">
     <link href='{{asset('frontend/css/simplelightbox.css')}}' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
@@ -180,7 +181,7 @@
     </script>-->
 <!-- header -->
 <div class="headerw3l" id="header">
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" id="navbar">
         <div class="container">
             <div class="navbar-header navbar-left">
                 <h1><a href="/">ActionTime<span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i
@@ -230,7 +231,7 @@
                     </div>
                     <div class="col-md-2 px-0">
                         <div class="nav-prof-container shadow-sm">
-                            <input type="image" id="prof_pic_edit" class="nav-prof-pic dropdown-toggle"
+                            <input type="image" id="nav-prof" class="nav-prof-pic dropdown-toggle"
                                    src="{{$img}}" onclick = "signOut()">
                         </div>
                     </div>
@@ -268,6 +269,18 @@
         </div>
     </nav>
 </div>
+<script>
+    function randomColor() {
+        var letters = '89ABC';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 5)];
+        }
+        return color;
+    }
+
+    color = randomColor();
+</script>
 <!-- //header -->
 <div class="page-content">
     @yield('content')
@@ -285,18 +298,11 @@
     container.css("padding-bottom", copyrightHeight + 'px');
 </script>
 <script>
-    function randomColor() {
-        var letters = '89ABC';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 5)];
-        }
-        return color;
-    }
 
-    color = randomColor();
     var header = document.getElementById("header");
     header.style.backgroundColor = color;
+    var navbar = document.getElementById('navbar');
+    navbar.style.backgroundColor = color;
     var footer = document.getElementById("footer");
     footer.style.background = color;
     signout = document.getElementById('myDropdown');

@@ -1,0 +1,45 @@
+.card-img-top{
+    height: 226px;
+}
+.card{
+    width: 100%;
+    min-width: 200px;
+    max-width: 400px;
+    transition: transform 2s;
+}
+.top-mid{
+    background: #0cc;
+}
+.bot-mid{
+    background: #996533;
+}
+.front, .back{
+    backface-visibility: hidden;
+}
+.front{
+    transform: rotateY(0deg);
+}
+.back{
+    transform: rotateY(180deg);
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+.info-flip{
+    transform: rotateY(180deg);
+}
+.row{
+    width:100%;
+    margin: 0;
+}
+hr{
+    border-top: 1px solid rgba(0,0,0,0.25);
+}
+h2{
+    color: white;
+}
+.info-txt{
+    width: 90%;
+    margin:auto;
+    color: white;
+}

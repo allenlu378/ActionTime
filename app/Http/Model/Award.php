@@ -17,11 +17,11 @@ class Award extends Model
      */
     protected $fillable = [
         'description',
-        'owner',
+        'offered_by',
         'total_num',
         'remaining_num',
         'img',
-        'name',
+        'award_name',
     ];
 
 }

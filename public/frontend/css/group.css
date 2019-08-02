@@ -142,6 +142,8 @@ form {
     height: 100% !important;
     width: 100% !important;
     cursor: default !important;
+    transition: transform 2s;
+    transform-style: unset;
 }
 
 #nav4 {
@@ -192,6 +194,12 @@ form {
     width: 100% !important;
     margin: auto;
     transform-style: preserve-3d;
+    height: 90% !important;
+}
+.panel-card-2 {
+    width: 100% !important;
+    margin: auto;
+    transform-style: preserve-3d;
 }
 
 
@@ -207,6 +215,7 @@ form {
 
 .group-cont {
     overflow: auto;
+    height: 80%;
 }
 
 
@@ -244,9 +253,21 @@ form {
 .front {
     transform: rotateY(0deg);
 }
-
+.mb-1-5{
+    margin-bottom: 1.5rem !important;
+}
+.mb-1-5{
+    margin-bottom: 2.5rem !important;
+}
+.manager-pic{
+    height: 5.5vh;
+    width: 5.5vh;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+}
 .back {
-    transform: rotateY(180deg) translateZ(100px);
+    transform: rotateY(180deg);
     position: absolute;
     width: 100%;
     height: 100%;
