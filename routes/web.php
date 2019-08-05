@@ -69,8 +69,8 @@ Route::get('/signout', 'Auth\LoginController@signOut')->name('signout');
 
 //////////////////////////////   Admin   ////////////////////////////////////////////////////////////
 Route::get('/admin/approve/publicchallenges', 'Admin\ApprovePublicChallengesController@index')->name('admin.approve.publicchallenges');
-Route::get('/admin/approve/publicchallenges/list', 'FrontEnd\ChallengeController@getUnverifiedPublicChallenges')->name('admin.approve.publicchallenges.list');
-Route::post('/admin/approve/publicchallenges/update', 'FrontEnd\ChallengeController@VerifyPublicChallenge')->name('admin.approve.publicchallenges.list');
+Route::get('/admin/approve/publicchallenges/list', 'ChallengeController@getUnverifiedPublicChallenges')->name('admin.approve.publicchallenges.list');
+Route::post('/admin/approve/publicchallenges/update', 'ChallengeController@VerifyPublicChallenge')->name('admin.approve.publicchallenges.list');
 
 //////////////////////////////   Profile   ////////////////////////////////////////////////////////////
 Route::post('profile/update/{user_id}','FrontEnd\ProfileController@update')->name('profile.update');
