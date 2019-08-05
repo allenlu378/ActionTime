@@ -330,7 +330,8 @@
 
 
                     })
-            }
+            },
+            submitChallenge(id,currentP)
 
 
         },

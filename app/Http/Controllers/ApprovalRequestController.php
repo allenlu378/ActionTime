@@ -17,7 +17,7 @@ class ApprovalRequestController extends Controller
         $new_value = (int)$request['new_value'];
         $add_value = $new_value - $current_progress;
         $result = 0;
-        $create_time = $time = Carbon::now();
+        $create_time = $time = Carbon::now()->toDateTimeString();
 
         ApprovalRequest::create(['requested_by' => $user, 'challenge_progress_id' => $id, 'add_value' => $add_value,
             'result' => $result, 'create_time' => $create_time]);
