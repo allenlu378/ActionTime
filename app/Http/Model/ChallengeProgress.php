@@ -21,7 +21,7 @@ class ChallengeProgress extends Model
     ];
 
     public function challenge(){
-        return $this->belongsTo('App\Http\Model\Challenge','challenge_id')->with('Task', 'startedBy');
+        return $this->belongsTo('App\Http\Model\Challenge','challenge_id')->with('Task', 'startedBy','Award');
     }
     public function user() {
         return $this->hasOne('App\User');

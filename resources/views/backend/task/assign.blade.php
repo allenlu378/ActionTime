@@ -81,7 +81,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Due Time</label>
                                 <div class="col-sm-9">
-                                    <input type="date" name="due_time" value="{{date('Y-m-d', strtotime($task['deadline']))}}" class="form-control">
+                                    <input type="datetime-local" name="due_time" value="{{date('Y-m-d\T', strtotime($task['deadline']))}}" class="form-control">
                                 </div>
                             </div>
                         </div>
