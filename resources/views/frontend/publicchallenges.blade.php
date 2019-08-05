@@ -21,7 +21,7 @@
                                     @{{ challenge.task.description }}
                                 </div>
                                 <div class="row my-2">
-                                   Reward:  @{{ challenge.task.award_id }}
+                                   Reward:  @{{ challenge.award.award_name }}
                                 </div>
                                 <div class="row button-container my-2 mr-4">
                                     <div class="col-md-12">

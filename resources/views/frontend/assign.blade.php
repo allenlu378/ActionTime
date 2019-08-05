@@ -45,9 +45,9 @@
             </div>
 
             <h1 class="my-0">Assign a Task</h1>
-            <form method="POST" action="{{route('task.edit')}}" enctype="multipart/form-data" class="w-100">
+            <form method="POST" action="{{route('mychallenges.create')}}" enctype="multipart/form-data" class="w-100">
                 @csrf
-                <input name="id" class="d-none" id="task_id">
+                <input name="id" class="d-none" id="task_id" value="{{$task['id']}}">
                 <script>
                     function upload() {
                         $.post("FrontEnd/UtilController/upload()");
@@ -124,15 +124,15 @@
                             <div class="col-md-2">
                                 <div class="custom-control custom-radio ml-4 mt-public">
                                     <input type="radio" class="custom-control-input m-auto" id="public" name="radio1"
-                                           onchange="changeCheck()" style='height:50px; width: 50px'>
+                                           onchange="changeCheck()" style='height:50px; width: 50px' value=0>
                                     <label class="custom-control-label" for="public">Public</label>
                                 </div>
                             </div>
                             <div class="col-md-1 px-0">
                                 <div class="custom-control custom-radio mt-radio ml-4" style="padding-left: 5rem;">
                                     <input type="radio" class="custom-control-input" id="group" name="radio1"
-                                           onchange="changeCheck()">
-                                    <label class="custom-control-label" for="group"></label>
+                                           onchange="changeCheck()" value=1>
+                                    <label class="custom-control-label" for="group" ></label>
                                 </div>
                             </div>
                             <div class="col-md-4 px-0">
@@ -143,7 +143,7 @@
                                            autocomplete="randomString"
                                            placeholder="Group"
                                            aria-label="username"
-                                           aria-describedby="basic-addon1">
+                                           aria-describedby="basic-addon1" name="group">
 
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                             <div class="col-md-1 px-0">
                                 <div class="custom-control custom-radio mt-radio ml-4" style="padding-left: 5rem;">
                                     <input type="radio" class="custom-control-input float-left" id="user" name="radio1"
-                                           onchange="changeCheck()">
+                                           onchange="changeCheck()" value=2>
                                     <label class="custom-control-label" for="user"></label>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                                            autocomplete="randomString"
                                            placeholder="User"
                                            aria-label="username"
-                                           aria-describedby="basic-addon1">
+                                           aria-describedby="basic-addon1" name="user">
 
                                 </div>
                             </div>
@@ -183,7 +183,6 @@
                             function changeCheck() {
                                 group_input.value = "";
                                 user_input.value = "";
-
 
                                 if (group_radio.checked) {
                                     user_input.disabled = true;
@@ -237,6 +236,11 @@
                             <div class="form-group mb-0">
                                 <div class='input-group date' id='datetimepicker1'>
 
+                                    <input name = 'due_time' type='text' class="form-control" required/>
+                                    <div class="input-group-addon p-0"><span class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-calendar" style="font-size:24px"></i>
+                                            </span>
+
                                     <input name = 'due_time' data-format="dd/MM/yyyy hh:mm:ss" type='text' class="form-control" required/>
                                     <div class="input-group-addon p-0"><span class="input-group-text" id="basic-addon1">
                                                 <i class="fa fa-calendar" style="font-size:24px"></i>
@@ -247,7 +251,7 @@
                             <script type="text/javascript">
                                 $(function () {
                                     $('#datetimepicker1').datetimepicker({
-                                        format: 'DD/MM/YYYY HH:mm'
+                                        format: 'MM/DD/YYYY hh:mm:ss A'
                                     });
                                 });
                             </script>
@@ -262,7 +266,7 @@
                                            autocomplete="randomString"
                                            placeholder="Reward"
                                            aria-label="username"
-                                           aria-describedby="basic-addon1">
+                                           aria-describedby="basic-addon1" name="reward">
                                     <div class="input-group-addon p-0"
                                          style="vertical-align: bottom; background:none;border:none;"><span
                                                 class="input-group-text" id="basic-addon1">
@@ -345,6 +349,8 @@
                 for (i = 0; i < arr.length; i++) {
                     /*check if the item starts with the same letters as the text field value:*/
                     if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+
+
                         /*create a DIV element for each matching element:*/
                         if (num_hints > 2) {
                             continue;
@@ -372,6 +378,7 @@
                             b.addEventListener("click", function (e) {
                                 /*insert the value for the autocomplete text field:*/
                                 inp.value = this.getElementsByTagName("input")[0].value;
+
                                 /*close the list of autocompleted values,
                                 (or any other open lists of autocompleted values:*/
                                 closeAllLists();

@@ -43,6 +43,8 @@ Route::post('/reward/edit','FrontEnd\RewardController@edit')->name('reward.edit'
 //////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
 Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 
+Route::post('/mychallenges/create', 'ChallengeController@assignChallenge')->name('mychallenges.create');
+
 Route::post('/mychallenges/pending/list', 'ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
 Route::post('/mychallenges/pending/create', 'ChallengeProgressController@acceptChallenges')->name('mychallenges.pending.create');
 
@@ -53,6 +55,14 @@ Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->na
 
 Route::post('/publicchallenges/list', 'ChallengeController@getPublicChallenges')->name('publicchallenges.list');
 Route::post('/publicchallenges/pending/create', 'ChallengeProgressController@acceptChallenges')->name('publicchallenges.create');
+
+Route::any('/createdchallenges', 'FrontEnd\CreatedChallengesController@index')->name('createdchallenges');
+Route::get('/createdchallenges/unaccepted/list', 'ChallengeController@getUnacceptedChallenges')->name('createdchallenges.unaccepted.list');
+Route::get('/createdchallenges/accepted/list', 'ChallengeProgressController@getAcceptedChallenges')->name('createdchallenges.accepted.list');
+
+Route::get('/approvalrequest/list', 'ApprovalRequestController@getRequests')->name('approvalrequest.list');
+Route::get('/approvalrequest/create', 'ApprovalRequestController@submitProgress')->name('approvalrequest.create');
+
 
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
 Route::get('/signout', 'Auth\LoginController@signOut')->name('signout');
