@@ -1,4 +1,4 @@
-@extends('frontend/layout')
+@extends('frontend/assignlayout')
 @section('content')
 
     <link href="{{asset('frontend/css/assign.css')}}" type="text/css" rel="stylesheet" media="all"
@@ -45,7 +45,7 @@
             </div>
 
             <h1 class="my-0">Assign a Task</h1>
-            <form method="POST" action="{{route('task.edit')}}" enctype="multipart/form-data" class="w-100">
+            <form method="POST" action="{{route('task.assignTask')}}" enctype="multipart/form-data" class="w-100" id="form">
                 @csrf
                 <input name="id" class="d-none" id="task_id">
                 <script>
@@ -60,15 +60,11 @@
                             <div class="input-group input-group-full mt-2 mb-0">
 
                                 <h4 id="basic-addon1">Name:</h4>
-                                <input id="name_edit" name='name_edit' type="text"
-                                       class="form-control {{ $errors->has('name_edit') ? ' is-invalid' : '' }}"
+                                <input id="name_edit" name='name' type="text"
+                                       class="form-control"
                                        aria-label="username"
-                                       aria-describedby="basic-addon1" value="{{$task['name']}}" disabled>
-                                @if ($errors->has('name_edit'))
-                                    <span class="ml-4_2 invalid-feedback" role="alert">
-                                        <strong>Task name has already been taken.</strong>
-                                    </span>
-                                @endif
+                                       aria-describedby="basic-addon1" value="{{$task['name']}}" readonly>
+
 
                             </div>
                         </div>
@@ -78,7 +74,7 @@
                                 <h4 id="basic-addon1">Description:</h4>
                                 <textarea id="desc_edit" name="description" class="form-control"
                                           aria-label="With textarea"
-                                          disabled>{{$task['description']}}</textarea>
+                                          readonly>{{$task['description']}}</textarea>
                             </div>
                         </div>
                         <div class="row ml-5">
@@ -88,8 +84,7 @@
                                     <h4 id="basic-addon1">Total:</h4>
                                     <input id="total_edit" name='total_value' type="number" class="form-control"
                                            min="1"
-                                           value="{{$task['total_value']}}"
-                                           disabled>
+                                           value="{{$task['total_value']}}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4 w-50">
@@ -104,6 +99,13 @@
                                 </div>
 
                             </div>
+                            <script>
+                                jQuery(function ($) {
+                                    $('#form').bind('submit', function () {
+                                        $(this).find('#drop_edit').prop('disabled', false);
+                                    });
+                                });
+                            </script>
                             <div class="col-md-4">
                                 <!-- Task Suggested -->
                                 <div class="input-group mb-0">
@@ -112,7 +114,7 @@
                                     <input id="sugg_edit" name='suggested_times' type="number" class="form-control"
                                            min="1"
                                            value="{{$task['suggested_times']}}"
-                                           disabled>
+                                           readonly>
                                 </div>
                             </div>
 
@@ -138,9 +140,9 @@
                             <div class="col-md-4 px-0">
                                 <div class="input-group mt-4">
                                     <h4 id="basic-addon1">Group:</h4>
-                                    <input id='group-search'
+                                    <input id='group-search' name = "group"
                                            class="form-control"
-                                           autocomplete="randomString"
+                                           autocomplete="RandomString1"
                                            placeholder="Group"
                                            aria-label="username"
                                            aria-describedby="basic-addon1">
@@ -160,7 +162,7 @@
                                     <h4 id="basic-addon1">User:</h4>
                                     <input id='user-search'
                                            class="form-control"
-                                           autocomplete="randomString"
+                                           autocomplete="Random1"
                                            placeholder="User"
                                            aria-label="username"
                                            aria-describedby="basic-addon1">
@@ -176,6 +178,7 @@
                             group_radio = document.getElementById('group');
                             user_radio = document.getElementById('user');
                             public_radio = document.getElementById('public');
+                            group_input.focus();
                             group_radio.checked = true;
                             user_input.disabled = true;
                             group_input.required = true;
@@ -188,11 +191,13 @@
                                 if (group_radio.checked) {
                                     user_input.disabled = true;
                                     group_input.disabled = false;
+                                    group_input.focus();
                                     group_input.required = true;
                                     user_input.required = false;
                                     return;
                                 } else if (user_radio.checked) {
                                     user_input.disabled = false;
+                                    user_input.focus();
                                     group_input.disabled = true;
                                     group_input.required = false;
                                     user_input.required = true;
@@ -257,12 +262,12 @@
                             <div class="form-group mb-0">
                                 <div class="input-group">
                                     <h4 id="basic-addon1" style='margin-top: 15px; margin-bottom: 5px'>Reward:</h4>
-                                    <input id='reward-search'
+                                    <input id='reward-search' name = "reward"
                                            class="form-control"
                                            autocomplete="randomString"
                                            placeholder="Reward"
                                            aria-label="username"
-                                           aria-describedby="basic-addon1">
+                                           aria-describedby="basic-addon1" required>
                                     <div class="input-group-addon p-0"
                                          style="vertical-align: bottom; background:none;border:none;"><span
                                                 class="input-group-text" id="basic-addon1">
@@ -301,7 +306,7 @@
             group_names.push(groups[i]['name']);
         }
         for (let i = 0; i < users.length; i++) {
-            user_emails.push(users[i]['email']);
+            user_emails.push(users[i]['user_name']);
             user_ids.push(users[i]['id']);
             user_imgs.push(users[i]['img']);
         }

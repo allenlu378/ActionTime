@@ -90,7 +90,7 @@
                                     <form onsubmit="return confirm('Would you like to delete this task?');"
                                           class="w-100" method="POST" action="{{route('task.delete')}}">
                                         @csrf
-                                        <input name="task_name" class="d-none" v-bind:value="task.Name">
+                                        <input name="task_name" class="d-none" v-bind:value="task.DisplayName">
                                         <button type="submit" class="btn btn-danger w-100 btn-card">
                                             Delete
                                         </button>
@@ -419,8 +419,8 @@
                                     <div class="overlay">
                                         <div class="prof-icon-div">
                                             <i id = "prof_icon" class="prof-icon fa fa-camera upload-button"></i>
-                                            <input name="img_edit" id="img"
-                                                   class="file-upload {{ $errors->has('img_edit') ? ' is-invalid' : '' }}"
+                                            <input name="img" id="img"
+                                                   class="file-upload {{ $errors->has('img') ? ' is-invalid' : '' }}"
                                                    type="file"
                                                    accept="image/*">
 
@@ -458,7 +458,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                @if ($errors->has('img_edit'))
+                                @if ($errors->has('img'))
                                     <span class="ml-7 invalid-feedback" role="alert">
                                         <strong>A task image is required.</strong>
                                     </span>

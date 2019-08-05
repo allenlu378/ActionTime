@@ -22,9 +22,15 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
-
+.out-cont{
+    height: 100%;
+    width: 100%;
+    background-image: url("../../../frontend/images/reward_bg.gif");
+    background-size: cover;
+    background-position-y: center;
+}
 .border {
-    border: 2px solid blue !important;
+    border: 2px solid #FFD700 !important;
 }
 
 .container-fluid {

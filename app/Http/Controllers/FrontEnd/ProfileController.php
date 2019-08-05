@@ -75,9 +75,16 @@ class ProfileController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        $cur_name = User::where('id', '=', $id)->pluck('user_name')->toArray()[0];
 
         $info = $request->except('_token');
+        if(strcmp($cur_name, $info['user_name']) == 0){
+        }
+        else{
+            $request->validate([
+                'user_name' => 'unique:user',
+            ]);
+        }
         $user = User::find($id);
         $user->first_name = $info['first_name'];
         $user->last_name = $info['last_name'];
@@ -85,12 +92,11 @@ class ProfileController extends Controller
         $user->gender = $info['gender'];
         $user->cellphone = $info['cellphone'];
         $user->email = $info['email'];
-        $splitAddress = explode(',', $info['address'], 5);
-        $user->address = $splitAddress[0];
-        $user->city = $splitAddress[1];
-        $user->state = $splitAddress[2];
-        $user->zip_code = $splitAddress[3];
-        $user->country = $splitAddress[4];
+        $user->address = $info['address'];
+        $user->city = $info['city'];
+        $user->state = $info['state'];
+        $user->zip_code = $info['zip'];
+        $user->country = $info['country'];
         if(array_key_exists('img', $info)){
             unset($info['img']);
             $img = app('App\Http\Controllers\UtilController')->upload();

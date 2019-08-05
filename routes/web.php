@@ -87,7 +87,7 @@ Route::post('task/edit',"FrontEnd\TaskController@edit")->name('task.edit');
 Route::post('task/update',"TaskController@update")->name('task.update');
 Route::post('task/doAssign',"TaskController@doAssign")->name('task.doAssign');
 Route::get('task/assign/{name}', "FrontEnd\TaskController@createAssign")->name('task.assign');
-
+Route::post('task/assign', 'FrontEnd\TaskController@assignTask')->name('task.assignTask');
 
 Route::get('award/list',"AwardController@list")->name('award/list');
 Route::get('award/form',"AwardController@form")->name('award/form');

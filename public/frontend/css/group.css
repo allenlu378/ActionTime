@@ -273,26 +273,20 @@ form {
     height: 100%;
     border: 1px solid rgba(0, 0, 0, .125) !important;
     overflow: auto;
-
-}
-
-.icon-back {
-    position: relative;
     cursor: pointer;
-    font-size: 4vh;
-    float: left;
-    z-index: 200;
-    bottom: 6.4vh;
+
 }
+
+
 .mem-list{
     float: left;
+
 }
+
 .img-list{
     margin-top: -5%;
 }
-#list-1{
-    margin-left: -10% !important;
-}
+
 .delete_form, leave_form{
     width: 100%;
 }

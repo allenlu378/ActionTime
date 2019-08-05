@@ -22,7 +22,12 @@
         @php $cellphone = '' @endphp
     @endif
     @if($user['address'] != null)
-        @php $address = trim($user['address']).', '.trim($user['city']).', '.trim($user['zip_code']).', '.trim($user['state']).', '.trim($user['country'])@endphp
+        @php $address = $user['address'];
+        $city = $user['city'];
+        $state = $user['state'];
+        $zip = $user['zip_code'];
+        $country = $user['country'];
+        @endphp
     @else
         @php $address = '' @endphp
     @endif
@@ -35,7 +40,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class=" col-sm-3">
-                <div class="mt-4 row">
+                <div class="row mt-4">
+                    <h2>Profile Picture</h2>
+                </div>
+                <div class="row">
                     <div class="prof-container shadow-sm">
                         <input type="image" id="prof-pic" class="prof-pic"
                                src= {{$image}}>
@@ -125,9 +133,14 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Username</span>
                             </div>
-                            <input name='user_name' type="text" class="form-control" placeholder="Username"
+                            <input name='user_name' type="text" class="form-control {{ $errors->has('user_name') ? ' is-invalid' : '' }}" placeholder="Username"
                                    aria-label="username"
                                    aria-describedby="basic-addon1" value={{$user['user_name']}} required>
+                            @if ($errors->has('user_name'))
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>This username has already been taken.</strong>
+                                    </span>
+                            @endif
                         </div>
 
                         <!-- Gender and Phone Number -->
@@ -217,8 +230,20 @@
                                 <span class="input-group-text" id="basic-addon1">Address</span>
                             </div>
                             <input name='address' type="text" class="form-control"
-                                   placeholder="123 Street, City, State, Zip, Country "
+                                   placeholder="Address"
                                    aria-label="adress" aria-describedby="basic-addon1" value='{{$address}}' required>
+                            <input name='city' type="text" class="form-control"
+                                   placeholder="City"
+                                   aria-label="adress" aria-describedby="basic-addon1" value='{{$city}}' required>
+                            <input name='state' type="text" class="form-control"
+                                   placeholder="State"
+                                   aria-label="adress" aria-describedby="basic-addon1" value='{{$state}}' required>
+                            <input name='zip' type="text" class="form-control"
+                                   placeholder="Zip"
+                                   aria-label="adress" aria-describedby="basic-addon1" value='{{$zip}}' required>
+                            <input name='country' type="text" class="form-control"
+                                   placeholder="Country"
+                                   aria-label="adress" aria-describedby="basic-addon1" value='{{$country}}' required>
                         </div>
 
                         <!-- Hidden Submit -->

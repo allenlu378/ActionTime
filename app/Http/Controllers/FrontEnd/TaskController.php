@@ -51,6 +51,7 @@ class TaskController extends Controller
         ]);
 
         $info = $request->except('_token');
+//        var_dump($info);
         if($info['type'] == 'Daily'){$info['type'] = '0';}
         else if($info['type'] == 'Weekly'){$info['type'] = '1';}
         else if($info['type'] == 'Monthly'){$info['type'] = '2';}
@@ -157,7 +158,7 @@ class TaskController extends Controller
     public function createAssign($name){
         $task = collect(Task::where('name','=', $name)->select('id', 'name', 'description', 'total_value', 'average_workload', 'suggested_times', 'type', 'img')->get())->toArray()[0];
         //var_dump($task);
-        $users = collect(User::select('id', 'email', 'img')->get())->toArray();
+        $users = collect(User::select('id', 'user_name', 'img')->get())->toArray();
         //var_dump($users);
         $rewards = collect(Award::where('offered_by', '=', Auth::user()['id'])->select('id', 'award_name', 'img')->get())->toArray();
         //var_dump($rewards);
@@ -166,6 +167,10 @@ class TaskController extends Controller
         //var_dump($groups);
         return view($this->assign, compact('task', 'groups', 'users', 'rewards'));
 
+    }
+    public function assignTask(Request $request){
+        $info = $request->except('_token');
+        var_dump($info);
     }
 
 }

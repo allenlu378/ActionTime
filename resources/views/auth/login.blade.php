@@ -90,7 +90,7 @@
                                 <input name="user_name" id="user_name" type="text" class="form-control textbox {{ $errors->has('user_name') ? ' is-invalid' : '' }}" id="create_user" required/>
                                 @if ($errors->has('user_name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('user_name') }}</strong>
+                                        <strong>A username is required.</strong>
                                     </span>
                                 @endif
                             </div>
@@ -183,7 +183,12 @@
 
                 }
             </script>
-
+            @if($errors->has('user_name'))
+                <script>
+                    expand();
+                    flip();
+                </script>
+            @endif
             <!-- Login Invalid Message -->
             @if($login_invalid)
                 <script>

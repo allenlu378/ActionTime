@@ -22,8 +22,12 @@
                         <div class="row mt-2">
                             <h2>Tasks</h2>
                         </div>
-                        <hr class="mt-0">
-                        <p class="info-txt">A bunch of text about tasks. A bunch of text about tasks. A bunch of text about tasks.</p>
+                        <hr class="my-0">
+                        <p class="info-txt text-left">A task is something you want others to do. In order to make a task a challenge,
+                            you must request to make it public or assign it to a group or person.
+                            The administrators will decide if the challenge can be made public.
+                            Then you must give the task a due date and set a reward, keeping in mind you may only use groups and rewards you created.
+                            Then you can send it out to others.</p>
                     </div>
                 </div>
             </div>
@@ -42,8 +46,13 @@
                         <div class="row mt-2">
                             <h2>Challenges</h2>
                         </div>
-                        <hr class="mt-0">
-                        <p class="info-txt">A bunch of text. A bunch of text. A bunch of text.</p>
+                        <hr class="my-0">
+                        <p class="info-txt text-left">A challenge is a task that has been assigned. You can see challenges sent to you in your my challenges page.
+                            You can choose to either accept or decline the challenge.
+                            You can also choose to accept public challenges, which will then automatically added to your current challenges.
+                            Flipping the challenge card will reveal more information about the challenge. To record progress, fill in the
+                            input on the back and send it to the challenge sender for approval. Once a challenge is completed, you will see it
+                            in the completed section of the page and the reward will be given to you by the sender.</p>
                     </div>
                 </div>
             </div>
@@ -60,10 +69,12 @@
                     </div>
                     <div class="back">
                         <div class="row mt-2">
-                            <h2>General</h2>
+                            <h2>Objective</h2>
                         </div>
-                        <hr class="mt-0">
-                        <p class="info-txt">A bunch of text. A bunch of text. A bunch of text.</p>
+                        <hr class="my-0">
+                        <p class="info-txt text-left">This is a website designed to help kids develop good habits at an early age. By providing a reward,
+                            children will have the incentive to put forth their best efforts. This would help with time management as well as with
+                            multi-tasking. </p>
                     </div>
                 </div>
             </div>
@@ -82,8 +93,10 @@
                         <div class="row mt-2">
                             <h2>Groups</h2>
                         </div>
-                        <hr class="mt-0">
-                        <p class="info-txt">A bunch of text. A bunch of text. A bunch of text.</p>
+                        <hr class="my-0">
+                        <p class="info-txt text-left">You can create a group and add members to it, with a miniumm of one other member. You are
+                            automatically added. You are able to change the names and add/delete members from groups you have created. You can also
+                            view groups others have added you to and you have the option to leave.</p>
                     </div>
 
                 </div>
@@ -103,8 +116,10 @@
                         <div class="row mt-2">
                             <h2>Rewards</h2>
                         </div>
-                        <hr class="mt-0">
-                        <p class="info-txt">A bunch of text. A bunch of text. A bunch of text.</p>
+                        <hr class="my-0">
+                        <p class="info-txt text-left">You can create your own rewards, setting options such as the total number you own and how
+                        are remaining. You can then add them to tasks you are assigning. Rewards you have received from other challenges are displayed
+                        in your profile page.</p>
                     </div>
                 </div>
             </div>

@@ -78,27 +78,24 @@
 
                                         </div>
                                     </div>
-                                    <div class="back">
+                                    <div class="back back-click" v-bind:id="'back-' + group.Id">
                                         <div class="sticky-top">
-                                            <div class="group-header-back card-header mb-3">
+                                            <div class="group-header-back card-header">
                                                 @{{ group.Name }}
                                             </div>
-                                            <i v-bind:id="'back-' + group.Id"
-                                               class="fas fa-angle-double-left icon-back ml-2"></i>
                                         </div>
-                                        <div class="list-members">
-                                            <div class="mx-0 row hints mem-list mb-3 ml-2"
-                                                 v-bind:id="'list-' + computed.list_count()"
-                                                 v-for="member in group.Members">
-                                                <span class='mem-lbl mr-2 font-weight-light'>@{{computed.list_count()}}.</span>
-                                                <img class='member-prof img-list'
-                                                     v-bind:src="'../../../upload/' + member.Image">
-                                                <span class='font-weight-light'>@{{ member.Email }}</span>
-                                                @{{computed.count() }}
-                                            </div>
+
+                                        <div class="mx-0 hints mem-list ml-2 w-100"
+                                             v-bind:id="'list-' + computed.list_count()"
+                                             v-for="member in group.Members">
+                                            <span class='mem-lbl mr-2 font-weight-light'>@{{computed.list_count()}}.</span>
+                                            <img class='member-prof img-list mt-1'
+                                                 v-bind:src="'../../../upload/' + member.Image">
+                                            <span class='font-weight-light'>@{{ member.Username }}</span>
+                                            @{{computed.count() }}
+                                        </div>
 
 
-                                        </div>
                                         @{{ computed.clear() }}
                                     </div>
 
@@ -162,22 +159,21 @@
                                         </div>
 
                                     </div>
-                                    <div class="back">
+                                    <div class="back back-click" v-bind:id="'back-' + group.Id">
                                         <div class="sticky-top">
-                                            <div class="group-header-back card-header mb-3">
+                                            <div class="group-header-back card-header">
                                                 @{{ group.Name }}
                                             </div>
-                                            <i v-bind:id="'back-' + group.Id"
-                                               class="fas fa-angle-double-left icon-back ml-2"></i>
+
                                         </div>
                                         <div class="list-members">
-                                            <div class="mx-0 row hints mem-list mb-3 ml-2"
+                                            <div class="mx-0 hints mem-list ml-2 w-100"
                                                  v-bind:id="'list-' + computed.list_count()"
                                                  v-for="member in group.Members">
                                                 <span class='mem-lbl mr-2 font-weight-light'>@{{computed.list_count()}}.</span>
-                                                <img class='member-prof img-list'
+                                                <img class='member-prof img-list mt-1'
                                                      v-bind:src="'../../../upload/' + member.Image">
-                                                <span class='font-weight-light'>@{{ member.Email }}</span>
+                                                <span class='font-weight-light'>@{{ member.Username }}</span>
                                                 @{{computed.count() }}
                                             </div>
 
@@ -211,7 +207,7 @@
                     })
                 });
                 $(document).ready(function () {
-                    $(".icon-back").each(function () {
+                    $(".back-click").each(function () {
                         $(this).on('click', function (e) {
                             var btn_id = $(this).attr('id');
                             var card_id = "#" + btn_id.slice(5);
@@ -260,13 +256,13 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Group Name</span>
                             </div>
-                            <input id="name_edit" name='name' type="text"
-                                   class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}"
+                            <input id="name_edit" name='name_edit' type="text"
+                                   class="form-control {{ $errors->has('name_edit') ? ' is-invalid' : '' }}"
                                    placeholder="Name"
                                    aria-label="username"
                                    aria-describedby="basic-addon1" required>
-                            @if ($errors->has('name'))
-                                <span class="ml-4 invalid-feedback" role="alert">
+                            @if ($errors->has('name_edit'))
+                                <span class="ml-7 invalid-feedback" role="alert">
                                         <strong>Group Name has already been taken.</strong>
                                     </span>
                             @endif
@@ -278,12 +274,12 @@
                                 <span class="input-group-text" id="basic-addon1">Add Members</span>
                             </div>
                             <input id='user-search-edit' type="text"
-                                   class="form-control {{ $errors->has('member1') ? ' is-invalid' : '' }}"
-                                   autocomplete="randomString"
-                                   placeholder="User Email"
+                                   class="form-control {{ $errors->has('member-edit1') ? ' is-invalid' : '' }}"
+                                   autocomplete="randomString1"
+                                   placeholder="Username"
                                    aria-label="username"
                                    aria-describedby="basic-addon1">
-                            @if ($errors->has('member1'))
+                            @if ($errors->has('member-edit1'))
                                 <span class="ml-8 invalid-feedback" role="alert">
                                         <strong>A group needs to have at least one member.</strong>
                                     </span>
@@ -340,8 +336,8 @@
                             </div>
                             <input id='user-search' type="text"
                                    class="form-control {{ $errors->has('member1') ? ' is-invalid' : '' }}"
-                                   autocomplete="randomString"
-                                   placeholder="User Email"
+                                   autocomplete="new-user"
+                                   placeholder="Username"
                                    aria-label="username"
                                    aria-describedby="basic-addon1">
                             @if ($errors->has('member1'))
@@ -371,6 +367,7 @@
         var group_info = @json($group_info);
         var num_groups = @json($num_groups);
         var email = @json($email);
+        user_name = @json($user_name);
         var created = false;
         group = {};
         member = {};
@@ -381,7 +378,7 @@
             item = Object.values(item);
             //User is manager
             if (item[4] == 2 && item[1] == email) {
-                group['Manager'] = email;
+                group['Manager'] = user_name;
                 group['ManagerPic'] = item[5];
                 group['Id'] = item[2];
                 group['Name'] = item[3];
@@ -391,7 +388,7 @@
 
             //Manager
             else if (item[4] == 2) {
-                group['Manager'] = item[1];
+                group['Manager'] = item[0];
                 group['ManagerPic'] = item[5];
                 group['Id'] = item[2];
                 group['Name'] = item[3];
@@ -416,7 +413,6 @@
 
             }
             //window.alert(i + "    " + (num_created-i));
-
 
 
             if (created) {
@@ -457,12 +453,6 @@
         })
     </script>
     <script>
-        window.onload = function () {
-            if ($("#name").hasClass("is-invalid")) {
-                document.getElementById('modal_btn').click();
-
-            }
-        };
 
 
         // else if(error_member && $( "#user-search" ).hasClass( "is-invalid" )){
@@ -513,7 +503,7 @@
                 i = added_members[j];
                 c = document.createElement("DIV");
                 c.setAttribute("class", "hints mb-3");
-                if (emails[i] == email) {
+                if (emails[i] == user_name) {
                     continue;
                 }
                 if (pics[i] == null) {
@@ -533,7 +523,7 @@
                 var none = "d-none " + edit;
                 var remove_name = 'remove-button' + edit;
                 var pic_ele = 'member-pic' + edit;
-                document.getElementsByClassName(none)[num_members].setAttribute('name', 'member' + (num_members + 1));
+                document.getElementsByClassName(none)[num_members].setAttribute('name', 'member' + edit + (num_members + 1));
                 document.getElementsByClassName(none)[num_members].setAttribute('value', ids[i]);
                 document.getElementsByClassName(pic_ele)[num_members].src = pic;
                 document.getElementsByClassName(remove_name)[num_members].setAttribute('onclick', "remove(" + i + ", '" + edit + "')");
@@ -585,12 +575,21 @@
                 a = document.createElement("DIV");
                 a.setAttribute("id", this.id + "autocomplete-list");
                 a.setAttribute("class", "nav-item autocomplete-items");
+
                 /*append the DIV element as a child of the autocomplete container:*/
                 this.parentNode.appendChild(a);
+                if ($("#user-search").hasClass("is-invalid")) {
+                    var list = document.getElementById('user-searchautocomplete-list');
+                    list.style.marginTop = '-5%';
+                }
+                if ($("#user-search-edit").hasClass("is-invalid")) {
+                    var list2 = document.getElementById('user-search-editautocomplete-list');
+                    list2.style.marginTop = '-5%';
+                }
                 /*for each item in the array...*/
                 var num_hints = 0;
                 for (i = 0; i < arr.length; i++) {
-                    if (arr[i] == email) {
+                    if (arr[i] == user_name) {
                         continue;
                     }
                     /*check if the item starts with the same letters as the text field value:*/
@@ -704,6 +703,23 @@
     </script>
     <script>
 
+        window.onload = function () {
+            if ($("#name_edit").hasClass("is-invalid") || $("#user-search-edit").hasClass("is-invalid")) {
+                        @php $group = $errors->first('group_id') @endphp
+                var group_id = @json($group);
+                var btn_id = 'edit-' + group_id;
+                document.getElementById(btn_id).click();
+
+            }
+            if ($("#name").hasClass("is-invalid") || $("#user-search").hasClass("is-invalid")) {
+                document.getElementById('modal_btn').click();
+                @php $group_name = $errors->first('group_name') @endphp
+                var group_name = @json($group_name);
+                document.getElementById('name').value = group_name;
+
+
+            }
+        };
         $(document).on("click", ".btn-primary", function () {
             var group_id = $(this).attr('id').slice(5);
             for (let j = 0; j < created_groups_list_db.length; j++) {
@@ -711,7 +727,7 @@
                     $('#name_edit').val(created_groups_list_db[j]['Name']);
                     empty();
                     for (let k = 0; k < created_groups_list_db[j]['Members'].length; k++) {
-                        var index = emails.indexOf(created_groups_list_db[j]['Members'][k]['Email']);
+                        var index = emails.indexOf(created_groups_list_db[j]['Members'][k]['Username']);
                         add_edit(index);
                     }
                     break;
@@ -720,4 +736,6 @@
             }
         });
     </script>
+
+
 @endsection

@@ -23,6 +23,8 @@
     <!-- //Custom Theme files -->
     <!-- font-awesome icons -->
     <link href="{{asset('frontend/css/font-awesome.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/assignlayout.css')}}" type="text/css" rel="stylesheet" media="all"
+          xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <!-- //font-awesome icons -->
     <!-- js -->
     <script src="{{asset('frontend/js/jquery-2.2.3.min.js')}}"></script>
@@ -182,7 +184,7 @@
 <!-- header -->
 <div class="headerw3l" id="header">
     <nav class="navbar navbar-default" id="navbar">
-        <div class="container">
+        <div class="container header-cont">
             <div class="navbar-header navbar-left">
                 <h1><a href="/">ActionTime<span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i
                                     class="logo-w3l3"> Laugh.</i> <i class="logo-w3l4"> Grow.</i></span></a></h1>
@@ -220,17 +222,17 @@
 
                 <div class="clearfix"></div>
                 @auth
-                @if(Auth::user()['img'] == null)
-                    @php $img = '../../../images/prof.png'; @endphp
-                @else
-                    @php $img = '../../../upload/'.Auth::user()['img']; @endphp
-                @endif
+                    @if(Auth::user()['img'] == null)
+                        @php $img = '../../../images/prof.png'; @endphp
+                    @else
+                        @php $img = '../../../upload/'.Auth::user()['img']; @endphp
+                    @endif
             </div><!-- //navigation -->
-            <div class="profile">
+            <div class="profile mt-4">
                 <div class="row nav-row">
 
-                    <div class="col-md-9" id = "nav-col-9">
-                        <a id = "username" href="/profile" class="link link--yaku navbar-user mt-3" onmouseover="deeperColorUser()" onmouseout="normalColorUser()">{{Auth::user()['user_name']}}</a>
+                    <div class="col-md-9 mt-3" id = "nav-col-9">
+                        <a id = "username" href="/profile" class="link link--yaku navbar-user mt-3" onmouseover="deeperColorUser()" onmouseout="normalColorUser()">{{Auth::user()['email']}}</a>
 
                     </div>
                     <div class="col-md-2 px-0">

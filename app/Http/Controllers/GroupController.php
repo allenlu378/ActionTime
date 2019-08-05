@@ -19,11 +19,25 @@ class GroupController extends Controller
      */
     public function create(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:user_group',
-            'member1' => 'required'
-        ]);
+
+
         $info = $request->except('_token');
+        $check = Group::where('name', '=', $info['name'])->count();
+        if($check != 0){
+
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'name' => ['Group name has already been taken.'],
+                'group_name' => [$info['name']],
+            ]);
+            throw $error;
+        }
+        if(!array_key_exists('member1', $info)){
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'member1' => ['A group needs at least 1 member.'],
+                'group_name' => [$info['name']],
+            ]);
+            throw $error;
+        }
         $group_info = ['name' => $info['name'], 'manager_id' => Auth::user()['id']];
         $group = Group::create($group_info);
         //var_dump($info);
@@ -52,7 +66,7 @@ class GroupController extends Controller
     public function list()
     {
         $ids = User::pluck('id')->toArray();
-        $emails = User::pluck('email')->toArray();
+        $emails = User::pluck('user_name')->toArray();
         $pics = User::pluck('img')->toArray();
         //$group_names = Group::where('manager_id', '=', Auth::user()['id'])->pluck('name')->toArray();
         $group_ids = DB::table('group_member')->where('user_id', Auth::user()['id'])->pluck('group_id')->toArray();
@@ -64,9 +78,10 @@ class GroupController extends Controller
         }
         //var_dump($group_sizes);
         $email = Auth::user()['email'];
+        $user_name =Auth::user()['user_name'];
         //var_dump($email);
         //var_dump($pics);
-        return view($this->view_path . 'group', compact('emails', 'pics', 'ids', 'group_info', 'num_groups', 'group_sizes', 'email'));
+        return view($this->view_path . 'group', compact('emails', 'pics', 'ids', 'group_info', 'num_groups', 'group_sizes', 'email', 'user_name'));
     }
 
     /*
@@ -76,22 +91,39 @@ class GroupController extends Controller
      */
     public function edit(Request $request)
     {
+
         $info = $request->except('_token');
+        $info['name'] = $info['name_edit'];
+        unset($info['name_edit']);
         $cur_name = Group::where('id', '=',$info['id'])->pluck('name')->toArray();
+        $id = Group::where('name', '=', $cur_name[0])->pluck('id')->toArray()[0];
         //var_dump($cur_name[0]);
         //var_dump($info['name']);
 
         if(strcmp($cur_name[0], $info['name']) == 0){
         }
         else{
-            $request->validate([
-                'name' => 'unique:user_group',
-            ]);
+            $check = Group::where('name', '=', $info['name'])->count();
+            if($check != 0){
+
+                $error = \Illuminate\Validation\ValidationException::withMessages([
+                    'name_edit' => ['Group name has already been taken.'],
+                    'group_id' => [$id],
+                ]);
+                throw $error;
+            }
         }
-        $request->validate([
-            'name' => 'required',
-            'member1' => 'required',
-        ]);
+        if(!array_key_exists('member-edit1', $info)){
+
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'member-edit1' => ['A group needs at least 1 member.'],
+                'group_id' => [$id],
+            ]);
+            throw $error;
+        }
+//        $request->validate([
+//            'member-edit1' => 'required',
+//        ]);
         Group::where('id', '=',$info['id'])->delete();
         DB::table('group_member')->where('group_id', '=', $info)->delete();
         unset($info['id']);
