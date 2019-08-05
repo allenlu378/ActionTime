@@ -95,4 +95,13 @@ class ChallengeProgressController extends Controller
 
     }
 
+    public function getAcceptedChallenges()
+    {
+        $user = Auth::user()['id'];
+        $accepted = ChallengeProgress::with('Challenge')->whereHas('Challenge', function ($query) use ($user) {
+            $query->where('start_by',$user);
+        })->get()->toJson();
+        return $accepted;
+    }
+
 }

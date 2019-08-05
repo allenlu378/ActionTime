@@ -32,8 +32,10 @@ Route::get('/info', 'FrontEnd\HomeController@info')->name('info');
 //////////////////////////////   Challenges   ////////////////////////////////////////////////////////////
 Route::any('/mychallenges', 'FrontEnd\MyChallengesController@index')->name('mychallenges');
 
-Route::post('/mychallenges/pending/list', 'FrontEnd\ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
-Route::post('/mychallenges/pending/create', 'FrontEnd\ChallengeProgressController@acceptChallenges')->name('mychallenges.pending.create');
+Route::post('/mychallenges/create', 'ChallengeController@assignChallenge')->name('mychallenges.create');
+
+Route::post('/mychallenges/pending/list', 'ChallengeController@getPendingChallenges')->name('mychallenges.pending.list');
+Route::post('/mychallenges/pending/create', 'ChallengeProgressController@acceptChallenges')->name('mychallenges.pending.create');
 
 Route::post('/mychallenges/current/list', 'FrontEnd\ChallengeProgressController@getCurrentChallenges')->name('mychallenges.current.list');
 Route::post('/mychallenges/completed/list', 'FrontEnd\ChallengeProgressController@getCompletedChallenges')->name('mychallenges.completed.list');
@@ -42,6 +44,14 @@ Route::any('/publicchallenges', 'FrontEnd\PublicChallengesController@index')->na
 
 Route::post('/publicchallenges/list', 'FrontEnd\ChallengeController@getPublicChallenges')->name('publicchallenges.list');
 Route::post('/publicchallenges/pending/create', 'FrontEnd\ChallengeProgressController@acceptChallenges')->name('publicchallenges.create');
+
+Route::any('/createdchallenges', 'FrontEnd\CreatedChallengesController@index')->name('createdchallenges');
+Route::get('/createdchallenges/unaccepted/list', 'ChallengeController@getUnacceptedChallenges')->name('createdchallenges.unaccepted.list');
+Route::get('/createdchallenges/accepted/list', 'ChallengeProgressController@getAcceptedChallenges')->name('createdchallenges.accepted.list');
+
+Route::get('/approvalrequest/list', 'ApprovalRequestController@getRequests')->name('approvalrequest.list');
+Route::get('/approvalrequest/create', 'ApprovalRequestController@submitProgress')->name('approvalrequest.create');
+
 
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');
 Route::get('/signout', 'Auth\LoginController@signOut')->name('signout');

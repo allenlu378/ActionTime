@@ -11,7 +11,13 @@ class Challenge extends Model
     protected $table = 'challenges';
 
     protected $fillable = [
+        'task_id',
+        'award_id',
+        'start_by',
+        'due_time',
         'challenge_type',
+        'group_id',
+        'user_id',
         'verified'
     ];
 
@@ -25,7 +31,10 @@ class Challenge extends Model
     public function task(){
         return $this->belongsTo('App\Http\Model\Task','task_id');
     }
-
+    public function award()
+    {
+        return $this->belongsTo('App\Http\Model\Award', 'award_id');
+    }
     public function startedBy() {
         return $this->belongsTo('App\User','start_by');
     }

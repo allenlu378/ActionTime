@@ -12,6 +12,8 @@
             <h2 class="mx-5">
                 Pending Challenges
             </h2>
+                <input  class="btn btn-primary  float-right" type="button"
+                        value="Sent Challenges" onclick="window.location.href = 'createdchallenges';"/>
             <div id="pending-challenge-container" class="row pending-challenge-row">
                 <div class="col-md-4" v-for="(pending,index) in pending_challenges" :key="index">
                     <div class="card my-challenge my-2" @click="pending_isFlipped.splice(index,1,!pending_isFlipped[index])">
@@ -29,7 +31,7 @@
                                             Sender:  @{{ pending.started_by.user_name }}
                                         </div>
                                         <div class="row my-2">
-                                            Reward:  @{{ pending.task.award_id }}
+                                            Reward:  @{{ pending.award.award_name}}
                                         </div>
                                         <div class="row button-container my-2 mr-4">
                                             <div class="col-md-12">
@@ -85,7 +87,7 @@
                                             Due Time:  @{{ current.challenge.due_time }}
                                         </div>
                                         <div class="row my-2">
-                                            Reward:  @{{ current.challenge.task.award_id }}
+                                            Reward:  @{{ current.challenge.award.award_name}}
                                         </div>
                                         <div class="row my-2">
                                             <label for="current-progress">Current Progress: </label>
@@ -160,7 +162,7 @@
                                             Due Time:  @{{ completed.challenge.due_time }}
                                         </div>
                                         <div class="row my-2">
-                                            Reward:  @{{ completed.challenge.task.award_id }}
+                                            Reward:  @{{ completed.challenge.award.award_name }}
                                         </div>
                                         <div class="row my-2">
                                             Current Progress: @{{ completed.current_value }}/@{{completed.challenge.task.total_value}}
