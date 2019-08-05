@@ -45,7 +45,8 @@
             </div>
 
             <h1 class="my-0">Assign a Task</h1>
-            <form method="POST" action="{{route('task.assignTask')}}" enctype="multipart/form-data" class="w-100" id="form">
+            <form method="POST" action="{{route('mychallenges.create')}}" enctype="multipart/form-data" class="w-100"
+                  id="form">
                 @csrf
                 <input name="id" class="d-none" id="task_id" value="{{$task['id']}}">
                 <script>
@@ -134,13 +135,13 @@
                                 <div class="custom-control custom-radio mt-radio ml-4" style="padding-left: 5rem;">
                                     <input type="radio" class="custom-control-input" id="group" name="radio1"
                                            onchange="changeCheck()" value=1>
-                                    <label class="custom-control-label" for="group" ></label>
+                                    <label class="custom-control-label" for="group"></label>
                                 </div>
                             </div>
                             <div class="col-md-4 px-0">
                                 <div class="input-group mt-4">
                                     <h4 id="basic-addon1">Group:</h4>
-                                    <input id='group-search' name = "group"
+                                    <input id='group-search' name="group"
                                            class="form-control"
                                            autocomplete="RandomString1"
                                            placeholder="Group"
@@ -241,48 +242,45 @@
                             <div class="form-group mb-0">
                                 <div class='input-group date' id='datetimepicker1'>
 
-                                    <input name = 'due_time' type='text' class="form-control" required/>
+                                    <input name='due_time' type='text' class="form-control" required/>
                                     <div class="input-group-addon p-0"><span class="input-group-text" id="basic-addon1">
                                                 <i class="fa fa-calendar" style="font-size:24px"></i>
                                             </span>
 
-                                    <input name = 'due_time' data-format="dd/MM/yyyy hh:mm:ss" type='text' class="form-control" required/>
-                                    <div class="input-group-addon p-0"><span class="input-group-text" id="basic-addon1">
-                                                <i class="fa fa-calendar" style="font-size:24px"></i>
-                                            </span></div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#datetimepicker1').datetimepicker({
-                                        format: 'MM/DD/YYYY hh:mm:ss A'
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker1').datetimepicker({
+                                            format: 'MM/DD/YYYY hh:mm:ss A'
+                                        });
                                     });
-                                });
-                            </script>
+                                </script>
 
-                        </div>
-                        <div class="row" style="margin-top: -11%">
-                            <div class="form-group mb-0">
-                                <div class="input-group">
-                                    <h4 id="basic-addon1" style='margin-top: 15px; margin-bottom: 5px'>Reward:</h4>
-                                    <input id='reward-search' name = "reward"
-                                           class="form-control"
-                                           autocomplete="randomString"
-                                           placeholder="Reward"
-                                           aria-label="username"
-                                           aria-describedby="basic-addon1" required>
-                                    <div class="input-group-addon p-0"
-                                         style="vertical-align: bottom; background:none;border:none;"><span
-                                                class="input-group-text" id="basic-addon1">
+                            </div>
+                            <div class="row" style="margin-top: -11%">
+                                <div class="form-group mb-0">
+                                    <div class="input-group">
+                                        <h4 id="basic-addon1" style='margin-top: 15px; margin-bottom: 5px'>Reward:</h4>
+                                        <input id='reward-search' name="reward"
+                                               class="form-control"
+                                               autocomplete="randomString"
+                                               placeholder="Reward"
+                                               aria-label="username"
+                                               aria-describedby="basic-addon1" required>
+                                        <div class="input-group-addon p-0"
+                                             style="vertical-align: bottom; background:none;border:none;"><span
+                                                    class="input-group-text" id="basic-addon1">
                                                 <i class="fa fa-trophy" style="font-size:24px"></i>
                                             </span></div>
+                                    </div>
+
                                 </div>
-
                             </div>
+
+
                         </div>
-
-
                     </div>
                     <div class="row">
                         <button type='submit' class="shadow-sm btn btn-secondary save-btn">Assign Task</button>
@@ -368,9 +366,8 @@
                                     img = '../../../images/prof.png';
                                 } else if (reward && imgs[i] == null) {
                                     img = '../../../frontend/images/reward-img.png';
-                                }
-                                else{
-                                    img = '../../../upload/'+imgs[i];
+                                } else {
+                                    img = '../../../upload/' + imgs[i];
                                 }
                                 b.innerHTML = "<img class = 'hint-pic' src = '" + img + "'>";
                                 b.innerHTML += "<strong>" + arr[i].substr(0, val.length) + "</strong>" + "<span>" + arr[i].substr(val.length) + "</span>";

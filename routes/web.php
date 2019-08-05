@@ -100,7 +100,7 @@ Route::post('task/delete', "FrontEnd\TaskController@delete")->name('task.delete'
 Route::get('task/pick/{task_id}',"TaskController@pick")->name('task/pick');
 Route::post('task/edit',"FrontEnd\TaskController@edit")->name('task.edit');
 Route::post('task/update',"TaskController@update")->name('task.update');
-Route::post('task/doAssign',"TaskController@doAssign")->name('task.doAssign');
+Route::post('task/',"TaskController@doAssign")->name('task.doAssign');
 Route::get('task/assign/{name}', "FrontEnd\TaskController@createAssign")->name('task.assign');
 Route::post('task/assign', 'FrontEnd\TaskController@assignTask')->name('task.assignTask');
 
