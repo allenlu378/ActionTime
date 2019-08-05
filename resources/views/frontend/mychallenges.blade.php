@@ -6,14 +6,18 @@
     <div class="container-fluid">
         <div class="row">
             <h1>My Challenges</h1>
+            <div class="col-md-12">
+                <div class="row button-container mr-4">
+                    <input  class="btn btn-primary  float-right" type="button"
+                            value="Sent Challenges" onclick="window.location.href= 'createdchallenges';"/>
+                </div>
+            </div>
         </div>
         <div id="my_challenge_container" class="row">
             <div class="col-md-12 pending-challenges my-challenge-headings">
             <h2 class="mx-5">
                 Pending Challenges
             </h2>
-                <input  class="btn btn-primary  float-right" type="button"
-                        value="Sent Challenges" onclick="window.location.href = 'createdchallenges';"/>
             <div id="pending-challenge-container" class="row pending-challenge-row">
                 <div class="col-md-4" v-for="(pending,index) in pending_challenges" :key="index">
                     <div class="card my-challenge my-2" @click="pending_isFlipped.splice(index,1,!pending_isFlipped[index])">
@@ -330,8 +334,7 @@
 
 
                     })
-            },
-            submitChallenge(id,currentP)
+            }
 
 
         },
