@@ -71,3 +71,7 @@
 .card-hidden {
     display: none;
 }
+
+.row.created-link {
+    justify-content: left;
+}

@@ -85,7 +85,7 @@ class ChallengeProgressController extends Controller
         $percent = 0;
         $current_participants = ChallengeProgress::where('challenge_id',$id)->distinct()->count('ranking');
         $rank = $current_participants +1;
-        $time = Carbon::now();
+        $time = Carbon::now()->toDateTimeString();
         $finished = 0;
         ChallengeProgress::create(['challenge_id' => $id, 'user_id' => $user_id, 'current_value' => $current_value,
             'percent' => $percent, 'ranking' => $rank, 'start_time' => $time, 'finish_flag' => $finished]);
