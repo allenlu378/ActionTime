@@ -38,6 +38,14 @@ class Challenge extends Model
     public function startedBy() {
         return $this->belongsTo('App\User','start_by');
     }
+    public function user() {
+        return $this->belongsTo('App\User','user_id');
+    }
+
+    public function group() {
+        return $this->belongsTo('App\Http\Model\Group', 'group_id');
+    }
+
 
 
 

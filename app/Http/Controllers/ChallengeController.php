@@ -28,7 +28,7 @@ class ChallengeController extends Controller
         }
         else if ($request->has('user'))
         {
-            $user_id = User::where('email',$request['user'])->pluck('id')[0];
+            $user_id = User::where('user_name',$request['user'])->pluck('id')[0];
         }
         $reward_id = Award::where('award_name', $request['reward'])->pluck('id')[0];
         $verified = null;
@@ -137,8 +137,8 @@ class ChallengeController extends Controller
     public function getUnacceptedChallenges()
     {
         $user = Auth::user()['id'];
-        $unaccepted = Challenge::with('Task','startedBy','Award')->where('start_by', $user)->
-        whereNotIn('id',DB::table('challenge_progress')->pluck('challenge_progress.challenge_id')->toArray())->get()->toJson();
+        $unaccepted = Challenge::with('Task','startedBy','Award','User','Group')->where('start_by', $user)->
+        whereNotIn('id',DB::table('challenge_progress')->pluck('challenge_progress.challenge_id')->toArray())->orderByDesc('id')->get()->toJson();
         return $unaccepted;
     }
 

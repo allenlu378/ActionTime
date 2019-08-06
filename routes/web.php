@@ -61,7 +61,8 @@ Route::get('/createdchallenges/unaccepted/list', 'ChallengeController@getUnaccep
 Route::get('/createdchallenges/accepted/list', 'ChallengeProgressController@getAcceptedChallenges')->name('createdchallenges.accepted.list');
 
 Route::get('/approvalrequest/list', 'ApprovalRequestController@getRequests')->name('approvalrequest.list');
-Route::get('/approvalrequest/create', 'ApprovalRequestController@submitProgress')->name('approvalrequest.create');
+Route::post('/approvalrequest/create', 'ApprovalRequestController@submitProgress')->name('approvalrequest.create');
+Route::post('/approvalrequest/update', 'ApprovalRequestController@approveChallengeProgress')->name('approvalrequest.update');
 
 
 Route::get('/home', 'FrontEnd\HomeController@index')->name('home')->middleware('auth');

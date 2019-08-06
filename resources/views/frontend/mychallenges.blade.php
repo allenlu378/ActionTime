@@ -240,7 +240,7 @@
                                                                class="mr-1"
                                                                :value=current.current_value
                                                                :min=current.current_value
-                                                               :max=current.challenge.task.total_value step="0.5"/>
+                                                               :max=current.challenge.task.total_value step="0.5" v-model="current_newValue[index]"/>
                                                         <p style="color: white">
                                                             /@{{current.challenge.task.total_value}}</p>
                                                     </div>
@@ -535,6 +535,7 @@
                 current_challenges: [],
                 current_id: '',
                 current_isFlipped: [],
+                current_newValue: [],
                 more_current: true,
 
                 completed_challenges: [],
@@ -581,24 +582,28 @@
                         })
                 },
 
-                loadCurrentChallenges() {
-                    let $this = this;
-                    axios
-                        .post('/mychallenges/current/list', {
-                            id: this.current_id,
-                            "_token": "{{ csrf_token() }}",
-                        })
-                        .then((response) => {
-                            var currentLength = this.current_challenges.length;
-                            this.current_challenges = this.current_challenges.concat(response.data);
-                            var numberAdded = this.current_challenges.length - currentLength;
-                            if (numberAdded == 0) {
-                                this.more_current = false;
-                            } else {
-                                this.current_id = response.data[numberAdded - 1].id;
-                                for (var i = 0; i < numberAdded; i++) {
-                                    this.current_isFlipped.push(false);
-                                }
+            loadCurrentChallenges() {
+                let $this = this;
+                axios
+                    .post('/mychallenges/current/list', {
+                        id: this.current_id,
+                        "_token": "{{ csrf_token() }}",
+                    })
+                    .then((response) => {
+                        var currentLength =this.current_challenges.length;
+                        this.current_challenges=this.current_challenges.concat( response.data);
+                        var numberAdded = this.current_challenges.length-currentLength;
+                        if(numberAdded == 0)
+                        {
+                            this.more_current = false;
+                        }
+                        else
+                        {
+                            this.current_id = response.data[numberAdded - 1].id;
+                            for (var i = 0;i<numberAdded;i++)
+                            {
+                                this.current_isFlipped.push(false);
+                                this.current_newValue.push(parseInt(response.data[i].current_value));
                             }
 
 
@@ -627,8 +632,24 @@
                             }
 
 
-                        })
-                }
+
+                    })
+            },
+            submitChallengeProgress(id,currentValue, index)
+            {
+                var newValue = this.current_newValue[index];
+                axios
+                    .post('/approvalrequest/create', {
+                        id: id,
+                        current_progress: currentValue,
+                        new_value: newValue,
+                        "_token": "{{ csrf_token() }}"
+                    })
+                    .then((response) => {
+                        window.location.replace(response.data);
+                    })
+
+            }
 
 
             },
@@ -644,4 +665,3 @@
     </script>
 
 @endsection
-
