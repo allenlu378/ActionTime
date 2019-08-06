@@ -141,6 +141,12 @@
     color: white;
     font-size: 18px;
 }
+.description-un{
+    height: 63%;
+    overflow: auto;
+    color: white;
+    font-size: 18px;
+}
 .description-current{
     height: 25%;
     overflow: auto;
@@ -211,6 +217,9 @@
 }
 .bar-margin{
     margin-top: .35rem !important;
+}
+.finish-margin{
+    margin-top: 1.25rem !important;
 }
 .back-title{
     font-size: 21px;

@@ -240,7 +240,7 @@
                                                                class="mr-1"
                                                                :value=current.current_value
                                                                :min=current.current_value
-                                                               :max=current.challenge.task.total_value step="0.5" v-model="current_newValue[index]"/>
+                                                               :max=current.challenge.task.total_value step="0.5" v-model="current_newValue[index]" @click.stop/>
                                                         <p style="color: white">
                                                             /@{{current.challenge.task.total_value}}</p>
                                                     </div>
@@ -252,7 +252,7 @@
                                                     <h5 class="back-title submit-cur">Submit Progress</h5>
                                                     <div class="row">
                                                         <input class="btn btn-success  float-right mb-1" type="button"
-                                                               value="Submit Progress" @click.stop/>
+                                                               value="Submit Progress" @click.stop @click="submitChallengeProgress(current.id,current.current_value,index)"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -358,8 +358,12 @@
                                                 <div class="col px-0">
                                                     <h5 class="back-title status-com">Status</h5>
                                                     <div class="row">
-                                                        <div class="rounded-circle challenge-finished-indicator-accepted mx-2 mt-1"></div>
-                                                        <p class="reward-txt">In Progress</p>
+                                                        <div v-if="completed.finish_flag == 1" class = "rounded-circle challenge-finished-indicator-success mx-2">
+                                                        </div>
+                                                        <div v-else class="rounded-circle challenge-finished-indicator-fail mx-2">
+
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -597,14 +601,13 @@
                         {
                             this.more_current = false;
                         }
-                        else
-                        {
+                        else {
                             this.current_id = response.data[numberAdded - 1].id;
-                            for (var i = 0;i<numberAdded;i++)
-                            {
+                            for (var i = 0; i < numberAdded; i++) {
                                 this.current_isFlipped.push(false);
                                 this.current_newValue.push(parseInt(response.data[i].current_value));
                             }
+                        }
 
 
                         })
