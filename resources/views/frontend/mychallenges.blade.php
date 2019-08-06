@@ -95,7 +95,7 @@
                                         </div>
                                         <div class="row my-2">
                                             <label for="current-progress">Current Progress: </label>
-                                            <input id="current-progress" type="number" :value=current.current_value :min=current.current_value :max=current.challenge.task.total_value step="0.5"/>/@{{current.challenge.task.total_value}}
+                                            <input id="current-progress" type="number" :min=current.current_value :max=current.challenge.task.total_value step="0.5" v-model="current_newValue[index]" @click.stop/>/@{{current.challenge.task.total_value}}
                                         </div>
                                         <div class="row my-2">
                                             Percent Complete:
@@ -115,7 +115,7 @@
                                         <div class="row button-container my-2 mr-4">
                                             <div class="col-md-12">
                                                 <input  class="btn btn-primary  float-right" type="button"
-                                                        value="Submit Progress" @click.stop/>
+                                                        value="Submit Progress" @click.stop @click="submitChallengeProgress(current.id,current.current_value,index)"/>
                                             </div>
                                         </div>
                                     </div>
@@ -227,6 +227,7 @@
             current_challenges: [],
             current_id: '',
             current_isFlipped: [],
+            current_newValue: [],
             more_current: true,
 
             completed_challenges: [],
@@ -299,6 +300,7 @@
                             for (var i = 0;i<numberAdded;i++)
                             {
                                 this.current_isFlipped.push(false);
+                                this.current_newValue.push(parseInt(response.data[i].current_value));
                             }
                         }
 
@@ -334,6 +336,21 @@
 
 
                     })
+            },
+            submitChallengeProgress(id,currentValue, index)
+            {
+                var newValue = this.current_newValue[index];
+                axios
+                    .post('/approvalrequest/create', {
+                        id: id,
+                        current_progress: currentValue,
+                        new_value: newValue,
+                        "_token": "{{ csrf_token() }}"
+                    })
+                    .then((response) => {
+                        window.location.replace(response.data);
+                    })
+
             }
 
 

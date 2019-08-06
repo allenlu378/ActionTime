@@ -17,14 +17,15 @@ class ChallengeProgress extends Model
         'percent',
         'ranking',
         'start_time',
-        'finish_flag'
+        'finish_flag',
+        'finish_time'
     ];
 
     public function challenge(){
         return $this->belongsTo('App\Http\Model\Challenge','challenge_id')->with('Task', 'startedBy','Award');
     }
     public function user() {
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
 }

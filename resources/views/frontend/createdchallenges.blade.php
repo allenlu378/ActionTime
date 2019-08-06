@@ -25,6 +25,15 @@
                                             <div class="row my-2">
                                                 @{{ unaccepted.task.description }}
                                             </div>
+                                            <div class="row my-2" v-if="unaccepted.user_id!= null">
+                                                Sent to user @{{ unaccepted.user.user_name}}
+                                            </div>
+                                            <div class="row my-2" v-else-if="unaccepted.group_id!= null">
+                                                Sent to group: @{{ unaccepted.group.name}}
+                                            </div>
+                                            <div class="row my-2" v-else>
+                                                Sent to public
+                                            </div>
                                             <div class="row my-2">
                                                 Reward:  @{{ unaccepted.award.award_name}}
                                             </div>
@@ -60,6 +69,9 @@
                                             </div>
                                             <div class="row my-2">
                                                 Start Time:  @{{ accepted.start_time }}
+                                            </div>
+                                            <div class="row my-2">
+                                                Participant:  @{{ accepted.user.user_name }}
                                             </div>
                                             <div class="row my-2">
                                                 Due Time:  @{{ accepted.challenge.due_time }}
@@ -112,35 +124,38 @@
                                 <div class="col cardBox">
                                     <div class="my-challenge-info card" :class="{ 'flip-challenge': approval_isFlipped[index] }">
                                         <div class="front" :class="{'card-hidden': approval_isFlipped[index]}">
-                                            <img class="card-img-top" :src="'/upload/' + approval.challengeProgress.challenge.task.img">
+                                            <img class="card-img-top" :src="'/upload/' + approval.challenge_progress.challenge.task.img">
                                         </div>
-                                        <div class="back mx-4" :class="{'card-hidden': !completed_isFlipped[index]}">>
+                                        <div class="back mx-4" :class="{'card-hidden': !approval_isFlipped[index]}">>
                                             <div class="row my-2">
-                                                @{{ approval.challengeProgress.challenge.task.description }}
+                                                @{{ approval.challenge_progress.challenge.task.description }}
+                                            </div>
+                                            <div class="row my-2">
+                                                Request By: @{{ approval.requested_by.user_name }}
                                             </div>
                                             <div class="row my-2">
                                                 Request Created:  @{{ approval.create_time }}
                                             </div>
                                             <div class="row my-2">
-                                                Start Time:  @{{ approval.challengeProgress.start_time }}
+                                                Start Time:  @{{ approval.challenge_progress.start_time }}
                                             </div>
                                             <div class="row my-2">
-                                                Due Time:  @{{ approval.challengeProgress.challenge.due_time }}
+                                                Due Time:  @{{ approval.challenge_progress.challenge.due_time }}
                                             </div>
                                             <div class="row my-2">
-                                                Reward:  @{{ approval.challengeProgress.challenge.award.award_name }}
+                                                Reward:  @{{ approval.challenge_progress.challenge.award.award_name }}
                                             </div>
                                             <div class="row my-2">
-                                                Current Progress: @{{ approval.challengeProgress.current_value }}/@{{approval.challengeProgress.challenge.task.total_value}}
+                                                Current Progress: @{{ approval.challenge_progress.current_value }}/@{{approval.challenge_progress.challenge.task.total_value}}
                                             </div>
                                             <div class="row my-2">
                                                 Percent Complete:
                                                 <div class="progress col-md-12 mx-8">
-                                                    <div class="progress-bar" role="progressbar" :style="{width: approval.challengeProgress.percent + '%'}" :aria-valuenow=approval.challengeProgress.percent aria-valuemin="0" aria-valuemax="100">@{{ approval.challengeProgress.percent }}%</div>
+                                                    <div class="progress-bar" role="progressbar" :style="{width: approval.challenge_progress.percent + '%'}" :aria-valuenow=approval.challenge_progress.percent aria-valuemin="0" aria-valuemax="100">@{{ approval.challenge_progress.percent }}%</div>
                                                 </div>
                                             </div>
                                             <div class="row my-2">
-                                                Ranking: @{{approval.challengeProgress.ranking}}
+                                                Ranking: @{{approval.challenge_progress.ranking}}
                                             </div>
                                             <div class="row my-2">
                                                 Added Value: @{{ approval.add_value }}
@@ -152,7 +167,7 @@
                                                 </div>
                                                 <div class="col mx-2">
                                                     <input  class="btn btn-primary  float-right" type="button"
-                                                            value="Deny Rrogress" @click.stop @click="verifyChallenge(approval.id,-1)"/>
+                                                            value="Deny Progress" @click.stop @click="verifyProgress(approval.id,2)"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -161,7 +176,7 @@
                             </div>
                             <div class="card-footer">
                                 <h1 class="card-title">
-                                    @{{ completed.challenge.task.name }}
+                                    @{{ approval.challenge_progress.challenge.task.name }}
                                 </h1>
                             </div>
                         </div>
@@ -231,6 +246,19 @@
 
 
 
+                        })
+                },
+                verifyProgress(requestId, decision)
+                {
+                    let $this = this;
+                    axios
+                        .post('/approvalrequest/update', {
+                            id: requestId,
+                            senderDecision: decision,
+                            "_token": "{{ csrf_token() }}"
+                        })
+                        .then((response) => {
+                            window.location.replace(response.data);
                         })
                 }
 

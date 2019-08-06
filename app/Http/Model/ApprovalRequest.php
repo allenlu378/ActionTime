@@ -12,7 +12,7 @@ class ApprovalRequest extends Model
 
     protected $fillable = [
         'requested_by',
-        'descrption',
+        'description',
         'challenge_progress_id',
         'add_value',
         'feedback',
@@ -26,6 +26,6 @@ class ApprovalRequest extends Model
         return $this->belongsTo('App\Http\Model\ChallengeProgress','challenge_progress_id')->with('Challenge');
     }
     public function requestedBy() {
-        return $this->belongsTo('App\User','request_by');
+        return $this->belongsTo('App\User','requested_by');
     }
 }
