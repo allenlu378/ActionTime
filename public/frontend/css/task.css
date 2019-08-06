@@ -250,12 +250,12 @@ form {
     overflow: auto;
 }
 .back-title{
-    background-color: rgba(0,0,0,0.2);
-    border-bottom-left-radius: 20% 100%;
-    border-bottom-right-radius: 20% 100%;
-    margin-bottom: .3rem !important;
-    color: white;
-}
+     background-color: rgba(0,0,0,0.2);
+     border-bottom-left-radius: 20% 100%;
+     border-bottom-right-radius: 20% 100%;
+     margin-bottom: .3rem !important;
+     color: white;
+ }
 .vert-line{
     border-left: 1px solid rgba(0,0,0,0.125);
     width: 0;

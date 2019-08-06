@@ -232,7 +232,7 @@
                 <div class="row nav-row">
 
                     <div class="col-md-9 mt-3" id = "nav-col-9">
-                        <a id = "username" href="/profile" class="link link--yaku navbar-user mt-3" onmouseover="deeperColorUser()" onmouseout="normalColorUser()">{{Auth::user()['email']}}</a>
+                        <a id = "username" href="/profile" class="link link--yaku navbar-user mt-3" onmouseover="deeperColorUser()" onmouseout="normalColorUser()">{{Auth::user()['user_name']}}</a>
 
                     </div>
                     <div class="col-md-2 px-0">

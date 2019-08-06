@@ -82,12 +82,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 
 .front, .back {
-    -backface-visibility: hidden;
+    backface-visibility: hidden;
 
 }
 
 .front {
-    -transform: rotateY(0deg);
+    transform: rotateY(0deg);
 }
 
 .back {

@@ -12,24 +12,35 @@
                 <div class="card public-challenge" @click="isFlipped.splice(index,1,!isFlipped[index])">
                     <div class="row">
                         <div class="col cardBox">
-                            <div class="public-challenge-info card" :class="{ 'flip-challenge': isFlipped[index] }">
-                            <div class="front" :class="{'card-hidden': isFlipped[index]}">
-                            <img class="card-img-top" :src="'/upload/' + challenge.task.img">
-                            </div>
-                            <div class="back mx-4" :class="{'card-hidden': !isFlipped[index]}">
-                                <div class="row my-2">
-                                    @{{ challenge.task.description }}
+                            <div class="public-challenge-info card mt-0"
+                                 :class="{ 'flip-challenge': isFlipped[index] }">
+                                <div class="front" :class="{'card-hidden': isFlipped[index]}">
+                                    <img class="card-img-top" :src="'/upload/' + challenge.task.img">
                                 </div>
-                                <div class="row my-2">
-                                   Reward:  @{{ challenge.award.award_name }}
-                                </div>
-                                <div class="row button-container my-2 mr-4">
-                                    <div class="col-md-12">
-                                        <input  class="btn btn-primary  float-right" type="button"
-                                                value="Accept Challenge" @click.stop @click="acceptChallenge(challenge.id)"/>
+                                <div class="back" :class="{'card-hidden': !isFlipped[index]}">
+                                    <h5 class="w-100 back-title-description">Description</h5>
+                                    <div class="description">
+                                        @{{ challenge.task.description }}
                                     </div>
+                                    <div class="row attr-row mx-0 accept-margin">
+                                        <div class="col px-0">
+                                            <h5 class="back-title-description">Reward</h5>
+                                            <div class="row px-0 mt-2">
+                                                <div class="nav-prof-container shadow-sm mr-2">
+                                                    <input type="image" id="nav-prof" class="nav-prof-pic"
+                                                           v-bind:src="'../../../upload/'+challenge.award.img">
+                                                </div>
+                                                <p class="reward-txt"> @{{ challenge.award.award_name }} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-0">
+                                        <input class="btn btn-success" type="button" value="Accept Challenge"
+                                               @click.stop @click="acceptChallenge(challenge.id)"/>
+
+                                    </div>
+
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -40,6 +51,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-12">
                 <div class="row button-container my-2 mr-4">
                     <div class="col-md-12">
@@ -50,7 +62,26 @@
             </div>
         </div>
 
-     </div>
+    </div>
+    <script>
+        function randomColor() {
+            var letters = '01234567';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 8)];
+            }
+            return color;
+        }
+        for (let i = 0; i < $('.description').length; i++) {
+            var color = randomColor();
+            var description = document.getElementsByClassName('back-title-description')[i*2];
+            description.style.backgroundColor = color;
+            var reward = document.getElementsByClassName('back-title-description')[i*2+1];
+            reward.style.backgroundColor = color;
+
+        }
+
+    </script>
     <script>
         var auth_user = @json($user);
         console.log(auth_user);
@@ -58,12 +89,12 @@
             el: '#public-challenge-container',
             data: {
 
-                    challenges: [],
-                    id: '',
-                    isFlipped: [],
-                    more_challenges: true,
+                challenges: [],
+                id: '',
+                isFlipped: [],
+                more_challenges: true,
 
-                },
+            },
             methods: {
                 loadChallenges() {
                     let $this = this;
@@ -116,4 +147,5 @@
             }
         })
     </script>
+
 @endsection
