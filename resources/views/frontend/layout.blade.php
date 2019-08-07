@@ -183,10 +183,12 @@
 <div class="headerw3l" id="header">
     <nav class="navbar navbar-default" id="navbar">
         <div class="container">
+            @if(Auth::user()['img'] != null)
             <div class="navbar-header navbar-left">
                 <h1><a href="/">ActionTime<span><i>Learn.</i> <i class="logo-w3l2">Share.</i> <i
                                     class="logo-w3l3"> Laugh.</i> <i class="logo-w3l4"> Grow.</i></span></a></h1>
             </div>
+            @endif
             <!-- navigation -->
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -221,7 +223,7 @@
                 <div class="clearfix"></div>
                 @auth
                 @if(Auth::user()['img'] == null)
-                    @php $img = '../../../images/prof.png'; @endphp
+                    @php $img = '../../../frontend/images/head.png'; @endphp
                 @else
                     @php $img = '../../../upload/'.Auth::user()['img']; @endphp
                 @endif

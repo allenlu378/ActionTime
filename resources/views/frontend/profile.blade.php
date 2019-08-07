@@ -2,7 +2,7 @@
 @section('content')
     <!-- Header and Links -->
     <link href="{{asset('frontend/css/profile.css')}}" type="text/css" rel="stylesheet" media="all">
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <!-- Fill in Info -->
     @if($user['first_name'] != null)
@@ -34,7 +34,7 @@
     @if($user['img'] != null)
         @php $image = '../../../upload/'.$user['img'] @endphp
     @else
-        @php $image = "../../../images/prof.png" @endphp
+        @php $image = "../../../frontend/images/head.png" @endphp
     @endif
 
     <div class="container-fluid">
@@ -133,7 +133,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Username</span>
                             </div>
-                            <input name='user_name' type="text" class="form-control {{ $errors->has('user_name') ? ' is-invalid' : '' }}" placeholder="Username"
+                            <input name='user_name' type="text"
+                                   class="form-control {{ $errors->has('user_name') ? ' is-invalid' : '' }}"
+                                   placeholder="Username"
                                    aria-label="username"
                                    aria-describedby="basic-addon1" value={{$user['user_name']}} required>
                             @if ($errors->has('user_name'))
@@ -252,46 +254,92 @@
                 </div>
 
                 <div id="panel2" class="card">
-                    <div class="card-header">
+                    <div class="card-header mb-4">
                         Rewards
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
+                    <div id="reward-cont" class="reward-cont row mx-0">
+                        <div class='col-md-4 mb-4' v-for='reward in computed.rewards()'>
+                            <div class="card reward-card" v-bind:style="{ backgroundImage: 'url(../../../upload/'+reward.Image+')'}">
+                                <div class="img-cont">
+                                    <img class="card-img-top p-0">
+                                </div>
+                                <div class="card-footer">
+                                    <h1 class="card-title">
+                                        <div class="row">
+                                            <p class="text-white">@{{ reward.Name }}&nbsp; </p><p class="text-white" v-if="reward.Count > 1"> X @{{ reward.Count }}</p>
+                                        </div>
+
+                                    </h1>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-
-                <script>
-                    function panel(panel_num) {
-
-                        $('.panel-container').animate({
-                                scrollTop: $("#panel" + panel_num).offset().top
-                            },
-                            'slow');
-                        window.alert("#panel" + panel_num);
-                    }
-
-                    function radio() {
-                        var radio = document.getElementsByClassName('form-check-label');
-                        for (let i = 0; i < 3; i++) {
-                            radio[i].style.color = 'rgb(164, 210, 59)';
-                        }
-                    }
-
-
-                </script>
-                @if($user['gender'] != null)
-                    <script>
-                        $(function () {
-                            $('[name = "gender"]').val(['{{$user['gender']}}'])
-                        });
-                        radio();
-                    </script>
-                @endif
-
             </div>
 
+            <script>
+                function panel(panel_num) {
+
+                    $('.panel-container').animate({
+                            scrollTop: $("#panel" + panel_num).offset().top
+                        },
+                        'slow');
+                    window.alert("#panel" + panel_num);
+                }
+
+                function radio() {
+                    var radio = document.getElementsByClassName('form-check-label');
+                    for (let i = 0; i < 3; i++) {
+                        radio[i].style.color = 'rgb(164, 210, 59)';
+                    }
+                }
+
+
+            </script>
+            @if($user['gender'] != null)
+                <script>
+                    $(function () {
+                        $('[name = "gender"]').val(['{{$user['gender']}}'])
+                    });
+                    radio();
+                </script>
+            @endif
+            <script>
+                rewards = @json($rewards);
+                rewards_list_db = [];
+                reward = {};
+                for (let i = 0; i < rewards.length; i++) {
+                    reward = {};
+                    reward['Id'] = rewards[i]['id'];
+                    reward['Name'] = rewards[i]['award_name'];
+                    reward['Image'] = rewards[i]['img'];
+                    reward['Desc'] = rewards[i]['description'];
+                    reward['Count']=rewards[i]['count'];
+                    rewards_list_db.push(reward);
+                }
+
+                var rewards = new Vue({
+                    el: '#reward-cont',
+                    data: {
+                        rewards: [],
+
+
+                        computed: {
+                            rewards() {
+                                return rewards_list_db;
+                            },
+
+
+                        }
+                    }
+                })
+            </script>
+
         </div>
+
+    </div>
     </div>
 @endsection

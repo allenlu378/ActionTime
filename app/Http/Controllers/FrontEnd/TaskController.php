@@ -51,20 +51,18 @@ class TaskController extends Controller
         ]);
 
         $info = $request->except('_token');
-//        var_dump($info);
+        var_dump($info);
         if($info['type'] == 'Daily'){$info['type'] = '0';}
         else if($info['type'] == 'Weekly'){$info['type'] = '1';}
         else if($info['type'] == 'Monthly'){$info['type'] = '2';}
         $avg_workload = $info['total_value']/$info['suggested_times'];
         //var_dump($info);
-        if(array_key_exists('img', $info)){
-            unset($info['img']);
-            $img = app('App\Http\Controllers\UtilController')->upload();
-            Task::create($info + ['average_workload'=>$avg_workload, 'created_by'=>Auth::user()['id'], 'img'=>$img]);
-        }
-        else{
-            Task::create($info + ['average_workload'=>$avg_workload, 'created_by'=>Auth::user()['id']]);
-        }
+
+        unset($info['img']);
+        $img = app('App\Http\Controllers\UtilController')->upload('task');
+        Task::create($info + ['average_workload'=>$avg_workload, 'created_by'=>Auth::user()['id'], 'img'=>$img]);
+
+
         return redirect('task/list');
     }
 
@@ -112,9 +110,10 @@ class TaskController extends Controller
                 throw $error;
             }
         }
-        if(array_key_exists('img_edit', $info)){
+        $img_present = Task::where('id', '=', $info['id'])->pluck('img')->toArray();
+        if(!(!array_key_exists('img_edit', $info) and $img_present != 'task.png')){
             unset($info['img_edit']);
-            $img = app('App\Http\Controllers\UtilController')->upload();
+            $img = app('App\Http\Controllers\UtilController')->upload('task');
             $info['img'] = $img;
             Task::where('id', '=', $info['id'])->update($info);
         }
