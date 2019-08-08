@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use App\Http\Model\Challenge;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -25,19 +26,25 @@ class RewardController extends Controller
         $info = $request->except('_token');
         $remaining = $info['total_num'];
         //var_dump($info);
-        if(array_key_exists('img', $info)){
-            unset($info['img']);
-            $img = app('App\Http\Controllers\UtilController')->upload();
-            Award::create($info + ['remaining_num'=>$remaining, 'offered_by'=>Auth::user()['id'], 'img'=>$img]);
-        }
-        else{
-            Award::create($info + ['remaining_num'=>$remaining, 'offered_by'=>Auth::user()['id']]);
-        }
+
+        unset($info['img']);
+        $img = app('App\Http\Controllers\UtilController')->upload('reward');
+        Award::create($info + ['remaining_num'=>$remaining, 'offered_by'=>Auth::user()['id'], 'img'=>$img]);
+
         return redirect('reward/list');
     }
     public function delete(Request $request)
     {
+
         $info = $request->except('_token');
+        $id = Award::where('award_name', '=', $info['award_name'])->pluck('id');
+        $challenges = Challenge::where('award_id', $id)->count();
+        if($challenges != 0){
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'reward_del' => [$info['award_name']]
+            ]);
+            throw $error;
+        }
         Award::where('award_name', '=', $info['award_name'])->delete();
         return redirect('reward/list');
     }
@@ -66,9 +73,10 @@ class RewardController extends Controller
                 throw $error;
             }
         }
-        if(array_key_exists('img_edit', $info)){
+        $img_present = Award::where('id', '=', $info['id'])->pluck('img')->toArray();
+        if(!(!array_key_exists('img_edit', $info) and $img_present != 'reward_img.png')){
             unset($info['img_edit']);
-            $img = app('App\Http\Controllers\UtilController')->upload();
+            $img = app('App\Http\Controllers\UtilController')->upload('reward');
             $info['img'] = $img;
             Award::where('id', '=', $info['id'])->update($info);
         }

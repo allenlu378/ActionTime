@@ -67,6 +67,15 @@
     width: 20px;
     height: 20px;
 }
+.class1{
+    background: #228b22;
+}
+.class-1{
+    background: #FF0000;
+}
+.class0{
+    background: #3865a3;
+}
 .row.public-challenge-row ,.row.pending-challenge-row, .row.current-challenge-row,.row.complete-challenge-row {
     justify-content: left;
 }
@@ -79,9 +88,7 @@
 .my-challenge-info {
     background: transparent;
 }
-.my-challenge {
-    background: #d26a03;
-}
+
  .public-challenge {
      background: #1bcfb4;
  }

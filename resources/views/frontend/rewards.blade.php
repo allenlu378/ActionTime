@@ -560,4 +560,14 @@
 
         </script>
     @endif
+    @if($errors->has('reward_del'))
+        @php $reward_del = $errors->first('reward_del') @endphp
+        <script>
+            reward_del = @json($reward_del);
+            window.onload = function(){
+                window.alert("'"+reward_del + "' cannot be deleted because there are challenges associated with it.");
+            };
+
+        </script>
+    @endif
 @endsection

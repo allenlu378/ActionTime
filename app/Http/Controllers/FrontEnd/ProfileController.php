@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Bootstrap\ConfigureLogging;
 use App\User;
+use App\Http\Model\ChallengeProgress;
+use App\Http\Model\Challenge;
+use App\Http\Model\Award;
+use function Sodium\add;
+
 
 class ProfileController extends Controller
 {
@@ -29,7 +34,17 @@ class ProfileController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view($this->view_path.'profile',compact('user'));
+        $all_rewards = ChallengeProgress::with('Challenge');
+        $challenges = $all_rewards->where('finish_flag','=',1)->pluck('challenge_id')->toArray();
+        $reward_ids = Challenge::whereIn('id', $challenges)->pluck('award_id')->toArray();
+        $rewards = collect(Award::whereIn('id', $reward_ids)->select('id','award_name', 'description', 'img')->get())->toArray();
+        for($i = 0; $i<count($rewards);$i++ ){
+            $count = array_count_values($reward_ids)[$rewards[$i]['id']];
+            $rewards[$i]['count'] =$count;
+
+        }
+//        var_dump($rewards);
+        return view($this->view_path.'profile',compact('user', 'rewards'));
     }
 
     /**
@@ -94,12 +109,14 @@ class ProfileController extends Controller
         $user->email = $info['email'];
         $user->address = $info['address'];
         $user->city = $info['city'];
+        //How in the hell do i get this done like i literally know nothing lmao how do i do it so now howdoes
         $user->state = $info['state'];
         $user->zip_code = $info['zip'];
         $user->country = $info['country'];
-        if(array_key_exists('img', $info)){
+        $img_present = User::where('id', '=', $id)->pluck('img')->toArray();
+        if(!(!array_key_exists('img', $info) and $img_present != 'user.png' and $img_present[0] != null)){
             unset($info['img']);
-            $img = app('App\Http\Controllers\UtilController')->upload();
+            $img = app('App\Http\Controllers\UtilController')->upload('user');
             $user->img = $img;
         }
 
@@ -120,4 +137,5 @@ class ProfileController extends Controller
     {
         //
     }
+
 }
