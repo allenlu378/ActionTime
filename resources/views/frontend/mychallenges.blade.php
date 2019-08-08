@@ -238,7 +238,6 @@
                                                     <div class="row mt-2" style="color: white">
                                                         <input id="current-progress" type="number"
                                                                class="mr-1"
-                                                               :value=current.current_value
                                                                :min=current.current_value
                                                                :max=current.challenge.task.total_value step="0.5" v-model="current_newValue[index]" @click.stop/>
                                                         <p style="color: white">
@@ -582,6 +581,7 @@
                             "_token": "{{ csrf_token() }}",
                         })
                         .then((response) => {
+                            console.log(response.data);
                             window.location.replace(response.data);
                         })
                 },

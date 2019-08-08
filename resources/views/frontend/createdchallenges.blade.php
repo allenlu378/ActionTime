@@ -509,7 +509,7 @@
                             this.accepted_challenges = response.data;
                             for (var i = 0;i<this.accepted_challenges.length;i++)
                             {
-                                this.unaccepted_isFlipped.push(false);
+                                this.accepted_isFlipped.push(false);
                             }
 
                         })

@@ -55,12 +55,16 @@ class ApprovalRequestController extends Controller
             $percent = ($newValue/$totalValue)*100;
             $finish_time = null;
             $finished = $challengeProgress->pluck('finish_flag')[0];
+            $task_id = $challengeProgress->first()->challenge->task->id;
             if(((int)$percent) == 100)
             {
                 $finished =1;
                 $finish_time = $approvalRequest->pluck('create_time')[0];
+
+
             }
             $challengeProgress->update(['current_value' => $newValue, 'percent' =>$percent, 'finish_flag' => $finished, 'finish_time' => $finish_time]);
+            app('App\Http\Controllers\ChallengeProgressController')->rankChallenges($task_id);
 
 
         }
