@@ -14,14 +14,15 @@
             </div>
         </div>
         <div id="my_challenge_container" class="row">
-            <div class="col-md-12 pending-challenges my-challenge-headings">
+            <div class="col-md-12 pending-challenges my-challenge-headings mt-5">
                 <h2 class="mx-5">
                     Pending Challenges
                 </h2>
                 <div id="pending-challenge-container" class="row pending-challenge-row">
                     <div class="col-md-4" v-for="(pending,index) in pending_challenges" :key="index">
                         <div class="card my-challenge mt-2"
-                             @click="pending_isFlipped.splice(index,1,!pending_isFlipped[index])">
+                             @click="pending_isFlipped.splice(index,1,!pending_isFlipped[index])"
+                            v-bind:style = "{backgroundColor: '#FFBA00'}">
                             <div class="row">
                                 <div class="col cardBox">
                                     <div class="my-challenge-info card mt-0"
@@ -135,13 +136,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 current-challenges my-challenge-headings">
+            <div class="col-md-12 current-challenges my-challenge-headings mt-5">
                 <h2 class="mx-5">
                     Current Challenges
                 </h2>
                 <div id="current-challenge-container" class="row current-challenge-row">
                     <div class="col-md-4" v-for="(current,index) in current_challenges" :key="index">
-                        <div class="card my-challenge my-2"
+                        <div class="card my-challenge my-2" v-bind:style = "{backgroundColor: '#3865a3'}"
                              @click="current_isFlipped.splice(index,1,!current_isFlipped[index])">
                             <div class="row">
                                 <div class="col cardBox">
@@ -278,13 +279,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 complete-challenges my-challenge-headings">
+            <div class="col-md-12 complete-challenges my-challenge-headings mt-5">
                 <h2 class="mx-5">
                     Completed Challenges
                 </h2>
                 <div id="complete-challenge-container" class="row complete-challenge-row">
                     <div class="col-md-4" v-for="(completed,index) in completed_challenges" :key="index">
-                        <div class="card my-challenge my-2"
+                        <div class="card my-challenge my-2" v-bind:style = "[ completed.finish_flag == 1 ? {backgroundColor: '#228b22'} : {backgroundColor: '#ff0000'}]"
                              @click="completed_isFlipped.splice(index,1,!completed_isFlipped[index])">
                             <div class="row">
                                 <div class="col cardBox">

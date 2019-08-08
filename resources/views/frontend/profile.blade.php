@@ -29,7 +29,13 @@
         $country = $user['country'];
         @endphp
     @else
-        @php $address = '' @endphp
+        @php $address = '';
+        $city = '';
+        $state = '';
+        $zip = '';
+        $country = '';
+        @endphp
+
     @endif
     @if($user['img'] != null)
         @php $image = '../../../upload/'.$user['img'] @endphp

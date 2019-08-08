@@ -10,6 +10,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Model\Challenge;
+
 
 class TaskController extends Controller
 {
@@ -150,6 +152,7 @@ class TaskController extends Controller
      *
      */
     public function delete($task_id){
+
         Task::where('id',$task_id)->delete();
         return redirect('task/list');
     }

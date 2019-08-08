@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use App\Http\Model\Challenge;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,16 @@ class RewardController extends Controller
     }
     public function delete(Request $request)
     {
+
         $info = $request->except('_token');
+        $id = Award::where('award_name', '=', $info['award_name'])->pluck('id');
+        $challenges = Challenge::where('award_id', $id)->count();
+        if($challenges != 0){
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'reward_del' => [$info['award_name']]
+            ]);
+            throw $error;
+        }
         Award::where('award_name', '=', $info['award_name'])->delete();
         return redirect('reward/list');
     }

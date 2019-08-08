@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\frontend;
 
+use App\Http\Model\Challenge;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Task;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Model\Group;
 use App\User;
 use App\Http\Model\Award;
+use Illuminate\Validation\Rule;
+
 
 
 class TaskController extends Controller
@@ -47,7 +50,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' =>'unique:task',
+            'name' =>'unique:task'
         ]);
 
         $info = $request->except('_token');
@@ -148,6 +151,14 @@ class TaskController extends Controller
     public function delete(Request $request)
     {
         $info = $request->except('_token');
+        $task_id = Task::where('name', $info['task_name'])->pluck('id');
+        $challenges = Challenge::where('task_id', $task_id)->count();
+        if($challenges != 0){
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'task_del' => [$info['task_name']]
+            ]);
+            throw $error;
+        }
         Task::where('name', '=', $info['task_name'])->delete();
         return redirect('task/list');
     }
@@ -167,9 +178,6 @@ class TaskController extends Controller
         return view($this->assign, compact('task', 'groups', 'users', 'rewards'));
 
     }
-    public function assignTask(Request $request){
-        $info = $request->except('_token');
-        var_dump($info);
-    }
+
 
 }

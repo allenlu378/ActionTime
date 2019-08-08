@@ -6,15 +6,22 @@
     <div class="container-fluid">
         <div class="row">
             <h1>Sent Challenges</h1>
+            <div class="col-md-12">
+                <div class="row button-container mr-4">
+                    <input class="btn btn-primary  float-right" type="button"
+                           value="My Challenges" onclick="window.location.href= 'mychallenges';"/>
+                </div>
+            </div>
         </div>
         <div id="sent_challenges_container" class="row">
-            <div class="col-md-12 pending-challenges my-challenge-headings">
+            <div class="col-md-12 pending-challenges my-challenge-headings mt-5">
                 <h2 class="mx-5">
                     Not Yet Accepted Challenges
                 </h2>
                 <div id="pending-challenge-container" class="row pending-challenge-row">
                     <div class="col-md-4" v-for="(unaccepted,index) in unaccepted_challenges" :key="index">
-                        <div class="card my-challenge my-2" @click="unaccepted_isFlipped.splice(index,1,!unaccepted_isFlipped[index])">
+                        <div class="card my-challenge my-2" @click="unaccepted_isFlipped.splice(index,1,!unaccepted_isFlipped[index])"
+                             v-bind:style = "{backgroundColor: '#FFBA00'}">
                             <div class="row">
                                 <div class="col cardBox">
                                     <div class="my-challenge-info card mt-0" :class="{ 'flip-challenge': unaccepted_isFlipped[index] }">
@@ -81,13 +88,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 current-challenges my-challenge-headings">
+            <div class="col-md-12 current-challenges my-challenge-headings mt-5">
                 <h2 class="mx-5">
                     Accepted Challenges
                 </h2>
                 <div id="current-challenge-container" class="row current-challenge-row">
                     <div class="col-md-4" v-for="(accepted,index) in accepted_challenges" :key="index">
-                        <div class="card my-challenge my-2" @click="accepted_isFlipped.splice(index,1,!accepted_isFlipped[index])">
+
+                        <div v-bind:class = "'class'+accepted.finish_flag" class="card my-challenge my-2" @click="accepted_isFlipped.splice(index,1,!accepted_isFlipped[index])">
+
                             <div class="row">
                                 <div class="col cardBox">
                                     <div class="my-challenge-info card mt-0" :class="{ 'flip-challenge': accepted_isFlipped[index] }">
@@ -275,13 +284,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 complete-challenges my-challenge-headings">
+            <div class="col-md-12 complete-challenges my-challenge-headings mt-5">
                 <h2 class="mx-5">
                     Approval Request Challenges
                 </h2>
                 <div id="complete-challenge-container" class="row complete-challenge-row">
                     <div class="col-md-4" v-for="(approval,index) in approval_challenges" :key="index">
-                        <div class="card my-challenge my-2" @click="approval_isFlipped.splice(index,1,!approval_isFlipped[index])">
+                        <div class="card my-challenge my-2" @click="approval_isFlipped.splice(index,1,!approval_isFlipped[index])"
+                             v-bind:style = "{backgroundColor: '#87a2c7'}">
                             <div class="row">
                                 <div class="col cardBox">
                                     <div class="my-challenge-info card mt-0" :class="{ 'flip-challenge': approval_isFlipped[index] }">
@@ -511,7 +521,7 @@
                             this.accepted_challenges = response.data;
                             for (var i = 0;i<this.accepted_challenges.length;i++)
                             {
-                                this.unaccepted_isFlipped.push(false);
+                                this.accepted_isFlipped.push(false);
                             }
 
                         })

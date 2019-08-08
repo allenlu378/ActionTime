@@ -598,6 +598,13 @@
     @if($errors->has('name'))
         <script>flip_y();</script>
     @endif
+    @if($errors->has('task_del'))
+        @php $task_name = $errors->first('task_del') @endphp
+        <script>
+            del_task = @json($task_name);
+            window.alert("'"+del_task + "' cannot be deleted because it has challenges associated with it.");
+        </script>
+    @endif
     @if($errors->has('name_edit'))
         @php $task = $errors->first('task_name') @endphp
         <script>

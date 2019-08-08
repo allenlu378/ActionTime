@@ -14,8 +14,9 @@
                         <div class="col cardBox">
                             <div class="public-challenge-info card mt-0"
                                  :class="{ 'flip-challenge': isFlipped[index] }">
-                                <div class="front" :class="{'card-hidden': isFlipped[index]}">
-                                    <img class="card-img-top" :src="'/upload/' + challenge.task.img">
+                                <div class="front" :class="{'card-hidden': isFlipped[index]}"
+                                     v-bind:style="{ backgroundImage: 'url(../../../upload/'+challenge.task.img+')'}">
+                                    <img class="card-img-top p-0">
                                 </div>
                                 <div class="back" :class="{'card-hidden': !isFlipped[index]}">
                                     <h5 class="w-100 back-title-description">Description</h5>
