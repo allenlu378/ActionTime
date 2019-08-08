@@ -201,7 +201,11 @@
                                                     <div class="row">
                                                         <div v-if="accepted.finish_flag == 1" class="rounded-circle challenge-finished-indicator-success mx-2 mt-1">
                                                         </div>
-                                                        <div v-else class="rounded-circle challenge-finished-indicator-fail mx-2">
+                                                        <div v-else-if="accepted.finish_flag == -1" class="rounded-circle challenge-finished-indicator-fail mx-2">
+
+                                                        </div>
+
+                                                        <div class="rounded-circle challenge-finished-indicator-accepted mx-2">
 
                                                         </div>
                                                     </div>

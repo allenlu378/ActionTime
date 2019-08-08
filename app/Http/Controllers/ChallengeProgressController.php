@@ -77,7 +77,6 @@ class ChallengeProgressController extends Controller
         ChallengeProgress::create(['challenge_id' => $id, 'user_id' => $user_id, 'current_value' => $current_value,
             'percent' => $percent, 'start_time' => $time, 'finish_flag' => $finished]);
         $task_id = Challenge::where('id', $id)->pluck('task_id')[0];
-        app('App\Http\Controllers\ChallengeProgressController')->rankChallenges($task_id);
         return route('mychallenges');
 
 

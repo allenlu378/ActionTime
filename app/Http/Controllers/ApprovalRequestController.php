@@ -64,7 +64,7 @@ class ApprovalRequestController extends Controller
 
             }
             $challengeProgress->update(['current_value' => $newValue, 'percent' =>$percent, 'finish_flag' => $finished, 'finish_time' => $finish_time]);
-            app('App\Http\Controllers\ChallengeProgressController')->rankChallenges($task_id);
+            //app('App\Http\Controllers\ChallengeProgressController')->rankChallenges($task_id);
 
 
         }
